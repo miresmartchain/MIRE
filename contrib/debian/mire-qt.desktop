@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Mire
+Comment=Mire P2P Cryptocurrency
+Comment[fr]=Mire, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Mire, eşten eşe kriptografik sanal para birimi
+Exec=mire-qt %u
+Terminal=false
+Type=Application
+Icon=mire128
+MimeType=x-scheme-handler/mire;
+Categories=Office;Finance;

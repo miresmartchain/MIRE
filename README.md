@@ -11,8 +11,5 @@ Changes:
 - Fixed GUI glitches and incorrect balance at the overview page when wallet has some immature coins
 
 1.1.3
-- fake-PoS secuirty patch
-# MIRE
-# MIRE
-# MIRE
-# MIRE
+- fake-PoS security patch
+

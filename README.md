@@ -13,7 +13,7 @@ Mire Smartchain
 - [Download](#Download)
 - [Block Explorer](#Block-Explorer)
 - [Coin Specification](#Coin-Specification)
-- [Block Explorer](#Block-Explorer)
+- [Emission Rate](#Emission-Rate)
 
 
 <a name="What-is-Mire?"></a>

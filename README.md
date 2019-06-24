@@ -39,7 +39,8 @@ Linux Masternode Script : https://github.com/miresmartchain/MIRE/releases/downlo
 <a name="Coin-Specification"></a>
 ## Coin Specification
 <table>
-<tr><td>Algorithm</td><td>Quark</td><td>Status</td></tr>
+<th>Specification</th><th>Description</th><th>Status</th>
+<tr><td>Algorithm</td><td>Quark</td><td></td></tr>
 <tr><td>Block Time</td><td>60 Seconds</td><td></td></tr>
 <tr><td>Block Size</td><td>4 MB</td><td></td></tr>
 <tr><td>Block PerDay</td><td>+/- 1440 Blocks</td><td></td></tr>
@@ -67,7 +68,7 @@ Linux Masternode Script : https://github.com/miresmartchain/MIRE/releases/downlo
 <a name="Emission-Rate"></a>
 ## Emission Rate
 <table>
-<tr><td>Estimate Date</td><td>Phase</td><td>Blocks Height From -</td><td>To</td><td>Reward per Block</td><td>Status</td></tr>
+<th>Estimate Date</th><th>Phase</th><th>Blocks Height From -</th><th>To</th><th>Reward per Block</th><th>Status</th>
 <tr><td>24 May 2019</td><td>Genesis Block</td><td>0</td><td>1</td><td>30.000.000 MIRE</td><td>Completed</td></tr>
 <tr><td>24 May 2019</td><td>POW Phase</td><td>2</td><td>1440</td><td>0.00079822 MIRE</td><td>Completed</td></tr>
 <tr><td>25 May 2019</td><td>Phase 0</td><td>1441</td><td>86400</td><td>0.00079822 MIRE</td><td>Ongoing</td></tr>

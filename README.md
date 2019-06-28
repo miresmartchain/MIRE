@@ -1,4 +1,4 @@
-![Mire_Logo](https://s4.aconvert.com/convert/p3r68-cdx67/cbz9w-p13z7.svg)
+![Mire_Logo](https://miresmartchain.com/mire-logo.svg)
 
 Mire Smartchain
 &middot;

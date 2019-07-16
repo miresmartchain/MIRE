@@ -25,12 +25,13 @@ We believe the core in building an ecosystem through mobile apps and blockchain 
 
 <a name="Download"></a>
 ## Download
-Windows Wallet : https://github.com/miresmartchain/MIRE/releases/download/1.0.0/mire-1.0.0-windows.exe<br />
-Linux Daemon & Cli : https://github.com/miresmartchain/MIRE/releases/download/1.0.0/x86_64-linux-gnu.tar.gz<br />
-BootStrap : https://github.com/miresmartchain/MIRE/releases/download/1.0.0/bootstrap.zip<br />
-Addnode : https://github.com/miresmartchain/MIRE/releases/download/1.0.0/addnode.txt<br />
-Linux Masternode Script : https://github.com/miresmartchain/MIRE/releases/download/1.0.0/mireScriptInstallMN.sh
-<br />
+[Windows Wallet](https://github.com/miresmartchain/MIRE/releases/download/1.0.0/mire-1.0.0-windows.exe)<br />
+[Linux Daemon & Cli](https://github.com/miresmartchain/MIRE/releases/download/1.0.0/x86_64-linux-gnu.tar.gz)<br />
+[BootStrap](https://github.com/miresmartchain/MIRE/releases/download/1.0.0/bootstrap.zip)<br />
+[Addnode](https://github.com/miresmartchain/MIRE/releases/download/1.0.0/addnode.txt)<br />
+[Linux Masternode Script](https://github.com/miresmartchain/MIRE/releases/download/1.0.0/mireScriptInstallMN.sh)<br />
+[Quick Sync for Windows](https://github.com/miresmartchain/MIRE/releases/download/1.0.0/windows_quick_sync_to_blocks_73k.zip)<br />
+
 
 <a name="Block-Explorer"></a>
 ## Block Explorer

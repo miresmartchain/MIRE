@@ -4,7 +4,7 @@ Mire Smartchain
 &middot;
 [![GitHub license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/miresmartchain/MIRE/blob/master/COPYING) 
 [![Official Site](https://img.shields.io/badge/Official-Website-brightgreen.svg)](https://miresmartchain.com)
-[![GitHub version](https://img.shields.io/badge/version-1.0.0-brightgreen.svg)](https://github.com/miresmartchain/MIRE)
+[![GitHub version](https://img.shields.io/badge/version-1.0.1-brightgreen.svg)](https://github.com/miresmartchain/MIRE)
 [![Telegram](https://img.shields.io/badge/Telegram-ChatNow-brightgreen.svg)](https://t.me/Mireindonesia)
 =====
 

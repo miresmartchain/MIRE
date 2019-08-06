@@ -5,16 +5,16 @@ SetCompressor /SOLID lzma
 
 # General Symbol Definitions
 !define REGKEY "SOFTWARE\$(^Name)"
-!define VERSION 1.0.0
+!define VERSION 1.0.1
 !define COMPANY "Mire Core project"
 !define URL https://www.mire.org
 
 # MUI Symbol Definitions
-!define MUI_ICON "/mnt/Mire/share/pixmaps/bitcoin.ico"
-!define MUI_WELCOMEFINISHPAGE_BITMAP "/mnt/Mire/share/pixmaps/nsis-wizard.bmp"
+!define MUI_ICON "/root/Mire/share/pixmaps/bitcoin.ico"
+!define MUI_WELCOMEFINISHPAGE_BITMAP "/root/Mire/share/pixmaps/nsis-wizard.bmp"
 !define MUI_HEADERIMAGE
 !define MUI_HEADERIMAGE_RIGHT
-!define MUI_HEADERIMAGE_BITMAP "/mnt/Mire/share/pixmaps/nsis-header.bmp"
+!define MUI_HEADERIMAGE_BITMAP "/root/Mire/share/pixmaps/nsis-header.bmp"
 !define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_STARTMENUPAGE_REGISTRY_ROOT HKLM
 !define MUI_STARTMENUPAGE_REGISTRY_KEY ${REGKEY}
@@ -22,7 +22,7 @@ SetCompressor /SOLID lzma
 !define MUI_STARTMENUPAGE_DEFAULTFOLDER "Mire Core"
 !define MUI_FINISHPAGE_RUN $INSTDIR\mire-qt.exe
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
-!define MUI_UNWELCOMEFINISHPAGE_BITMAP "/mnt/Mire/share/pixmaps/nsis-wizard.bmp"
+!define MUI_UNWELCOMEFINISHPAGE_BITMAP "/root/Mire/share/pixmaps/nsis-wizard.bmp"
 !define MUI_UNFINISHPAGE_NOAUTOCLOSE
 
 # Included files
@@ -48,7 +48,7 @@ Var StartMenuGroup
 !insertmacro MUI_LANGUAGE English
 
 # Installer attributes
-OutFile /mnt/Mire/mire-${VERSION}-win32-setup.exe
+OutFile /root/Mire/mire-${VERSION}-win32-setup.exe
 !if "32" == "64"
 InstallDir $PROGRAMFILES64\Mire
 !else
@@ -73,14 +73,14 @@ ShowUninstDetails show
 Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
-    File /mnt/Mire/release/mire-qt.exe
-    File /oname=COPYING.txt /mnt/Mire/COPYING
-    File /oname=readme.txt /mnt/Mire/doc/README_windows.txt
+    File /root/Mire/release/mire-qt.exe
+    File /oname=COPYING.txt /root/Mire/COPYING
+    File /oname=readme.txt /root/Mire/doc/README_windows.txt
     SetOutPath $INSTDIR\daemon
-    File /mnt/Mire/release/mired.exe
-    File /mnt/Mire/release/mire-cli.exe
+    File /root/Mire/release/mired.exe
+    File /root/Mire/release/mire-cli.exe
     SetOutPath $INSTDIR\doc
-    File /r /mnt/Mire/doc\*.*
+    File /r /root/Mire/doc\*.*
     SetOutPath $INSTDIR
     WriteRegStr HKCU "${REGKEY}\Components" Main 1
 SectionEnd

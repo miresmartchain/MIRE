@@ -1,6 +1,5 @@
 #! /bin/bash
-# Generated automatically by config.status (mire) 1.0.0
-# Libtool was configured on host localhost:
+# Generated automatically by config.status (mire) 1.0.1
 # NOTE: Changes made to this file will be lost: look at ltmain.sh.
 
 # Provide generalized library-building support services.
@@ -162,7 +161,7 @@ old_postuninstall_cmds=""
 lock_old_archive_extraction=no
 
 # A C compiler.
-LTCC="/mnt/Mire/depends/i686-w64-mingw32/share/../native/bin/ccache i686-w64-mingw32-gcc"
+LTCC="/root/Mire/depends/i686-w64-mingw32/share/../native/bin/ccache i686-w64-mingw32-gcc"
 
 # LTCC compiler flags.
 LTCFLAGS="-pipe -O2 "
@@ -556,7 +555,7 @@ func_cc_basename ()
 
 PROGRAM=libtool
 PACKAGE=libtool
-VERSION="2.4.6 Debian-2.4.6-0.1"
+VERSION="2.4.6 Debian-2.4.6-2"
 package_revision=2.4.6
 
 
@@ -2593,7 +2592,7 @@ include the following information:
        compiler:       $LTCC
        compiler flags: $LTCFLAGS
        linker:         $LD (gnu? $with_gnu_ld)
-       version:        $progname (GNU libtool) 2.4.6
+       version:        $progname $scriptversion Debian-2.4.6-2
        automake:       `($AUTOMAKE --version) 2>/dev/null |$SED 1q`
        autoconf:       `($AUTOCONF --version) 2>/dev/null |$SED 1q`
 
@@ -11693,7 +11692,7 @@ reload_cmds="\$LD\$reload_flag -o \$output\$reload_objs"
 old_archive_cmds="\$AR \$AR_FLAGS \$oldlib\$oldobjs~\$RANLIB \$tool_oldlib"
 
 # A language specific compiler.
-CC="i686-w64-mingw32-g++ -std=c++11"
+CC="i686-w64-mingw32-g++"
 
 # Is the compiler the GNU compiler?
 with_gcc=yes
@@ -11820,17 +11819,17 @@ file_list_spec=""
 hardcode_action=immediate
 
 # The directories searched by this compiler when creating a shared library.
-compiler_lib_search_dirs="/usr/lib/gcc/i686-w64-mingw32/5.3-win32 /usr/lib/gcc/i686-w64-mingw32/5.3-win32/../../../../i686-w64-mingw32/lib/../lib /usr/lib/gcc/i686-w64-mingw32/5.3-win32/../../../../i686-w64-mingw32/lib"
+compiler_lib_search_dirs="/usr/lib/gcc/i686-w64-mingw32/7.3-posix /usr/lib/gcc/i686-w64-mingw32/7.3-posix/../../../../i686-w64-mingw32/lib/../lib /usr/lib/gcc/i686-w64-mingw32/7.3-posix/../../../../i686-w64-mingw32/lib"
 
 # Dependencies to place before and after the objects being linked to
 # create a shared library.
-predep_objects="/usr/lib/gcc/i686-w64-mingw32/5.3-win32/../../../../i686-w64-mingw32/lib/../lib/dllcrt2.o /usr/lib/gcc/i686-w64-mingw32/5.3-win32/crtbegin.o"
-postdep_objects="/usr/lib/gcc/i686-w64-mingw32/5.3-win32/crtend.o"
+predep_objects="/usr/lib/gcc/i686-w64-mingw32/7.3-posix/../../../../i686-w64-mingw32/lib/../lib/dllcrt2.o /usr/lib/gcc/i686-w64-mingw32/7.3-posix/crtbegin.o"
+postdep_objects="/usr/lib/gcc/i686-w64-mingw32/7.3-posix/crtend.o"
 predeps=""
 postdeps=""
 
 # The library search path used internally by the compiler when linking
 # a shared library.
-compiler_lib_search_path="-L/usr/lib/gcc/i686-w64-mingw32/5.3-win32 -L/usr/lib/gcc/i686-w64-mingw32/5.3-win32/../../../../i686-w64-mingw32/lib/../lib -L/usr/lib/gcc/i686-w64-mingw32/5.3-win32/../../../../i686-w64-mingw32/lib"
+compiler_lib_search_path="-L/usr/lib/gcc/i686-w64-mingw32/7.3-posix -L/usr/lib/gcc/i686-w64-mingw32/7.3-posix/../../../../i686-w64-mingw32/lib/../lib -L/usr/lib/gcc/i686-w64-mingw32/7.3-posix/../../../../i686-w64-mingw32/lib"
 
 # ### END LIBTOOL TAG CONFIG: CXX

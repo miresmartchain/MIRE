@@ -995,14 +995,14 @@ int64_t CWalletTx::GetTxTime() const
 
 int64_t CWalletTx::GetComputedTxTime() const
 {
-    int64_t nTime = GetTxTime();
+   // int64_t nTime = GetTxTime();
     if (IsZerocoinSpend() || IsZerocoinMint()) {
         if (IsInMainChain())
             return mapBlockIndex.at(hashBlock)->GetBlockTime();
         else
             return nTimeReceived;
     }
-    return nTime;
+    return GetTxTime();
 }
 
 int CWalletTx::GetRequestCount() const
@@ -1037,6 +1037,7 @@ int CWalletTx::GetRequestCount() const
     }
     return nRequests;
 }
+
 
 void CWalletTx::GetAmounts(list<COutputEntry>& listReceived,
     list<COutputEntry>& listSent,

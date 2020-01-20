@@ -1,0 +1,26 @@
+[Unit]
+Description=mire's distributed currency daemon
+After=network.target
+
+[Service]
+User=mire
+Group=mire
+
+Type=forking
+PIDFile=/var/lib/mired/mired.pid
+
+ExecStart=/usr/bin/mired -daemon -pid=/var/lib/mired/mired.pid \
+          -conf=/etc/mire/mire.conf -datadir=/var/lib/mired
+
+ExecStop=-/usr/bin/mire-cli -conf=/etc/mire/mire.conf \
+         -datadir=/var/lib/mired stop
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

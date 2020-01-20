@@ -10,7 +10,11 @@
 #include "script/standard.h"
 #include "serialize.h"
 #include "streams.h"
+<<<<<<< HEAD
 #include <univalue.h>
+=======
+#include "univalue/univalue.h"
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 #include "util.h"
 #include "utilmoneystr.h"
 #include "utilstrencodings.h"
@@ -132,4 +136,8 @@ void TxToUniv(const CTransaction& tx, const uint256& hashBlock, UniValue& entry)
         entry.pushKV("blockhash", hashBlock.GetHex());
 
     entry.pushKV("hex", EncodeHexTx(tx)); // the hex-encoded transaction. used the name "hex" to be consistent with the verbose output of "getrawtransaction".
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed

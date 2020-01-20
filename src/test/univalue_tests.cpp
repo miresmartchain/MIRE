@@ -6,7 +6,11 @@
 #include <vector>
 #include <string>
 #include <map>
+<<<<<<< HEAD
 #include <univalue.h>
+=======
+#include "univalue/univalue.h"
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
 #include <boost/test/unit_test.hpp>
 
@@ -62,6 +66,7 @@ BOOST_AUTO_TEST_CASE(univalue_constructor)
     BOOST_CHECK_EQUAL(v9.getValStr(), "zappa");
 }
 
+<<<<<<< HEAD
 BOOST_AUTO_TEST_CASE(univalue_typecheck)
 {
     UniValue v1;
@@ -104,6 +109,8 @@ BOOST_AUTO_TEST_CASE(univalue_typecheck)
     BOOST_CHECK_THROW(vals[1].get_bool(), runtime_error);
 }
 
+=======
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 BOOST_AUTO_TEST_CASE(univalue_set)
 {
     UniValue v(UniValue::VSTR, "foo");
@@ -113,13 +120,21 @@ BOOST_AUTO_TEST_CASE(univalue_set)
 
     BOOST_CHECK(v.setObject());
     BOOST_CHECK(v.isObject());
+<<<<<<< HEAD
     BOOST_CHECK_EQUAL(v.size(), 0);
+=======
+    BOOST_CHECK_EQUAL(v.count(), 0);
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     BOOST_CHECK_EQUAL(v.getType(), UniValue::VOBJ);
     BOOST_CHECK(v.empty());
 
     BOOST_CHECK(v.setArray());
     BOOST_CHECK(v.isArray());
+<<<<<<< HEAD
     BOOST_CHECK_EQUAL(v.size(), 0);
+=======
+    BOOST_CHECK_EQUAL(v.count(), 0);
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
     BOOST_CHECK(v.setStr("zum"));
     BOOST_CHECK(v.isStr());
@@ -186,7 +201,11 @@ BOOST_AUTO_TEST_CASE(univalue_array)
     BOOST_CHECK(arr.push_backV(vec));
 
     BOOST_CHECK_EQUAL(arr.empty(), false);
+<<<<<<< HEAD
     BOOST_CHECK_EQUAL(arr.size(), 5);
+=======
+    BOOST_CHECK_EQUAL(arr.count(), 5);
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
     BOOST_CHECK_EQUAL(arr[0].getValStr(), "1023");
     BOOST_CHECK_EQUAL(arr[1].getValStr(), "zippy");
@@ -198,7 +217,11 @@ BOOST_AUTO_TEST_CASE(univalue_array)
 
     arr.clear();
     BOOST_CHECK(arr.empty());
+<<<<<<< HEAD
     BOOST_CHECK_EQUAL(arr.size(), 0);
+=======
+    BOOST_CHECK_EQUAL(arr.count(), 0);
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 }
 
 BOOST_AUTO_TEST_CASE(univalue_object)
@@ -238,7 +261,11 @@ BOOST_AUTO_TEST_CASE(univalue_object)
     BOOST_CHECK(obj.pushKVs(obj2));
 
     BOOST_CHECK_EQUAL(obj.empty(), false);
+<<<<<<< HEAD
     BOOST_CHECK_EQUAL(obj.size(), 9);
+=======
+    BOOST_CHECK_EQUAL(obj.count(), 9);
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
     BOOST_CHECK_EQUAL(obj["age"].getValStr(), "100");
     BOOST_CHECK_EQUAL(obj["first"].getValStr(), "John");
@@ -281,11 +308,19 @@ BOOST_AUTO_TEST_CASE(univalue_object)
 
     obj.clear();
     BOOST_CHECK(obj.empty());
+<<<<<<< HEAD
     BOOST_CHECK_EQUAL(obj.size(), 0);
 }
 
 static const char *json1 =
 "[1.10000000,{\"key1\":\"str\",\"key2\":800,\"key3\":{\"name\":\"martian\"}}]";
+=======
+    BOOST_CHECK_EQUAL(obj.count(), 0);
+}
+
+static const char *json1 =
+"[1.1,{\"key1\":\"str\",\"key2\":800,\"key3\":{\"name\":\"martian\"}}]";
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
 BOOST_AUTO_TEST_CASE(univalue_readwrite)
 {
@@ -296,6 +331,7 @@ BOOST_AUTO_TEST_CASE(univalue_readwrite)
     BOOST_CHECK(v.read(strJson1));
 
     BOOST_CHECK(v.isArray());
+<<<<<<< HEAD
     BOOST_CHECK_EQUAL(v.size(), 2);
 
     BOOST_CHECK_EQUAL(v[0].getValStr(), "1.10000000");
@@ -303,6 +339,15 @@ BOOST_AUTO_TEST_CASE(univalue_readwrite)
     UniValue obj = v[1];
     BOOST_CHECK(obj.isObject());
     BOOST_CHECK_EQUAL(obj.size(), 3);
+=======
+    BOOST_CHECK_EQUAL(v.count(), 2);
+
+    BOOST_CHECK_EQUAL(v[0].getValStr(), "1.1");
+
+    UniValue obj = v[1];
+    BOOST_CHECK(obj.isObject());
+    BOOST_CHECK_EQUAL(obj.count(), 3);
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
     BOOST_CHECK(obj["key1"].isStr());
     BOOST_CHECK_EQUAL(obj["key1"].getValStr(), "str");
@@ -314,3 +359,7 @@ BOOST_AUTO_TEST_CASE(univalue_readwrite)
 }
 
 BOOST_AUTO_TEST_SUITE_END()
+<<<<<<< HEAD
+=======
+
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed

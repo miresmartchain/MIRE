@@ -3,7 +3,11 @@
  *
  * @brief      Functions for converting to/from Zerocoin Denominations to other values library.
  *
+<<<<<<< HEAD
  * @copyright  Copyright 2017 Mire Developers
+=======
+ * @copyright  Copyright 2017 PIVX Developers
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
  * @license    This project is released under the MIT license.
  **/
 

@@ -1,7 +1,12 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
+<<<<<<< HEAD
 // Copyright (c) 2015-2017 The MIRE developers
+=======
+// Copyright (c) 2015-2017 The PIVX developers
+// Copyright (c) 2018 The Mire developers
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -16,6 +21,10 @@
 
 #include <stdint.h>
 
+<<<<<<< HEAD
+=======
+#include "json/json_spirit_writer_template.h"
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 #include <boost/algorithm/string.hpp>
 #include <boost/asio.hpp>
 #include <boost/asio/ssl.hpp>
@@ -26,11 +35,18 @@
 #include <boost/iostreams/stream.hpp>
 #include <boost/shared_ptr.hpp>
 
+<<<<<<< HEAD
 #include <univalue.h>
 
 using namespace std;
 using namespace boost;
 using namespace boost::asio;
+=======
+using namespace std;
+using namespace boost;
+using namespace boost::asio;
+using namespace json_spirit;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
 //! Number of bytes to allocate and read at most at once in post data
 const size_t POST_READ_SIZE = 256 * 1024;
@@ -248,7 +264,11 @@ int ReadHTTPMessage(std::basic_istream<char>& stream, map<string, string>& mapHe
 }
 
 /**
+<<<<<<< HEAD
  * JSON-RPC protocol.  MIRE speaks version 1.0 for maximum compatibility,
+=======
+ * JSON-RPC protocol.  Mire speaks version 1.0 for maximum compatibility,
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
  * but uses JSON-RPC 1.1/2.0 standards for parts of the 1.0 standard that were
  * unspecified (HTTP errors and contents of 'error').
  * 
@@ -257,6 +277,7 @@ int ReadHTTPMessage(std::basic_istream<char>& stream, map<string, string>& mapHe
  * http://www.codeproject.com/KB/recipes/JSON_Spirit.aspx
  */
 
+<<<<<<< HEAD
 string JSONRPCRequest(const string& strMethod, const UniValue& params, const UniValue& id)
 {
     UniValue request(UniValue::VOBJ);
@@ -271,6 +292,22 @@ UniValue JSONRPCReplyObj(const UniValue& result, const UniValue& error, const Un
     UniValue reply(UniValue::VOBJ);
     if (!error.isNull())
         reply.push_back(Pair("result", NullUniValue));
+=======
+string JSONRPCRequest(const string& strMethod, const Array& params, const Value& id)
+{
+    Object request;
+    request.push_back(Pair("method", strMethod));
+    request.push_back(Pair("params", params));
+    request.push_back(Pair("id", id));
+    return write_string(Value(request), false) + "\n";
+}
+
+Object JSONRPCReplyObj(const Value& result, const Value& error, const Value& id)
+{
+    Object reply;
+    if (error.type() != null_type)
+        reply.push_back(Pair("result", Value::null));
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     else
         reply.push_back(Pair("result", result));
     reply.push_back(Pair("error", error));
@@ -278,6 +315,7 @@ UniValue JSONRPCReplyObj(const UniValue& result, const UniValue& error, const Un
     return reply;
 }
 
+<<<<<<< HEAD
 string JSONRPCReply(const UniValue& result, const UniValue& error, const UniValue& id)
 {
     UniValue reply = JSONRPCReplyObj(result, error, id);
@@ -291,3 +329,18 @@ UniValue JSONRPCError(int code, const string& message)
     error.push_back(Pair("message", message));
     return error;
 }
+=======
+string JSONRPCReply(const Value& result, const Value& error, const Value& id)
+{
+    Object reply = JSONRPCReplyObj(result, error, id);
+    return write_string(Value(reply), false) + "\n";
+}
+
+Object JSONRPCError(int code, const string& message)
+{
+    Object error;
+    error.push_back(Pair("code", code));
+    error.push_back(Pair("message", message));
+    return error;
+}
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed

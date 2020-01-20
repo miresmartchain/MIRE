@@ -1,7 +1,11 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
+<<<<<<< HEAD
 // Copyright (c) 2015-2017 The Mire Core developers
+=======
+// Copyright (c) 2015-2017 The PIVX Core developers
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -116,9 +120,15 @@ public:
     int Zerocoin_Block_FirstFraudulent() const { return nBlockFirstFraudulent; }
     int Zerocoin_Block_LastGoodCheckpoint() const { return nBlockLastGoodCheckpoint; }
     int Zerocoin_StartTime() const { return nZerocoinStartTime; }
+<<<<<<< HEAD
 	 int Zerocoin_AccumulatorStartHeight() const { return nAccumulatorStartHeight; }
  int Block_Enforce_Invalid() const { return nBlockEnforceInvalidUTXO; }
  static std::string GetDevFeeRewardAddress();		
+=======
+    int Zerocoin_AccumulatorStartHeight() const { return nAccumulatorStartHeight; }
+    
+    static std::string GetDevFeeRewardAddress();
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	static CScript GetScriptForDefFeeDestination();
 
 protected:
@@ -171,13 +181,21 @@ protected:
     int nZerocoinHeaderVersion;
     int64_t nBudget_Fee_Confirmations;
     int nZerocoinStartHeight;
+<<<<<<< HEAD
 	int nZerocoinStartTime;
+=======
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     int nBlockEnforceSerialRange;
     int nBlockRecalculateAccumulators;
     int nBlockFirstFraudulent;
     int nBlockLastGoodCheckpoint;
+<<<<<<< HEAD
     int nBlockEnforceInvalidUTXO;
 	int nAccumulatorStartHeight;
+=======
+    int nZerocoinStartTime;
+    int nAccumulatorStartHeight;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 };
 
 /**

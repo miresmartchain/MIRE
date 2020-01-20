@@ -1,5 +1,9 @@
 // Copyright (c) 2014-2016 The Dash developers
+<<<<<<< HEAD
 // Copyright (c) 2016-2017 The Mire developers
+=======
+// Copyright (c) 2016-2017 The PIVX developers
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -29,7 +33,11 @@ std::map<int, CSporkMessage> mapSporksActive;
 // Mire: on startup load spork values from previous session if they exist in the sporkDB
 void LoadSporksFromDB()
 {
+<<<<<<< HEAD
     for (int i = SPORK_START; i <= SPORK_END; ++i) {
+=======
+    for (int i = SPORK_STMIRE; i <= SPORK_END; ++i) {
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         // Since not all spork IDs are in use, we have to exclude undefined IDs
         std::string strSpork = sporkManager.GetSporkNameByID(i);
         if (strSpork == "Unknown") continue;

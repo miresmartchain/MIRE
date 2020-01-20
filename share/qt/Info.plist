@@ -17,6 +17,7 @@
   <string>APPL</string>
 
   <key>CFBundleGetInfoString</key>
+<<<<<<< HEAD
   <string>1.0.4, Copyright © 2009-2019 The Bitcoin Core developers, 2014-2019 The Dash Core developers, 2015-2019 The Mire Core developers</string>
 
   <key>CFBundleShortVersionString</key>
@@ -24,6 +25,15 @@
 
   <key>CFBundleVersion</key>
   <string>1.0.4</string>
+=======
+  <string>1.0.1, Copyright © 2009-2019 The Bitcoin Core developers, 2014-2019 The Dash Core developers, 2015-2019 The Mire Core developers</string>
+
+  <key>CFBundleShortVersionString</key>
+  <string>1.0.1</string>
+
+  <key>CFBundleVersion</key>
+  <string>1.0.1</string>
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
   <key>CFBundleSignature</key>
   <string>????</string>

@@ -11,12 +11,20 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/test/unit_test.hpp>
 
+<<<<<<< HEAD
 #include <univalue.h>
 
 using namespace std;
 
 extern UniValue createArgs(int nRequired, const char* address1 = NULL, const char* address2 = NULL);
 extern UniValue CallRPC(string args);
+=======
+using namespace std;
+using namespace json_spirit;
+
+extern Array createArgs(int nRequired, const char* address1 = NULL, const char* address2 = NULL);
+extern Value CallRPC(string args);
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
 extern CWallet* pwalletMain;
 
@@ -33,7 +41,11 @@ BOOST_AUTO_TEST_CASE(rpc_addmultisig)
     // new, compressed:
     const char address2Hex[] = "029BBEFF390CE736BD396AF43B52A1C14ED52C086B1E5585C15931F68725772BAC";
 
+<<<<<<< HEAD
     UniValue v;
+=======
+    Value v;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     CBitcoinAddress address;
     BOOST_CHECK_NO_THROW(v = addmultisig(createArgs(1, address1Hex), false));
     address.SetString(v.get_str());
@@ -64,13 +76,21 @@ BOOST_AUTO_TEST_CASE(rpc_addmultisig)
 BOOST_AUTO_TEST_CASE(rpc_wallet)
 {
     // Test RPC calls for various wallet statistics
+<<<<<<< HEAD
     UniValue r;
+=======
+    Value r;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
     CPubKey demoPubkey = pwalletMain->GenerateNewKey();
     CBitcoinAddress demoAddress = CBitcoinAddress(CTxDestination(demoPubkey.GetID()));
+<<<<<<< HEAD
     UniValue retValue;
+=======
+    Value retValue;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     string strAccount = "walletDemoAccount";
     string strPurpose = "receive";
     BOOST_CHECK_NO_THROW({ /*Initialize Wallet with an account */
@@ -175,9 +195,18 @@ BOOST_AUTO_TEST_CASE(rpc_wallet)
      *********************************/
     BOOST_CHECK_THROW(CallRPC("getaddressesbyaccount"), runtime_error);
     BOOST_CHECK_NO_THROW(retValue = CallRPC("getaddressesbyaccount " + strAccount));
+<<<<<<< HEAD
     UniValue arr = retValue.get_array();
+=======
+    Array arr = retValue.get_array();
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     BOOST_CHECK(arr.size() > 0);
     BOOST_CHECK(CBitcoinAddress(arr[0].get_str()).Get() == demoAddress.Get());
 }
 
+<<<<<<< HEAD
 BOOST_AUTO_TEST_SUITE_END()
+=======
+
+BOOST_AUTO_TEST_SUITE_END()
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed

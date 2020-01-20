@@ -1,5 +1,9 @@
 // Copyright (c) 2014-2015 The Dash developers
+<<<<<<< HEAD
 // Copyright (c) 2015-2019 The Mire developers
+=======
+// Copyright (c) 2015-2017 The PIVX developers
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -49,6 +53,14 @@ bool CMasternodeSync::IsBlockchainSynced()
     if (!lockMain) return false;
 
     CBlockIndex* pindex = chainActive.Tip();
+<<<<<<< HEAD
+=======
+
+    if (chainActive.Height() == 3029) {
+        return true;
+    }
+
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     if (pindex == NULL) return false;
 
 
@@ -92,7 +104,11 @@ void CMasternodeSync::AddedMasternodeList(uint256 hash)
         }
     } else {
         lastMasternodeList = GetTime();
+<<<<<<< HEAD
         mapSeenSyncMNB.insert(std::make_pair(hash, 1));
+=======
+        mapSeenSyncMNB.insert(make_pair(hash, 1));
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     }
 }
 
@@ -105,7 +121,11 @@ void CMasternodeSync::AddedMasternodeWinner(uint256 hash)
         }
     } else {
         lastMasternodeWinner = GetTime();
+<<<<<<< HEAD
         mapSeenSyncMNW.insert(std::make_pair(hash, 1));
+=======
+        mapSeenSyncMNW.insert(make_pair(hash, 1));
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     }
 }
 
@@ -119,7 +139,11 @@ void CMasternodeSync::AddedBudgetItem(uint256 hash)
         }
     } else {
         lastBudgetItem = GetTime();
+<<<<<<< HEAD
         mapSeenSyncBudget.insert(std::make_pair(hash, 1));
+=======
+        mapSeenSyncBudget.insert(make_pair(hash, 1));
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     }
 }
 
@@ -222,7 +246,11 @@ void CMasternodeSync::ClearFulfilledRequest()
     TRY_LOCK(cs_vNodes, lockRecv);
     if (!lockRecv) return;
 
+<<<<<<< HEAD
     for (CNode* pnode : vNodes) {
+=======
+    BOOST_FOREACH (CNode* pnode, vNodes) {
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         pnode->ClearFulfilledRequest("getspork");
         pnode->ClearFulfilledRequest("mnsync");
         pnode->ClearFulfilledRequest("mnwsync");
@@ -233,6 +261,10 @@ void CMasternodeSync::ClearFulfilledRequest()
 void CMasternodeSync::Process()
 {
     static int tick = 0;
+<<<<<<< HEAD
+=======
+    static int syncCount = 0;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
     if (tick++ % MASTERNODE_SYNC_TIMEOUT != 0) return;
 
@@ -240,8 +272,16 @@ void CMasternodeSync::Process()
         /* 
             Resync if we lose all masternodes from sleep/wake or failure to sync originally
         */
+<<<<<<< HEAD
         if (mnodeman.CountEnabled() == 0) {
             Reset();
+=======
+        if (mnodeman.CountEnabled() == 0 ) {
+			if(syncCount < 2){
+				Reset();
+				syncCount++;
+			}
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         } else
             return;
     }
@@ -264,7 +304,11 @@ void CMasternodeSync::Process()
     TRY_LOCK(cs_vNodes, lockRecv);
     if (!lockRecv) return;
 
+<<<<<<< HEAD
     for (CNode* pnode : vNodes) {
+=======
+    BOOST_FOREACH (CNode* pnode, vNodes) {
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         if (Params().NetworkID() == CBaseChainParams::REGTEST) {
             if (RequestedMasternodeAttempt <= 2) {
                 pnode->PushMessage("getsporks"); //get current network sporks
@@ -401,4 +445,8 @@ void CMasternodeSync::Process()
             }
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed

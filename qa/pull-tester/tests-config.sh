@@ -3,8 +3,13 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+<<<<<<< HEAD
 BUILDDIR="/root/Mirenet2"
 EXEEXT=""
+=======
+BUILDDIR="/root/Mire"
+EXEEXT=".exe"
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
 # These will turn into comments if they were disabled when configuring.
 ENABLE_WALLET=1

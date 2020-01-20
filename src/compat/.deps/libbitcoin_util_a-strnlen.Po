@@ -1,4 +1,5 @@
 compat/libbitcoin_util_a-strnlen.o: compat/strnlen.cpp \
+<<<<<<< HEAD
  /usr/include/stdc-predef.h config/mire-config.h \
  /usr/include/c++/5/cstring \
  /usr/include/x86_64-linux-gnu/c++/5/bits/c++config.h \
@@ -40,3 +41,47 @@ config/mire-config.h:
 /usr/include/xlocale.h:
 
 /usr/include/x86_64-linux-gnu/bits/string3.h:
+=======
+ config/mire-config.h \
+ /usr/lib/gcc/i686-w64-mingw32/7.3-posix/include/c++/cstring \
+ /usr/lib/gcc/i686-w64-mingw32/7.3-posix/include/c++/i686-w64-mingw32/bits/c++config.h \
+ /usr/lib/gcc/i686-w64-mingw32/7.3-posix/include/c++/i686-w64-mingw32/bits/os_defines.h \
+ /usr/lib/gcc/i686-w64-mingw32/7.3-posix/include/c++/i686-w64-mingw32/bits/cpu_defines.h \
+ /usr/share/mingw-w64/include/string.h \
+ /usr/share/mingw-w64/include/crtdefs.h \
+ /usr/share/mingw-w64/include/_mingw.h \
+ /usr/share/mingw-w64/include/_mingw_mac.h \
+ /usr/share/mingw-w64/include/_mingw_secapi.h \
+ /usr/share/mingw-w64/include/vadefs.h \
+ /usr/share/mingw-w64/include/sdks/_mingw_directx.h \
+ /usr/share/mingw-w64/include/sdks/_mingw_ddk.h \
+ /usr/share/mingw-w64/include/sec_api/string_s.h
+
+config/mire-config.h:
+
+/usr/lib/gcc/i686-w64-mingw32/7.3-posix/include/c++/cstring:
+
+/usr/lib/gcc/i686-w64-mingw32/7.3-posix/include/c++/i686-w64-mingw32/bits/c++config.h:
+
+/usr/lib/gcc/i686-w64-mingw32/7.3-posix/include/c++/i686-w64-mingw32/bits/os_defines.h:
+
+/usr/lib/gcc/i686-w64-mingw32/7.3-posix/include/c++/i686-w64-mingw32/bits/cpu_defines.h:
+
+/usr/share/mingw-w64/include/string.h:
+
+/usr/share/mingw-w64/include/crtdefs.h:
+
+/usr/share/mingw-w64/include/_mingw.h:
+
+/usr/share/mingw-w64/include/_mingw_mac.h:
+
+/usr/share/mingw-w64/include/_mingw_secapi.h:
+
+/usr/share/mingw-w64/include/vadefs.h:
+
+/usr/share/mingw-w64/include/sdks/_mingw_directx.h:
+
+/usr/share/mingw-w64/include/sdks/_mingw_ddk.h:
+
+/usr/share/mingw-w64/include/sec_api/string_s.h:
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed

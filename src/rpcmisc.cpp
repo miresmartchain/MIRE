@@ -1,7 +1,12 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
+<<<<<<< HEAD
 // Copyright (c) 2015-2017 The MIRE developers
+=======
+// Copyright (c) 2015-2017 The PIVX developers
+// Copyright (c) 2017-2018 The Mire developers
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -23,12 +28,22 @@
 
 #include <stdint.h>
 
+<<<<<<< HEAD
 #include <boost/assign/list_of.hpp>
 
 #include <univalue.h>
 
 using namespace boost;
 using namespace boost::assign;
+=======
+#include "json/json_spirit_utils.h"
+#include "json/json_spirit_value.h"
+#include <boost/assign/list_of.hpp>
+
+using namespace boost;
+using namespace boost::assign;
+using namespace json_spirit;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 using namespace std;
 
 /**
@@ -44,7 +59,11 @@ using namespace std;
  *
  * Or alternatively, create a specific query method for the information.
  **/
+<<<<<<< HEAD
 UniValue getinfo(const UniValue& params, bool fHelp)
+=======
+Value getinfo(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 0)
         throw runtime_error(
@@ -90,7 +109,11 @@ UniValue getinfo(const UniValue& params, bool fHelp)
     proxyType proxy;
     GetProxy(NET_IPV4, proxy);
 
+<<<<<<< HEAD
     UniValue obj(UniValue::VOBJ);
+=======
+    Object obj;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     obj.push_back(Pair("version", CLIENT_VERSION));
     obj.push_back(Pair("protocolversion", PROTOCOL_VERSION));
 #ifdef ENABLE_WALLET
@@ -107,6 +130,7 @@ UniValue getinfo(const UniValue& params, bool fHelp)
     obj.push_back(Pair("difficulty", (double)GetDifficulty()));
     obj.push_back(Pair("testnet", Params().TestnetToBeDeprecatedFieldRPC()));
     obj.push_back(Pair("moneysupply",ValueFromAmount(chainActive.Tip()->nMoneySupply)));
+<<<<<<< HEAD
     UniValue zmireObj(UniValue::VOBJ);
     for (auto denom : libzerocoin::zerocoinDenomList) {
         zmireObj.push_back(Pair(to_string(denom), ValueFromAmount(chainActive.Tip()->mapZerocoinSupply.at(denom) * (denom*COIN))));
@@ -114,6 +138,15 @@ UniValue getinfo(const UniValue& params, bool fHelp)
     zmireObj.push_back(Pair("total", ValueFromAmount(chainActive.Tip()->GetZerocoinSupply())));
     obj.push_back(Pair("zMIREsupply", zmireObj));
 
+=======
+    Object zmireObj;
+    for (auto denom : libzerocoin::zerocoinDenomList) {
+        zmireObj.push_back(Pair(to_string(denom), ValueFromAmount(chainActive.Tip()->mapZerocoinSupply.at(denom) * (denom*COIN))));
+    }
+    zmireObj.emplace_back(Pair("total", ValueFromAmount(chainActive.Tip()->GetZerocoinSupply())));
+    obj.emplace_back(Pair("zMIREsupply", zmireObj));
+    
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 #ifdef ENABLE_WALLET
     if (pwalletMain) {
         obj.push_back(Pair("keypoololdest", pwalletMain->GetOldestKeyPoolTime()));
@@ -134,7 +167,11 @@ UniValue getinfo(const UniValue& params, bool fHelp)
     return obj;
 }
 
+<<<<<<< HEAD
 UniValue mnsync(const UniValue& params, bool fHelp)
+=======
+Value mnsync(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     std::string strMode;
     if (params.size() == 1)
@@ -175,7 +212,11 @@ UniValue mnsync(const UniValue& params, bool fHelp)
     }
 
     if (strMode == "status") {
+<<<<<<< HEAD
         UniValue obj(UniValue::VOBJ);
+=======
+        Object obj;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
         obj.push_back(Pair("IsBlockchainSynced", masternodeSync.IsBlockchainSynced()));
         obj.push_back(Pair("lastMasternodeList", masternodeSync.lastMasternodeList));
@@ -205,7 +246,11 @@ UniValue mnsync(const UniValue& params, bool fHelp)
 }
 
 #ifdef ENABLE_WALLET
+<<<<<<< HEAD
 class DescribeAddressVisitor : public boost::static_visitor<UniValue>
+=======
+class DescribeAddressVisitor : public boost::static_visitor<Object>
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
 private:
     isminetype mine;
@@ -213,10 +258,18 @@ private:
 public:
     DescribeAddressVisitor(isminetype mineIn) : mine(mineIn) {}
 
+<<<<<<< HEAD
     UniValue operator()(const CNoDestination &dest) const { return UniValue(UniValue::VOBJ); }
 
     UniValue operator()(const CKeyID &keyID) const {
         UniValue obj(UniValue::VOBJ);
+=======
+    Object operator()(const CNoDestination& dest) const { return Object(); }
+
+    Object operator()(const CKeyID& keyID) const
+    {
+        Object obj;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         CPubKey vchPubKey;
         obj.push_back(Pair("isscript", false));
         if (mine == ISMINE_SPENDABLE) {
@@ -227,8 +280,14 @@ public:
         return obj;
     }
 
+<<<<<<< HEAD
     UniValue operator()(const CScriptID &scriptID) const {
         UniValue obj(UniValue::VOBJ);
+=======
+    Object operator()(const CScriptID& scriptID) const
+    {
+        Object obj;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         obj.push_back(Pair("isscript", true));
         if (mine != ISMINE_NO) {
             CScript subscript;
@@ -239,7 +298,11 @@ public:
             ExtractDestinations(subscript, whichType, addresses, nRequired);
             obj.push_back(Pair("script", GetTxnOutputType(whichType)));
             obj.push_back(Pair("hex", HexStr(subscript.begin(), subscript.end())));
+<<<<<<< HEAD
             UniValue a(UniValue::VARR);
+=======
+            Array a;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
             BOOST_FOREACH (const CTxDestination& addr, addresses)
                 a.push_back(CBitcoinAddress(addr).ToString());
             obj.push_back(Pair("addresses", a));
@@ -254,18 +317,31 @@ public:
 /*
     Used for updating/reading spork settings on the network
 */
+<<<<<<< HEAD
 UniValue spork(const UniValue& params, bool fHelp)
 {
     if (params.size() == 1 && params[0].get_str() == "show") {
         UniValue ret(UniValue::VOBJ);
         for (int nSporkID = SPORK_START; nSporkID <= SPORK_END; nSporkID++) {
+=======
+Value spork(const Array& params, bool fHelp)
+{
+    if (params.size() == 1 && params[0].get_str() == "show") {
+        Object ret;
+        for (int nSporkID = SPORK_STMIRE; nSporkID <= SPORK_END; nSporkID++) {
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
             if (sporkManager.GetSporkNameByID(nSporkID) != "Unknown")
                 ret.push_back(Pair(sporkManager.GetSporkNameByID(nSporkID), GetSporkValue(nSporkID)));
         }
         return ret;
     } else if (params.size() == 1 && params[0].get_str() == "active") {
+<<<<<<< HEAD
         UniValue ret(UniValue::VOBJ);
         for (int nSporkID = SPORK_START; nSporkID <= SPORK_END; nSporkID++) {
+=======
+        Object ret;
+        for (int nSporkID = SPORK_STMIRE; nSporkID <= SPORK_END; nSporkID++) {
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
             if (sporkManager.GetSporkNameByID(nSporkID) != "Unknown")
                 ret.push_back(Pair(sporkManager.GetSporkNameByID(nSporkID), IsSporkActive(nSporkID)));
         }
@@ -294,7 +370,11 @@ UniValue spork(const UniValue& params, bool fHelp)
         HelpRequiringPassphrase());
 }
 
+<<<<<<< HEAD
 UniValue validateaddress(const UniValue& params, bool fHelp)
+=======
+Value validateaddress(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
@@ -318,7 +398,11 @@ UniValue validateaddress(const UniValue& params, bool fHelp)
     CBitcoinAddress address(params[0].get_str());
     bool isValid = address.IsValid();
 
+<<<<<<< HEAD
     UniValue ret(UniValue::VOBJ);
+=======
+    Object ret;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     ret.push_back(Pair("isvalid", isValid));
     if (isValid) {
         CTxDestination dest = address.Get();
@@ -329,8 +413,13 @@ UniValue validateaddress(const UniValue& params, bool fHelp)
         ret.push_back(Pair("ismine", (mine & ISMINE_SPENDABLE) ? true : false));
         if (mine != ISMINE_NO) {
             ret.push_back(Pair("iswatchonly", (mine & ISMINE_WATCH_ONLY) ? true : false));
+<<<<<<< HEAD
             UniValue detail = boost::apply_visitor(DescribeAddressVisitor(mine), dest);
             ret.pushKVs(detail);
+=======
+            Object detail = boost::apply_visitor(DescribeAddressVisitor(mine), dest);
+            ret.insert(ret.end(), detail.begin(), detail.end());
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         }
         if (pwalletMain && pwalletMain->mapAddressBook.count(dest))
             ret.push_back(Pair("account", pwalletMain->mapAddressBook[dest].name));
@@ -342,10 +431,17 @@ UniValue validateaddress(const UniValue& params, bool fHelp)
 /**
  * Used by addmultisigaddress / createmultisig:
  */
+<<<<<<< HEAD
 CScript _createmultisig_redeemScript(const UniValue& params)
 {
     int nRequired = params[0].get_int();
     const UniValue& keys = params[1].get_array();
+=======
+CScript _createmultisig_redeemScript(const Array& params)
+{
+    int nRequired = params[0].get_int();
+    const Array& keys = params[1].get_array();
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
     // Gather public keys
     if (nRequired < 1)
@@ -362,7 +458,11 @@ CScript _createmultisig_redeemScript(const UniValue& params)
     for (unsigned int i = 0; i < keys.size(); i++) {
         const std::string& ks = keys[i].get_str();
 #ifdef ENABLE_WALLET
+<<<<<<< HEAD
         // Case 1: MIRE address and we have full public key:
+=======
+        // Case 1: Mire address and we have full public key:
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         CBitcoinAddress address(ks);
         if (pwalletMain && address.IsValid()) {
             CKeyID keyID;
@@ -399,7 +499,11 @@ CScript _createmultisig_redeemScript(const UniValue& params)
     return result;
 }
 
+<<<<<<< HEAD
 UniValue createmultisig(const UniValue& params, bool fHelp)
+=======
+Value createmultisig(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() < 2 || params.size() > 2) {
         string msg = "createmultisig nrequired [\"key\",...]\n"
@@ -432,14 +536,22 @@ UniValue createmultisig(const UniValue& params, bool fHelp)
     CScriptID innerID(inner);
     CBitcoinAddress address(innerID);
 
+<<<<<<< HEAD
     UniValue result(UniValue::VOBJ);
+=======
+    Object result;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     result.push_back(Pair("address", address.ToString()));
     result.push_back(Pair("redeemScript", HexStr(inner.begin(), inner.end())));
 
     return result;
 }
 
+<<<<<<< HEAD
 UniValue verifymessage(const UniValue& params, bool fHelp)
+=======
+Value verifymessage(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 3)
         throw runtime_error(
@@ -487,7 +599,11 @@ UniValue verifymessage(const UniValue& params, bool fHelp)
     return (pubkey.GetID() == keyID);
 }
 
+<<<<<<< HEAD
 UniValue setmocktime(const UniValue& params, bool fHelp)
+=======
+Value setmocktime(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
@@ -500,6 +616,7 @@ UniValue setmocktime(const UniValue& params, bool fHelp)
     if (!Params().MineBlocksOnDemand())
         throw runtime_error("setmocktime for regression testing (-regtest mode) only");
 
+<<<<<<< HEAD
     RPCTypeCheck(params, boost::assign::list_of(UniValue::VNUM));
     SetMockTime(params[0].get_int64());
 
@@ -508,6 +625,58 @@ UniValue setmocktime(const UniValue& params, bool fHelp)
 
 #ifdef ENABLE_WALLET
 UniValue getstakingstatus(const UniValue& params, bool fHelp)
+=======
+    RPCTypeCheck(params, boost::assign::list_of(int_type));
+    SetMockTime(params[0].get_int64());
+
+    return Value::null;
+}
+
+#ifdef ENABLE_WALLET
+
+#define STAKE_TIMESTAMP_MASK 15
+
+double GetPoSKernelPS(double& stakeKernelTriedAvg, int& stakeTime)
+{
+    int nPoSInterval = 72;
+    double dStakeKernelsTriedAvg = 0;
+    int nStakesHandled = 0, nStakesTime = 0;
+
+    CBlockIndex* pindex = chainActive.Tip();
+    CBlockIndex* pindexPrevStake = NULL;
+
+    while (pindex && nStakesHandled < nPoSInterval)
+    {
+        if (pindex->IsProofOfStake())
+        {
+            if (pindexPrevStake)
+            {
+                dStakeKernelsTriedAvg += GetDifficulty(pindexPrevStake) * 4294967296.0;
+                nStakesTime += pindexPrevStake->nTime - pindex->nTime;
+                nStakesHandled++;
+            }
+            pindexPrevStake = pindex;
+        }
+
+        pindex = pindex->pprev;
+    }
+
+    double result = 0;
+    
+    stakeKernelTriedAvg = dStakeKernelsTriedAvg;
+    stakeTime = nStakesTime;
+
+    if (nStakesTime)
+        result = dStakeKernelsTriedAvg / nStakesTime;
+
+    result *= STAKE_TIMESTAMP_MASK + 1;
+
+    return result;
+}
+
+
+Value getstakingstatus(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 0)
         throw runtime_error(
@@ -526,7 +695,18 @@ UniValue getstakingstatus(const UniValue& params, bool fHelp)
             "\nExamples:\n" +
             HelpExampleCli("getstakingstatus", "") + HelpExampleRpc("getstakingstatus", ""));
 
+<<<<<<< HEAD
     UniValue obj(UniValue::VOBJ);
+=======
+    Object obj, weight;
+    
+    double nWeight = 0;
+    double nPosKernelPS = 0;
+    
+	if (pwalletMain)
+		nWeight = pwalletMain->GetStakeWeight();
+    
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     obj.push_back(Pair("validtime", chainActive.Tip()->nTime > 1471482000));
     obj.push_back(Pair("haveconnections", !vNodes.empty()));
     if (pwalletMain) {
@@ -542,7 +722,32 @@ UniValue getstakingstatus(const UniValue& params, bool fHelp)
     else if (mapHashedBlocks.count(chainActive.Tip()->nHeight - 1) && nLastCoinStakeSearchInterval)
         nStaking = true;
     obj.push_back(Pair("staking status", nStaking));
+<<<<<<< HEAD
 
     return obj;
 }
 #endif // ENABLE_WALLET
+=======
+    
+    double stakeTried = 0;
+    int nStakeTime = 0;
+    
+    nPosKernelPS = GetPoSKernelPS(stakeTried, nStakeTime);
+    double nExpectedTimeHours = 0;
+    
+    if(nPosKernelPS == 0.0 || nWeight == 0.0)
+		weight.push_back(Pair("expected time", "Not known yet"));
+	else {
+		nExpectedTimeHours = nPosKernelPS / nWeight * Params().TargetSpacing() / 3600;
+		weight.push_back(Pair("Weight", nWeight/COIN));
+		weight.push_back(Pair("Network weight", nPosKernelPS));
+		weight.push_back(Pair("expected time in hours", nExpectedTimeHours));
+	}
+    
+    obj.push_back(Pair("stakeweight", weight));
+
+    return obj;
+}
+
+#endif // ENABLE_WALLET
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed

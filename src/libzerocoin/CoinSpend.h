@@ -9,7 +9,11 @@
  * @copyright  Copyright 2013 Ian Miers, Christina Garman and Matthew Green
  * @license    This project is released under the MIT license.
  **/
+<<<<<<< HEAD
 // Copyright (c) 2017 The Mire developers
+=======
+// Copyright (c) 2017 The PIVX developers
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
 #ifndef COINSPEND_H_
 #define COINSPEND_H_

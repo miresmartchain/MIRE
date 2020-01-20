@@ -3,14 +3,22 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #
+<<<<<<< HEAD
 DATADIR="/root/Mirenet2/.mire"
+=======
+DATADIR="/root/Mire/.mire"
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 rm -rf "$DATADIR"
 mkdir -p "$DATADIR"/regtest
 touch "$DATADIR/regtest/debug.log"
 tail -q -n 1 -F "$DATADIR/regtest/debug.log" | grep -m 1 -q "Done loading" &
 WAITER=$!
 PORT=`expr 10000 + $$ % 55536`
+<<<<<<< HEAD
 "/root/Mirenet2/src/mired" -connect=0.0.0.0 -datadir="$DATADIR" -rpcuser=user -rpcpassword=pass -listen -keypool=3 -debug -debug=net -logtimestamps -checkmempool=0 -relaypriority=0 -port=$PORT -whitelist=127.0.0.1 -regtest -rpcport=`expr $PORT + 1` &
+=======
+"/root/Mire/src/mired.exe" -connect=0.0.0.0 -datadir="$DATADIR" -rpcuser=user -rpcpassword=pass -listen -keypool=3 -debug -debug=net -logtimestamps -checkmempool=0 -relaypriority=0 -port=$PORT -whitelist=127.0.0.1 -regtest -rpcport=`expr $PORT + 1` &
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 BITCOIND=$!
 
 #Install a watchdog.

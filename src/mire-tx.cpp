@@ -1,5 +1,9 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
+<<<<<<< HEAD
 // Copyright (c) 2015-2017 The MIRE developers
+=======
+// Copyright (c) 2015-2017 The PIVX developers
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -13,7 +17,11 @@
 #include "script/script.h"
 #include "script/sign.h"
 #include "ui_interface.h" // for _(...)
+<<<<<<< HEAD
 #include <univalue.h>
+=======
+#include "univalue/univalue.h"
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 #include "util.h"
 #include "utilmoneystr.h"
 #include "utilstrencodings.h"
@@ -351,7 +359,11 @@ static void MutateTxSign(CMutableTransaction& tx, const string& flagStr)
     UniValue keysObj = registers["privatekeys"];
     fGivenKeys = true;
 
+<<<<<<< HEAD
     for (unsigned int kidx = 0; kidx < keysObj.size(); kidx++) {
+=======
+    for (unsigned int kidx = 0; kidx < keysObj.count(); kidx++) {
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         if (!keysObj[kidx].isStr())
             throw runtime_error("privatekey not a string");
         CBitcoinSecret vchSecret;
@@ -368,7 +380,11 @@ static void MutateTxSign(CMutableTransaction& tx, const string& flagStr)
         throw runtime_error("prevtxs register variable must be set.");
     UniValue prevtxsObj = registers["prevtxs"];
     {
+<<<<<<< HEAD
         for (unsigned int previdx = 0; previdx < prevtxsObj.size(); previdx++) {
+=======
+        for (unsigned int previdx = 0; previdx < prevtxsObj.count(); previdx++) {
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
             UniValue prevOut = prevtxsObj[previdx];
             if (!prevOut.isObject())
                 throw runtime_error("expected prevtxs internal object");
@@ -623,4 +639,8 @@ int main(int argc, char* argv[])
         PrintExceptionContinue(NULL, "CommandLineRawTx()");
     }
     return ret;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed

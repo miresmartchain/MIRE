@@ -39,7 +39,11 @@
 #define DO_STRINGIZE(X) #X
 
 //! Copyright string used in Windows .rc files
+<<<<<<< HEAD
 #define COPYRIGHT_STR "2009-" STRINGIZE(COPYRIGHT_YEAR) " The Bitcoin Core Developers, 2014-" STRINGIZE(COPYRIGHT_YEAR) " The Dash Core Developers, 2015-" STRINGIZE(COPYRIGHT_YEAR) " The Mire Core Developers, 2018-" STRINGIZE(COPYRIGHT_YEAR) " The Mire Core Developers"
+=======
+#define COPYRIGHT_STR "2009-" STRINGIZE(COPYRIGHT_YEAR) " The Bitcoin Core Developers, 2014-" STRINGIZE(COPYRIGHT_YEAR) " The Dash Core Developers, 2015-" STRINGIZE(COPYRIGHT_YEAR) " The PIVX Core Developers, 2018-" STRINGIZE(COPYRIGHT_YEAR) " The Mire Core Developers"
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
 /**
  * mired-res.rc includes this file, but it cannot cope with real c++ code.

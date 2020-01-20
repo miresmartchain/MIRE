@@ -1,4 +1,5 @@
 crypto/crypto_libbitcoin_crypto_a-skein.o: crypto/skein.c \
+<<<<<<< HEAD
  /usr/include/stdc-predef.h \
  /usr/lib/gcc/x86_64-linux-gnu/5/include/stddef.h /usr/include/string.h \
  /usr/include/features.h /usr/include/x86_64-linux-gnu/sys/cdefs.h \
@@ -60,11 +61,53 @@ crypto/crypto_libbitcoin_crypto_a-skein.o: crypto/skein.c \
 /usr/include/stdlib.h:
 
 /usr/include/x86_64-linux-gnu/bits/string3.h:
+=======
+ /usr/lib/gcc/i686-w64-mingw32/7.3-win32/include/stddef.h \
+ /usr/share/mingw-w64/include/stddef.h \
+ /usr/share/mingw-w64/include/crtdefs.h \
+ /usr/share/mingw-w64/include/_mingw.h \
+ /usr/share/mingw-w64/include/_mingw_mac.h \
+ /usr/share/mingw-w64/include/_mingw_secapi.h \
+ /usr/share/mingw-w64/include/vadefs.h \
+ /usr/share/mingw-w64/include/sdks/_mingw_directx.h \
+ /usr/share/mingw-w64/include/sdks/_mingw_ddk.h \
+ /usr/share/mingw-w64/include/string.h \
+ /usr/share/mingw-w64/include/sec_api/string_s.h crypto/sph_skein.h \
+ crypto/sph_types.h \
+ /usr/lib/gcc/i686-w64-mingw32/7.3-win32/include-fixed/limits.h \
+ /usr/lib/gcc/i686-w64-mingw32/7.3-win32/include-fixed/syslimits.h \
+ /usr/share/mingw-w64/include/limits.h \
+ /usr/lib/gcc/i686-w64-mingw32/7.3-win32/include/stdint.h \
+ /usr/share/mingw-w64/include/stdint.h
+
+/usr/lib/gcc/i686-w64-mingw32/7.3-win32/include/stddef.h:
+
+/usr/share/mingw-w64/include/stddef.h:
+
+/usr/share/mingw-w64/include/crtdefs.h:
+
+/usr/share/mingw-w64/include/_mingw.h:
+
+/usr/share/mingw-w64/include/_mingw_mac.h:
+
+/usr/share/mingw-w64/include/_mingw_secapi.h:
+
+/usr/share/mingw-w64/include/vadefs.h:
+
+/usr/share/mingw-w64/include/sdks/_mingw_directx.h:
+
+/usr/share/mingw-w64/include/sdks/_mingw_ddk.h:
+
+/usr/share/mingw-w64/include/string.h:
+
+/usr/share/mingw-w64/include/sec_api/string_s.h:
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
 crypto/sph_skein.h:
 
 crypto/sph_types.h:
 
+<<<<<<< HEAD
 /usr/lib/gcc/x86_64-linux-gnu/5/include-fixed/limits.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/5/include-fixed/syslimits.h:
@@ -84,3 +127,14 @@ crypto/sph_types.h:
 /usr/include/stdint.h:
 
 /usr/include/x86_64-linux-gnu/bits/wchar.h:
+=======
+/usr/lib/gcc/i686-w64-mingw32/7.3-win32/include-fixed/limits.h:
+
+/usr/lib/gcc/i686-w64-mingw32/7.3-win32/include-fixed/syslimits.h:
+
+/usr/share/mingw-w64/include/limits.h:
+
+/usr/lib/gcc/i686-w64-mingw32/7.3-win32/include/stdint.h:
+
+/usr/share/mingw-w64/include/stdint.h:
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed

@@ -1,7 +1,11 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
+<<<<<<< HEAD
 // Copyright (c) 2015-2017 The MIRE developers
+=======
+// Copyright (c) 2015-2017 The PIVX developers
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -21,6 +25,7 @@
 #include <stdint.h>
 
 #include "libzerocoin/Coin.h"
+<<<<<<< HEAD
 #include "spork.h"
 #include <boost/assign/list_of.hpp>
 
@@ -29,6 +34,17 @@
 using namespace std;
 using namespace boost;
 using namespace boost::assign;
+=======
+#include "json/json_spirit_utils.h"
+#include "json/json_spirit_value.h"
+#include "spork.h"
+#include <boost/assign/list_of.hpp>
+
+using namespace std;
+using namespace boost;
+using namespace boost::assign;
+using namespace json_spirit;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
 int64_t nWalletUnlockTime;
 static CCriticalSection cs_nWalletUnlockTime;
@@ -44,7 +60,11 @@ void EnsureWalletIsUnlocked()
         throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please enter the wallet passphrase with walletpassphrase first.");
 }
 
+<<<<<<< HEAD
 void WalletTxToJSON(const CWalletTx& wtx, UniValue& entry)
+=======
+void WalletTxToJSON(const CWalletTx& wtx, Object& entry)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     int confirms = wtx.GetDepthInMainChain(false);
     int confirmsTotal = GetIXConfirmations(wtx.GetHash()) + confirms;
@@ -59,7 +79,11 @@ void WalletTxToJSON(const CWalletTx& wtx, UniValue& entry)
     }
     uint256 hash = wtx.GetHash();
     entry.push_back(Pair("txid", hash.GetHex()));
+<<<<<<< HEAD
     UniValue conflicts(UniValue::VARR);
+=======
+    Array conflicts;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     BOOST_FOREACH (const uint256& conflict, wtx.GetConflicts())
         conflicts.push_back(conflict.GetHex());
     entry.push_back(Pair("walletconflicts", conflicts));
@@ -69,7 +93,11 @@ void WalletTxToJSON(const CWalletTx& wtx, UniValue& entry)
         entry.push_back(Pair(item.first, item.second));
 }
 
+<<<<<<< HEAD
 string AccountFromValue(const UniValue& value)
+=======
+string AccountFromValue(const Value& value)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     string strAccount = value.get_str();
     if (strAccount == "*")
@@ -77,12 +105,20 @@ string AccountFromValue(const UniValue& value)
     return strAccount;
 }
 
+<<<<<<< HEAD
 UniValue getnewaddress(const UniValue& params, bool fHelp)
+=======
+Value getnewaddress(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "getnewaddress ( \"account\" )\n"
+<<<<<<< HEAD
             "\nReturns a new MIRE address for receiving payments.\n"
+=======
+            "\nReturns a new Mire address for receiving payments.\n"
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
             "If 'account' is specified (recommended), it is added to the address book \n"
             "so payments received with the address will be credited to 'account'.\n"
             "\nArguments:\n"
@@ -111,6 +147,35 @@ UniValue getnewaddress(const UniValue& params, bool fHelp)
     return CBitcoinAddress(keyID).ToString();
 }
 
+<<<<<<< HEAD
+=======
+Value makekeypair(const Array& params, bool fHelp)
+{
+    if (fHelp || params.size() > 1)
+        throw runtime_error(
+            "makekeypair [prefix]\n"
+            "Make a public/private key pair.\n"
+            "[prefix] is optional preferred prefix for the public key.\n");
+
+    string strPrefix = "";
+    if (params.size() > 0)
+        strPrefix = params[0].get_str();
+ 
+    CKey key;
+    key.MakeNewKey(false);
+
+    CPrivKey vchPrivKey = key.GetPrivKey();
+    Object result;
+    result.push_back(Pair("PrivateKey", HexStr<CPrivKey::iterator>(vchPrivKey.begin(), vchPrivKey.end())));
+    result.push_back(Pair("PublicKey", HexStr(key.GetPubKey())));
+    
+    CBitcoinSecret bkey(key);
+    result.push_back(Pair("PrivKeyBase58",bkey.ToString()));
+    
+    return result;
+}
+
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
 CBitcoinAddress GetAccountAddress(string strAccount, bool bForceNew = false)
 {
@@ -146,12 +211,20 @@ CBitcoinAddress GetAccountAddress(string strAccount, bool bForceNew = false)
     return CBitcoinAddress(account.vchPubKey.GetID());
 }
 
+<<<<<<< HEAD
 UniValue getaccountaddress(const UniValue& params, bool fHelp)
+=======
+Value getaccountaddress(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "getaccountaddress \"account\"\n"
+<<<<<<< HEAD
             "\nReturns the current MIRE address for receiving payments to this account.\n"
+=======
+            "\nReturns the current Mire address for receiving payments to this account.\n"
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
             "\nArguments:\n"
             "1. \"account\"       (string, required) The account name for the address. It can also be set to the empty string \"\" to represent the default account. The account does not need to exist, it will be created and a new address created  if there is no account by the given name.\n"
             "\nResult:\n"
@@ -162,7 +235,11 @@ UniValue getaccountaddress(const UniValue& params, bool fHelp)
     // Parse the account first so we don't generate a key if there's an error
     string strAccount = AccountFromValue(params[0]);
 
+<<<<<<< HEAD
     UniValue ret(UniValue::VSTR);
+=======
+    Value ret;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
     ret = GetAccountAddress(strAccount).ToString();
 
@@ -170,12 +247,20 @@ UniValue getaccountaddress(const UniValue& params, bool fHelp)
 }
 
 
+<<<<<<< HEAD
 UniValue getrawchangeaddress(const UniValue& params, bool fHelp)
+=======
+Value getrawchangeaddress(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "getrawchangeaddress\n"
+<<<<<<< HEAD
             "\nReturns a new MIRE address, for receiving change.\n"
+=======
+            "\nReturns a new Mire address, for receiving change.\n"
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
             "This is for use with raw transactions, NOT normal use.\n"
             "\nResult:\n"
             "\"address\"    (string) The address\n"
@@ -198,7 +283,11 @@ UniValue getrawchangeaddress(const UniValue& params, bool fHelp)
 }
 
 
+<<<<<<< HEAD
 UniValue setaccount(const UniValue& params, bool fHelp)
+=======
+Value setaccount(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
@@ -212,7 +301,11 @@ UniValue setaccount(const UniValue& params, bool fHelp)
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
+<<<<<<< HEAD
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid MIRE address");
+=======
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Mire address");
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
 
     string strAccount;
@@ -231,11 +324,19 @@ UniValue setaccount(const UniValue& params, bool fHelp)
     } else
         throw JSONRPCError(RPC_MISC_ERROR, "setaccount can only be used with own address");
 
+<<<<<<< HEAD
     return NullUniValue;
 }
 
 
 UniValue getaccount(const UniValue& params, bool fHelp)
+=======
+    return Value::null;
+}
+
+
+Value getaccount(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
@@ -250,7 +351,11 @@ UniValue getaccount(const UniValue& params, bool fHelp)
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
+<<<<<<< HEAD
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid MIRE address");
+=======
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Mire address");
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
     string strAccount;
     map<CTxDestination, CAddressBookData>::iterator mi = pwalletMain->mapAddressBook.find(address.Get());
@@ -260,7 +365,11 @@ UniValue getaccount(const UniValue& params, bool fHelp)
 }
 
 
+<<<<<<< HEAD
 UniValue getaddressesbyaccount(const UniValue& params, bool fHelp)
+=======
+Value getaddressesbyaccount(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
@@ -279,7 +388,11 @@ UniValue getaddressesbyaccount(const UniValue& params, bool fHelp)
     string strAccount = AccountFromValue(params[0]);
 
     // Find all addresses that have the given account
+<<<<<<< HEAD
     UniValue ret(UniValue::VARR);
+=======
+    Array ret;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     BOOST_FOREACH (const PAIRTYPE(CBitcoinAddress, CAddressBookData) & item, pwalletMain->mapAddressBook) {
         const CBitcoinAddress& address = item.first;
         const string& strName = item.second.name;
@@ -305,7 +418,11 @@ void SendMoney(const CTxDestination& address, CAmount nValue, CWalletTx& wtxNew,
         throw JSONRPCError(RPC_WALLET_ERROR, strError);
     }
 
+<<<<<<< HEAD
     // Parse MIRE address
+=======
+    // Parse Mire address
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     CScript scriptPubKey = GetScriptForDestination(address);
 
     // Create and send the transaction
@@ -321,7 +438,11 @@ void SendMoney(const CTxDestination& address, CAmount nValue, CWalletTx& wtxNew,
         throw JSONRPCError(RPC_WALLET_ERROR, "Error: The transaction was rejected! This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.");
 }
 
+<<<<<<< HEAD
 UniValue sendtoaddress(const UniValue& params, bool fHelp)
+=======
+Value sendtoaddress(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() < 2 || params.size() > 4)
         throw runtime_error(
@@ -343,16 +464,26 @@ UniValue sendtoaddress(const UniValue& params, bool fHelp)
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
+<<<<<<< HEAD
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid MIRE address");
+=======
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Mire address");
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
     // Amount
     CAmount nAmount = AmountFromValue(params[1]);
 
     // Wallet comments
     CWalletTx wtx;
+<<<<<<< HEAD
     if (params.size() > 2 && !params[2].isNull() && !params[2].get_str().empty())
         wtx.mapValue["comment"] = params[2].get_str();
     if (params.size() > 3 && !params[3].isNull() && !params[3].get_str().empty())
+=======
+    if (params.size() > 2 && params[2].type() != null_type && !params[2].get_str().empty())
+        wtx.mapValue["comment"] = params[2].get_str();
+    if (params.size() > 3 && params[3].type() != null_type && !params[3].get_str().empty())
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         wtx.mapValue["to"] = params[3].get_str();
 
     EnsureWalletIsUnlocked();
@@ -362,7 +493,11 @@ UniValue sendtoaddress(const UniValue& params, bool fHelp)
     return wtx.GetHash().GetHex();
 }
 
+<<<<<<< HEAD
 UniValue sendtoaddressix(const UniValue& params, bool fHelp)
+=======
+Value sendtoaddressix(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() < 2 || params.size() > 4)
         throw runtime_error(
@@ -384,16 +519,26 @@ UniValue sendtoaddressix(const UniValue& params, bool fHelp)
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
+<<<<<<< HEAD
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid MIRE address");
+=======
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Mire address");
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
     // Amount
     CAmount nAmount = AmountFromValue(params[1]);
 
     // Wallet comments
     CWalletTx wtx;
+<<<<<<< HEAD
     if (params.size() > 2 && !params[2].isNull() && !params[2].get_str().empty())
         wtx.mapValue["comment"] = params[2].get_str();
     if (params.size() > 3 && !params[3].isNull() && !params[3].get_str().empty())
+=======
+    if (params.size() > 2 && params[2].type() != null_type && !params[2].get_str().empty())
+        wtx.mapValue["comment"] = params[2].get_str();
+    if (params.size() > 3 && params[3].type() != null_type && !params[3].get_str().empty())
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         wtx.mapValue["to"] = params[3].get_str();
 
     EnsureWalletIsUnlocked();
@@ -402,8 +547,12 @@ UniValue sendtoaddressix(const UniValue& params, bool fHelp)
 
     return wtx.GetHash().GetHex();
 }
+<<<<<<< HEAD
 
 UniValue listaddressgroupings(const UniValue& params, bool fHelp)
+=======
+Value listaddressgroupings(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp)
         throw runtime_error(
@@ -426,12 +575,21 @@ UniValue listaddressgroupings(const UniValue& params, bool fHelp)
             "\nExamples:\n" +
             HelpExampleCli("listaddressgroupings", "") + HelpExampleRpc("listaddressgroupings", ""));
 
+<<<<<<< HEAD
     UniValue jsonGroupings(UniValue::VARR);
     map<CTxDestination, CAmount> balances = pwalletMain->GetAddressBalances();
     BOOST_FOREACH (set<CTxDestination> grouping, pwalletMain->GetAddressGroupings()) {
         UniValue jsonGrouping(UniValue::VARR);
         BOOST_FOREACH (CTxDestination address, grouping) {
             UniValue addressInfo(UniValue::VARR);
+=======
+    Array jsonGroupings;
+    map<CTxDestination, CAmount> balances = pwalletMain->GetAddressBalances();
+    BOOST_FOREACH (set<CTxDestination> grouping, pwalletMain->GetAddressGroupings()) {
+        Array jsonGrouping;
+        BOOST_FOREACH (CTxDestination address, grouping) {
+            Array addressInfo;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
             addressInfo.push_back(CBitcoinAddress(address).ToString());
             addressInfo.push_back(ValueFromAmount(balances[address]));
             {
@@ -446,7 +604,11 @@ UniValue listaddressgroupings(const UniValue& params, bool fHelp)
     return jsonGroupings;
 }
 
+<<<<<<< HEAD
 UniValue signmessage(const UniValue& params, bool fHelp)
+=======
+Value signmessage(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 2)
         throw runtime_error(
@@ -493,7 +655,11 @@ UniValue signmessage(const UniValue& params, bool fHelp)
     return EncodeBase64(&vchSig[0], vchSig.size());
 }
 
+<<<<<<< HEAD
 UniValue getreceivedbyaddress(const UniValue& params, bool fHelp)
+=======
+Value getreceivedbyaddress(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
@@ -514,7 +680,11 @@ UniValue getreceivedbyaddress(const UniValue& params, bool fHelp)
     // mire address
     CBitcoinAddress address = CBitcoinAddress(params[0].get_str());
     if (!address.IsValid())
+<<<<<<< HEAD
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid MIRE address");
+=======
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Mire address");
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     CScript scriptPubKey = GetScriptForDestination(address.Get());
     if (!IsMine(*pwalletMain, scriptPubKey))
         return (double)0.0;
@@ -541,7 +711,11 @@ UniValue getreceivedbyaddress(const UniValue& params, bool fHelp)
 }
 
 
+<<<<<<< HEAD
 UniValue getreceivedbyaccount(const UniValue& params, bool fHelp)
+=======
+Value getreceivedbyaccount(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
@@ -618,7 +792,11 @@ CAmount GetAccountBalance(const string& strAccount, int nMinDepth, const isminef
 }
 
 
+<<<<<<< HEAD
 UniValue getbalance(const UniValue& params, bool fHelp)
+=======
+Value getbalance(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() > 3)
         throw runtime_error(
@@ -685,7 +863,11 @@ UniValue getbalance(const UniValue& params, bool fHelp)
     return ValueFromAmount(nBalance);
 }
 
+<<<<<<< HEAD
 UniValue getunconfirmedbalance(const UniValue &params, bool fHelp)
+=======
+Value getunconfirmedbalance(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() > 0)
         throw runtime_error(
@@ -695,7 +877,11 @@ UniValue getunconfirmedbalance(const UniValue &params, bool fHelp)
 }
 
 
+<<<<<<< HEAD
 UniValue movecmd(const UniValue& params, bool fHelp)
+=======
+Value movecmd(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() < 3 || params.size() > 5)
         throw runtime_error(
@@ -757,7 +943,11 @@ UniValue movecmd(const UniValue& params, bool fHelp)
 }
 
 
+<<<<<<< HEAD
 UniValue sendfrom(const UniValue& params, bool fHelp)
+=======
+Value sendfrom(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() < 3 || params.size() > 6)
         throw runtime_error(
@@ -786,7 +976,11 @@ UniValue sendfrom(const UniValue& params, bool fHelp)
     string strAccount = AccountFromValue(params[0]);
     CBitcoinAddress address(params[1].get_str());
     if (!address.IsValid())
+<<<<<<< HEAD
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid MIRE address");
+=======
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Mire address");
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     CAmount nAmount = AmountFromValue(params[2]);
     int nMinDepth = 1;
     if (params.size() > 3)
@@ -794,9 +988,15 @@ UniValue sendfrom(const UniValue& params, bool fHelp)
 
     CWalletTx wtx;
     wtx.strFromAccount = strAccount;
+<<<<<<< HEAD
     if (params.size() > 4 && !params[4].isNull() && !params[4].get_str().empty())
         wtx.mapValue["comment"] = params[4].get_str();
     if (params.size() > 5 && !params[5].isNull() && !params[5].get_str().empty())
+=======
+    if (params.size() > 4 && params[4].type() != null_type && !params[4].get_str().empty())
+        wtx.mapValue["comment"] = params[4].get_str();
+    if (params.size() > 5 && params[5].type() != null_type && !params[5].get_str().empty())
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         wtx.mapValue["to"] = params[5].get_str();
 
     EnsureWalletIsUnlocked();
@@ -812,7 +1012,11 @@ UniValue sendfrom(const UniValue& params, bool fHelp)
 }
 
 
+<<<<<<< HEAD
 UniValue sendmany(const UniValue& params, bool fHelp)
+=======
+Value sendmany(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() < 2 || params.size() > 4)
         throw runtime_error(
@@ -838,20 +1042,29 @@ UniValue sendmany(const UniValue& params, bool fHelp)
             "\nAs a json rpc call\n" + HelpExampleRpc("sendmany", "\"tabby\", \"{\\\"XwnLY9Tf7Zsef8gMGL2fhWA9ZmMjt4KPwg\\\":0.01,\\\"XuQQkwA4FYkq2XERzMY2CiAZhJTEDAbtcg\\\":0.02}\", 6, \"testing\""));
 
     string strAccount = AccountFromValue(params[0]);
+<<<<<<< HEAD
     UniValue sendTo = params[1].get_obj();
+=======
+    Object sendTo = params[1].get_obj();
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     int nMinDepth = 1;
     if (params.size() > 2)
         nMinDepth = params[2].get_int();
 
     CWalletTx wtx;
     wtx.strFromAccount = strAccount;
+<<<<<<< HEAD
     if (params.size() > 3 && !params[3].isNull() && !params[3].get_str().empty())
+=======
+    if (params.size() > 3 && params[3].type() != null_type && !params[3].get_str().empty())
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         wtx.mapValue["comment"] = params[3].get_str();
 
     set<CBitcoinAddress> setAddress;
     vector<pair<CScript, CAmount> > vecSend;
 
     CAmount totalAmount = 0;
+<<<<<<< HEAD
     vector<string> keys = sendTo.getKeys();
     BOOST_FOREACH(const string& name_, keys) {
         CBitcoinAddress address(name_);
@@ -864,6 +1077,19 @@ UniValue sendmany(const UniValue& params, bool fHelp)
 
         CScript scriptPubKey = GetScriptForDestination(address.Get());
         CAmount nAmount = AmountFromValue(sendTo[name_]);
+=======
+    BOOST_FOREACH (const Pair& s, sendTo) {
+        CBitcoinAddress address(s.name_);
+        if (!address.IsValid())
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Invalid Mire address: ") + s.name_);
+
+        if (setAddress.count(address))
+            throw JSONRPCError(RPC_INVALID_PARAMETER, string("Invalid parameter, duplicated address: ") + s.name_);
+        setAddress.insert(address);
+
+        CScript scriptPubKey = GetScriptForDestination(address.Get());
+        CAmount nAmount = AmountFromValue(s.value_);
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         totalAmount += nAmount;
 
         vecSend.push_back(make_pair(scriptPubKey, nAmount));
@@ -890,14 +1116,24 @@ UniValue sendmany(const UniValue& params, bool fHelp)
 }
 
 // Defined in rpcmisc.cpp
+<<<<<<< HEAD
 extern CScript _createmultisig_redeemScript(const UniValue& params);
 
 UniValue addmultisigaddress(const UniValue& params, bool fHelp)
+=======
+extern CScript _createmultisig_redeemScript(const Array& params);
+
+Value addmultisigaddress(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() < 2 || params.size() > 3) {
         string msg = "addmultisigaddress nrequired [\"key\",...] ( \"account\" )\n"
                      "\nAdd a nrequired-to-sign multisignature address to the wallet.\n"
+<<<<<<< HEAD
                      "Each key is a MIRE address or hex-encoded public key.\n"
+=======
+                     "Each key is a Mire address or hex-encoded public key.\n"
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
                      "If 'account' is specified, assign address to that account.\n"
 
                      "\nArguments:\n"
@@ -948,7 +1184,11 @@ struct tallyitem {
     }
 };
 
+<<<<<<< HEAD
 UniValue ListReceived(const UniValue& params, bool fByAccounts)
+=======
+Value ListReceived(const Array& params, bool fByAccounts)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     // Minimum confirmations
     int nMinDepth = 1;
@@ -998,7 +1238,11 @@ UniValue ListReceived(const UniValue& params, bool fByAccounts)
     }
 
     // Reply
+<<<<<<< HEAD
     UniValue ret(UniValue::VARR);
+=======
+    Array ret;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     map<string, tallyitem> mapAccountTally;
     BOOST_FOREACH (const PAIRTYPE(CBitcoinAddress, CAddressBookData) & item, pwalletMain->mapAddressBook) {
         const CBitcoinAddress& address = item.first;
@@ -1025,7 +1269,11 @@ UniValue ListReceived(const UniValue& params, bool fByAccounts)
             item.nBCConf = min(item.nBCConf, nBCConf);
             item.fIsWatchonly = fIsWatchonly;
         } else {
+<<<<<<< HEAD
             UniValue obj(UniValue::VOBJ);
+=======
+            Object obj;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
             if (fIsWatchonly)
                 obj.push_back(Pair("involvesWatchonly", true));
             obj.push_back(Pair("address", address.ToString()));
@@ -1033,7 +1281,11 @@ UniValue ListReceived(const UniValue& params, bool fByAccounts)
             obj.push_back(Pair("amount", ValueFromAmount(nAmount)));
             obj.push_back(Pair("confirmations", (nConf == std::numeric_limits<int>::max() ? 0 : nConf)));
             obj.push_back(Pair("bcconfirmations", (nBCConf == std::numeric_limits<int>::max() ? 0 : nBCConf)));
+<<<<<<< HEAD
             UniValue transactions(UniValue::VARR);
+=======
+            Array transactions;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
             if (it != mapTally.end()) {
                 BOOST_FOREACH (const uint256& item, (*it).second.txids) {
                     transactions.push_back(item.GetHex());
@@ -1049,7 +1301,11 @@ UniValue ListReceived(const UniValue& params, bool fByAccounts)
             CAmount nAmount = (*it).second.nAmount;
             int nConf = (*it).second.nConf;
             int nBCConf = (*it).second.nBCConf;
+<<<<<<< HEAD
             UniValue obj(UniValue::VOBJ);
+=======
+            Object obj;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
             if ((*it).second.fIsWatchonly)
                 obj.push_back(Pair("involvesWatchonly", true));
             obj.push_back(Pair("account", (*it).first));
@@ -1063,7 +1319,11 @@ UniValue ListReceived(const UniValue& params, bool fByAccounts)
     return ret;
 }
 
+<<<<<<< HEAD
 UniValue listreceivedbyaddress(const UniValue& params, bool fHelp)
+=======
+Value listreceivedbyaddress(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() > 3)
         throw runtime_error(
@@ -1093,7 +1353,11 @@ UniValue listreceivedbyaddress(const UniValue& params, bool fHelp)
     return ListReceived(params, false);
 }
 
+<<<<<<< HEAD
 UniValue listreceivedbyaccount(const UniValue& params, bool fHelp)
+=======
+Value listreceivedbyaccount(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() > 3)
         throw runtime_error(
@@ -1122,14 +1386,22 @@ UniValue listreceivedbyaccount(const UniValue& params, bool fHelp)
     return ListReceived(params, true);
 }
 
+<<<<<<< HEAD
 static void MaybePushAddress(UniValue & entry, const CTxDestination &dest)
+=======
+static void MaybePushAddress(Object& entry, const CTxDestination& dest)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     CBitcoinAddress addr;
     if (addr.Set(dest))
         entry.push_back(Pair("address", addr.ToString()));
 }
 
+<<<<<<< HEAD
 void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDepth, bool fLong, UniValue& ret, const isminefilter& filter)
+=======
+void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDepth, bool fLong, Array& ret, const isminefilter& filter)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     CAmount nFee;
     string strSentAccount;
@@ -1144,7 +1416,11 @@ void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDe
     // Sent
     if ((!listSent.empty() || nFee != 0) && (fAllAccounts || strAccount == strSentAccount)) {
         BOOST_FOREACH (const COutputEntry& s, listSent) {
+<<<<<<< HEAD
             UniValue entry(UniValue::VOBJ);
+=======
+            Object entry;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
             if (involvesWatchonly || (::IsMine(*pwalletMain, s.destination) & ISMINE_WATCH_ONLY))
                 entry.push_back(Pair("involvesWatchonly", true));
             entry.push_back(Pair("account", strSentAccount));
@@ -1167,7 +1443,11 @@ void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDe
             if (pwalletMain->mapAddressBook.count(r.destination))
                 account = pwalletMain->mapAddressBook[r.destination].name;
             if (fAllAccounts || (account == strAccount)) {
+<<<<<<< HEAD
                 UniValue entry(UniValue::VOBJ);
+=======
+                Object entry;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
                 if (involvesWatchonly || (::IsMine(*pwalletMain, r.destination) & ISMINE_WATCH_ONLY))
                     entry.push_back(Pair("involvesWatchonly", true));
                 entry.push_back(Pair("account", account));
@@ -1192,12 +1472,20 @@ void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDe
     }
 }
 
+<<<<<<< HEAD
 void AcentryToJSON(const CAccountingEntry& acentry, const string& strAccount, UniValue& ret)
+=======
+void AcentryToJSON(const CAccountingEntry& acentry, const string& strAccount, Array& ret)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     bool fAllAccounts = (strAccount == string("*"));
 
     if (fAllAccounts || acentry.strAccount == strAccount) {
+<<<<<<< HEAD
         UniValue entry(UniValue::VOBJ);
+=======
+        Object entry;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         entry.push_back(Pair("account", acentry.strAccount));
         entry.push_back(Pair("category", "move"));
         entry.push_back(Pair("time", acentry.nTime));
@@ -1208,7 +1496,11 @@ void AcentryToJSON(const CAccountingEntry& acentry, const string& strAccount, Un
     }
 }
 
+<<<<<<< HEAD
 UniValue listtransactions(const UniValue& params, bool fHelp)
+=======
+Value listtransactions(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() > 4)
         throw runtime_error(
@@ -1282,7 +1574,11 @@ UniValue listtransactions(const UniValue& params, bool fHelp)
     if (nFrom < 0)
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Negative from");
 
+<<<<<<< HEAD
     UniValue ret(UniValue::VARR);
+=======
+    Array ret;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
     std::list<CAccountingEntry> acentries;
     CWallet::TxItems txOrdered = pwalletMain->OrderedTxItems(acentries, strAccount);
@@ -1304,6 +1600,7 @@ UniValue listtransactions(const UniValue& params, bool fHelp)
         nFrom = ret.size();
     if ((nFrom + nCount) > (int)ret.size())
         nCount = ret.size() - nFrom;
+<<<<<<< HEAD
 
     vector<UniValue> arrTmp = ret.getValues();
 
@@ -1320,11 +1617,26 @@ UniValue listtransactions(const UniValue& params, bool fHelp)
     ret.clear();
     ret.setArray();
     ret.push_backV(arrTmp);
+=======
+    Array::iterator first = ret.begin();
+    std::advance(first, nFrom);
+    Array::iterator last = ret.begin();
+    std::advance(last, nFrom + nCount);
+
+    if (last != ret.end()) ret.erase(last, ret.end());
+    if (first != ret.begin()) ret.erase(ret.begin(), first);
+
+    std::reverse(ret.begin(), ret.end()); // Return oldest to newest
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
     return ret;
 }
 
+<<<<<<< HEAD
 UniValue listaccounts(const UniValue& params, bool fHelp)
+=======
+Value listaccounts(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() > 2)
         throw runtime_error(
@@ -1386,14 +1698,22 @@ UniValue listaccounts(const UniValue& params, bool fHelp)
     BOOST_FOREACH (const CAccountingEntry& entry, acentries)
         mapAccountBalances[entry.strAccount] += entry.nCreditDebit;
 
+<<<<<<< HEAD
     UniValue ret(UniValue::VOBJ);
+=======
+    Object ret;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     BOOST_FOREACH (const PAIRTYPE(string, CAmount) & accountBalance, mapAccountBalances) {
         ret.push_back(Pair(accountBalance.first, ValueFromAmount(accountBalance.second)));
     }
     return ret;
 }
 
+<<<<<<< HEAD
 UniValue listsinceblock(const UniValue& params, bool fHelp)
+=======
+Value listsinceblock(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp)
         throw runtime_error(
@@ -1411,7 +1731,10 @@ UniValue listsinceblock(const UniValue& params, bool fHelp)
             "    \"category\":\"send|receive\",     (string) The transaction category. 'send' has negative amounts, 'receive' has positive amounts.\n"
             "    \"amount\": x.xxx,          (numeric) The amount in btc. This is negative for the 'send' category, and for the 'move' category for moves \n"
             "                                          outbound. It is positive for the 'receive' category, and for the 'move' category for inbound funds.\n"
+<<<<<<< HEAD
 
+=======
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
             "    \"vout\" : n,               (numeric) the vout value\n"
             "    \"fee\": x.xxx,             (numeric) The amount of the fee in btc. This is negative and only available for the 'send' category of transactions.\n"
             "    \"confirmations\": n,       (numeric) The number of confirmations for the transaction. Available for 'send' and 'receive' category of transactions.\n"
@@ -1456,7 +1779,11 @@ UniValue listsinceblock(const UniValue& params, bool fHelp)
 
     int depth = pindex ? (1 + chainActive.Height() - pindex->nHeight) : -1;
 
+<<<<<<< HEAD
     UniValue transactions(UniValue::VARR);
+=======
+    Array transactions;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
     for (map<uint256, CWalletTx>::iterator it = pwalletMain->mapWallet.begin(); it != pwalletMain->mapWallet.end(); it++) {
         CWalletTx tx = (*it).second;
@@ -1468,14 +1795,22 @@ UniValue listsinceblock(const UniValue& params, bool fHelp)
     CBlockIndex* pblockLast = chainActive[chainActive.Height() + 1 - target_confirms];
     uint256 lastblock = pblockLast ? pblockLast->GetBlockHash() : 0;
 
+<<<<<<< HEAD
     UniValue ret(UniValue::VOBJ);
+=======
+    Object ret;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     ret.push_back(Pair("transactions", transactions));
     ret.push_back(Pair("lastblock", lastblock.GetHex()));
 
     return ret;
 }
 
+<<<<<<< HEAD
 UniValue gettransaction(const UniValue& params, bool fHelp)
+=======
+Value gettransaction(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
@@ -1519,7 +1854,11 @@ UniValue gettransaction(const UniValue& params, bool fHelp)
         if (params[1].get_bool())
             filter = filter | ISMINE_WATCH_ONLY;
 
+<<<<<<< HEAD
     UniValue entry(UniValue::VOBJ);
+=======
+    Object entry;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     if (!pwalletMain->mapWallet.count(hash))
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid or non-wallet transaction id");
     const CWalletTx& wtx = pwalletMain->mapWallet[hash];
@@ -1535,7 +1874,11 @@ UniValue gettransaction(const UniValue& params, bool fHelp)
 
     WalletTxToJSON(wtx, entry);
 
+<<<<<<< HEAD
     UniValue details(UniValue::VARR);
+=======
+    Array details;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     ListTransactions(wtx, "*", 0, false, details, filter);
     entry.push_back(Pair("details", details));
 
@@ -1546,7 +1889,11 @@ UniValue gettransaction(const UniValue& params, bool fHelp)
 }
 
 
+<<<<<<< HEAD
 UniValue backupwallet(const UniValue& params, bool fHelp)
+=======
+Value backupwallet(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
@@ -1561,11 +1908,19 @@ UniValue backupwallet(const UniValue& params, bool fHelp)
     if (!BackupWallet(*pwalletMain, strDest))
         throw JSONRPCError(RPC_WALLET_ERROR, "Error: Wallet backup failed!");
 
+<<<<<<< HEAD
     return NullUniValue;
 }
 
 
 UniValue keypoolrefill(const UniValue& params, bool fHelp)
+=======
+    return Value::null;
+}
+
+
+Value keypoolrefill(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() > 1)
         throw runtime_error(
@@ -1591,7 +1946,11 @@ UniValue keypoolrefill(const UniValue& params, bool fHelp)
     if (pwalletMain->GetKeyPoolSize() < kpSize)
         throw JSONRPCError(RPC_WALLET_ERROR, "Error refreshing keypool.");
 
+<<<<<<< HEAD
     return NullUniValue;
+=======
+    return Value::null;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 }
 
 
@@ -1603,7 +1962,11 @@ static void LockWallet(CWallet* pWallet)
     pWallet->Lock();
 }
 
+<<<<<<< HEAD
 UniValue walletpassphrase(const UniValue& params, bool fHelp)
+=======
+Value walletpassphrase(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (pwalletMain->IsCrypted() && (fHelp || params.size() < 2 || params.size() > 3))
         throw runtime_error(
@@ -1644,7 +2007,11 @@ UniValue walletpassphrase(const UniValue& params, bool fHelp)
         throw JSONRPCError(RPC_WALLET_ALREADY_UNLOCKED, "Error: Wallet is already unlocked.");
 
     if (!pwalletMain->Unlock(strWalletPass, anonymizeOnly))
+<<<<<<< HEAD
         throw JSONRPCError(RPC_WALLET_PASSPHRASE_INCORRECT, "Error: The wallet passphrase entered was incorrect.");
+=======
+        throw JSONRPCError(RPC_WALLET_PASSMIREASE_INCORRECT, "Error: The wallet passphrase entered was incorrect.");
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
     pwalletMain->TopUpKeyPool();
 
@@ -1657,11 +2024,19 @@ UniValue walletpassphrase(const UniValue& params, bool fHelp)
         RPCRunLater ("lockwallet", boost::bind (LockWallet, pwalletMain), nSleepTime);
     }
 
+<<<<<<< HEAD
     return NullUniValue;
 }
 
 
 UniValue walletpassphrasechange(const UniValue& params, bool fHelp)
+=======
+    return Value::null;
+}
+
+
+Value walletpassphrasechange(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (pwalletMain->IsCrypted() && (fHelp || params.size() != 2))
         throw runtime_error(
@@ -1694,6 +2069,7 @@ UniValue walletpassphrasechange(const UniValue& params, bool fHelp)
             "Changes the wallet passphrase from <oldpassphrase> to <newpassphrase>.");
 
     if (!pwalletMain->ChangeWalletPassphrase(strOldWalletPass, strNewWalletPass))
+<<<<<<< HEAD
         throw JSONRPCError(RPC_WALLET_PASSPHRASE_INCORRECT, "Error: The wallet passphrase entered was incorrect.");
 
     return NullUniValue;
@@ -1701,6 +2077,15 @@ UniValue walletpassphrasechange(const UniValue& params, bool fHelp)
 
 
 UniValue walletlock(const UniValue& params, bool fHelp)
+=======
+        throw JSONRPCError(RPC_WALLET_PASSMIREASE_INCORRECT, "Error: The wallet passphrase entered was incorrect.");
+
+    return Value::null;
+}
+
+
+Value walletlock(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (pwalletMain->IsCrypted() && (fHelp || params.size() != 0))
         throw runtime_error(
@@ -1726,11 +2111,19 @@ UniValue walletlock(const UniValue& params, bool fHelp)
         nWalletUnlockTime = 0;
     }
 
+<<<<<<< HEAD
     return NullUniValue;
 }
 
 
 UniValue encryptwallet(const UniValue& params, bool fHelp)
+=======
+    return Value::null;
+}
+
+
+Value encryptwallet(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (!pwalletMain->IsCrypted() && (fHelp || params.size() != 1))
         throw runtime_error(
@@ -1777,7 +2170,11 @@ UniValue encryptwallet(const UniValue& params, bool fHelp)
     return "wallet encrypted; mire server stopping, restart to run with encrypted wallet. The keypool has been flushed, you need to make a new backup.";
 }
 
+<<<<<<< HEAD
 UniValue lockunspent(const UniValue& params, bool fHelp)
+=======
+Value lockunspent(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
@@ -1811,9 +2208,15 @@ UniValue lockunspent(const UniValue& params, bool fHelp)
             "\nAs a json rpc call\n" + HelpExampleRpc("lockunspent", "false, \"[{\\\"txid\\\":\\\"a08e6907dbbd3d809776dbfc5d82e371b764ed838b5655e72f463568df1aadf0\\\",\\\"vout\\\":1}]\""));
 
     if (params.size() == 1)
+<<<<<<< HEAD
         RPCTypeCheck(params, boost::assign::list_of(UniValue::VBOOL));
     else
         RPCTypeCheck(params, boost::assign::list_of(UniValue::VBOOL)(UniValue::VARR));
+=======
+        RPCTypeCheck(params, list_of(bool_type));
+    else
+        RPCTypeCheck(params, list_of(bool_type)(array_type));
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
     bool fUnlock = params[0].get_bool();
 
@@ -1823,6 +2226,7 @@ UniValue lockunspent(const UniValue& params, bool fHelp)
         return true;
     }
 
+<<<<<<< HEAD
     UniValue outputs = params[1].get_array();
     for (unsigned int idx = 0; idx < outputs.size(); idx++) {
         const UniValue& output = outputs[idx];
@@ -1831,6 +2235,15 @@ UniValue lockunspent(const UniValue& params, bool fHelp)
         const UniValue& o = output.get_obj();
 
         RPCTypeCheckObj(o, boost::assign::map_list_of("txid", UniValue::VSTR)("vout", UniValue::VNUM));
+=======
+    Array outputs = params[1].get_array();
+    BOOST_FOREACH (Value& output, outputs) {
+        if (output.type() != obj_type)
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, expected object");
+        const Object& o = output.get_obj();
+
+        RPCTypeCheck(o, map_list_of("txid", str_type)("vout", int_type));
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
         string txid = find_value(o, "txid").get_str();
         if (!IsHex(txid))
@@ -1851,7 +2264,11 @@ UniValue lockunspent(const UniValue& params, bool fHelp)
     return true;
 }
 
+<<<<<<< HEAD
 UniValue listlockunspent(const UniValue& params, bool fHelp)
+=======
+Value listlockunspent(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() > 0)
         throw runtime_error(
@@ -1877,10 +2294,17 @@ UniValue listlockunspent(const UniValue& params, bool fHelp)
     vector<COutPoint> vOutpts;
     pwalletMain->ListLockedCoins(vOutpts);
 
+<<<<<<< HEAD
     UniValue ret(UniValue::VARR);
 
     BOOST_FOREACH (COutPoint& outpt, vOutpts) {
         UniValue o(UniValue::VOBJ);
+=======
+    Array ret;
+
+    BOOST_FOREACH (COutPoint& outpt, vOutpts) {
+        Object o;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
         o.push_back(Pair("txid", outpt.hash.GetHex()));
         o.push_back(Pair("vout", (int)outpt.n));
@@ -1890,7 +2314,11 @@ UniValue listlockunspent(const UniValue& params, bool fHelp)
     return ret;
 }
 
+<<<<<<< HEAD
 UniValue settxfee(const UniValue& params, bool fHelp)
+=======
+Value settxfee(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() < 1 || params.size() > 1)
         throw runtime_error(
@@ -1912,7 +2340,11 @@ UniValue settxfee(const UniValue& params, bool fHelp)
     return true;
 }
 
+<<<<<<< HEAD
 UniValue getwalletinfo(const UniValue& params, bool fHelp)
+=======
+Value getwalletinfo(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 0)
         throw runtime_error(
@@ -1930,7 +2362,11 @@ UniValue getwalletinfo(const UniValue& params, bool fHelp)
             "\nExamples:\n" +
             HelpExampleCli("getwalletinfo", "") + HelpExampleRpc("getwalletinfo", ""));
 
+<<<<<<< HEAD
     UniValue obj(UniValue::VOBJ);
+=======
+    Object obj;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     obj.push_back(Pair("walletversion", pwalletMain->GetVersion()));
     obj.push_back(Pair("balance", ValueFromAmount(pwalletMain->GetBalance())));
     obj.push_back(Pair("txcount", (int)pwalletMain->mapWallet.size()));
@@ -1942,7 +2378,11 @@ UniValue getwalletinfo(const UniValue& params, bool fHelp)
 }
 
 // ppcoin: reserve balance from being staked for network protection
+<<<<<<< HEAD
 UniValue reservebalance(const UniValue& params, bool fHelp)
+=======
+Value reservebalance(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() > 2)
         throw runtime_error(
@@ -1978,14 +2418,22 @@ UniValue reservebalance(const UniValue& params, bool fHelp)
         }
     }
 
+<<<<<<< HEAD
     UniValue result(UniValue::VOBJ);
+=======
+    Object result;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     result.push_back(Pair("reserve", (nReserveBalance > 0)));
     result.push_back(Pair("amount", ValueFromAmount(nReserveBalance)));
     return result;
 }
 
 // presstab HyperStake
+<<<<<<< HEAD
 UniValue setstakesplitthreshold(const UniValue& params, bool fHelp)
+=======
+Value setstakesplitthreshold(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
@@ -2013,7 +2461,11 @@ UniValue setstakesplitthreshold(const UniValue& params, bool fHelp)
     {
         bool fFileBacked = pwalletMain->fFileBacked;
 
+<<<<<<< HEAD
         UniValue result(UniValue::VOBJ);
+=======
+        Object result;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         pwalletMain->nStakeSplitThreshold = nStakeSplitThreshold;
         result.push_back(Pair("threshold", int(pwalletMain->nStakeSplitThreshold)));
         if (fFileBacked) {
@@ -2027,7 +2479,11 @@ UniValue setstakesplitthreshold(const UniValue& params, bool fHelp)
 }
 
 // presstab HyperStake
+<<<<<<< HEAD
 UniValue getstakesplitthreshold(const UniValue& params, bool fHelp)
+=======
+Value getstakesplitthreshold(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 0)
         throw runtime_error(
@@ -2041,7 +2497,11 @@ UniValue getstakesplitthreshold(const UniValue& params, bool fHelp)
     return int(pwalletMain->nStakeSplitThreshold);
 }
 
+<<<<<<< HEAD
 UniValue autocombinerewards(const UniValue& params, bool fHelp)
+=======
+Value autocombinerewards(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     bool fEnable;
     if (params.size() >= 1)
@@ -2050,7 +2510,11 @@ UniValue autocombinerewards(const UniValue& params, bool fHelp)
     if (fHelp || params.size() < 1 || (fEnable && params.size() != 2) || params.size() > 2)
         throw runtime_error(
             "autocombinerewards true|false ( threshold )\n"
+<<<<<<< HEAD
             "\nWallet will automatically monitor for any coins with value below the threshold amount, and combine them if they reside with the same MIRE address\n"
+=======
+            "\nWallet will automatically monitor for any coins with value below the threshold amount, and combine them if they reside with the same Mire address\n"
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
             "When autocombinerewards runs it will create a transaction, and therefore will be subject to transaction fees.\n"
 
             "\nArguments:\n"
@@ -2071,6 +2535,7 @@ UniValue autocombinerewards(const UniValue& params, bool fHelp)
     if (!walletdb.WriteAutoCombineSettings(fEnable, nThreshold))
         throw runtime_error("Changed settings in wallet but failed to save to database\n");
 
+<<<<<<< HEAD
     return NullUniValue;
 }
 
@@ -2078,12 +2543,25 @@ UniValue printMultiSend()
 {
     UniValue ret(UniValue::VARR);
     UniValue act(UniValue::VOBJ);
+=======
+    return Value::null;
+}
+
+Array printMultiSend()
+{
+    Array ret;
+    Object act;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     act.push_back(Pair("MultiSendStake Activated?", pwalletMain->fMultiSendStake));
     act.push_back(Pair("MultiSendMasternode Activated?", pwalletMain->fMultiSendMasternodeReward));
     ret.push_back(act);
 
     if (pwalletMain->vDisabledAddresses.size() >= 1) {
+<<<<<<< HEAD
         UniValue disAdd(UniValue::VOBJ);
+=======
+        Object disAdd;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         for (unsigned int i = 0; i < pwalletMain->vDisabledAddresses.size(); i++) {
             disAdd.push_back(Pair("Disabled From Sending", pwalletMain->vDisabledAddresses[i]));
         }
@@ -2092,7 +2570,11 @@ UniValue printMultiSend()
 
     ret.push_back("MultiSend Addresses to Send To:");
 
+<<<<<<< HEAD
     UniValue vMS(UniValue::VOBJ);
+=======
+    Object vMS;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     for (unsigned int i = 0; i < pwalletMain->vMultiSend.size(); i++) {
         vMS.push_back(Pair("Address " + boost::lexical_cast<std::string>(i), pwalletMain->vMultiSend[i].first));
         vMS.push_back(Pair("Percent", pwalletMain->vMultiSend[i].second));
@@ -2102,7 +2584,11 @@ UniValue printMultiSend()
     return ret;
 }
 
+<<<<<<< HEAD
 UniValue printAddresses()
+=======
+Array printAddresses()
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     std::vector<COutput> vCoins;
     pwalletMain->AvailableCoins(vCoins);
@@ -2118,9 +2604,15 @@ UniValue printAddresses()
             mapAddresses[strAdd] += (double)out.tx->vout[out.i].nValue / (double)COIN;
     }
 
+<<<<<<< HEAD
     UniValue ret(UniValue::VARR);
     for (map<std::string, double>::const_iterator it = mapAddresses.begin(); it != mapAddresses.end(); ++it) {
         UniValue obj(UniValue::VOBJ);
+=======
+    Array ret;
+    for (map<std::string, double>::const_iterator it = mapAddresses.begin(); it != mapAddresses.end(); ++it) {
+        Object obj;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         const std::string* strAdd = &(*it).first;
         const double* nBalance = &(*it).second;
         obj.push_back(Pair("Address ", *strAdd));
@@ -2139,14 +2631,22 @@ unsigned int sumMultiSend()
     return sum;
 }
 
+<<<<<<< HEAD
 UniValue multisend(const UniValue& params, bool fHelp)
+=======
+Value multisend(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     CWalletDB walletdb(pwalletMain->strWalletFile);
     bool fFileBacked;
     //MultiSend Commands
     if (params.size() == 1) {
         string strCommand = params[0].get_str();
+<<<<<<< HEAD
         UniValue ret(UniValue::VOBJ);
+=======
+        Object ret;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         if (strCommand == "print") {
             return printMultiSend();
         } else if (strCommand == "printaddress" || strCommand == "printaddresses") {
@@ -2163,7 +2663,11 @@ UniValue multisend(const UniValue& params, bool fHelp)
                 pwalletMain->vMultiSend.clear();
                 pwalletMain->setMultiSendDisabled();
 
+<<<<<<< HEAD
                 UniValue obj(UniValue::VOBJ);
+=======
+                Object obj;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
                 obj.push_back(Pair("Erased from database", erased));
                 obj.push_back(Pair("Erased from RAM", true));
 
@@ -2176,9 +2680,15 @@ UniValue multisend(const UniValue& params, bool fHelp)
             if (CBitcoinAddress(pwalletMain->vMultiSend[0].first).IsValid()) {
                 pwalletMain->fMultiSendStake = true;
                 if (!walletdb.WriteMSettings(true, pwalletMain->fMultiSendMasternodeReward, pwalletMain->nLastMultiSendHeight)) {
+<<<<<<< HEAD
                     UniValue obj(UniValue::VOBJ);
                     obj.push_back(Pair("error", "MultiSend activated but writing settings to DB failed"));
                     UniValue arr(UniValue::VARR);
+=======
+                    Object obj;
+                    obj.push_back(Pair("error", "MultiSend activated but writing settings to DB failed"));
+                    Array arr;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
                     arr.push_back(obj);
                     arr.push_back(printMultiSend());
                     return arr;
@@ -2195,9 +2705,15 @@ UniValue multisend(const UniValue& params, bool fHelp)
                 pwalletMain->fMultiSendMasternodeReward = true;
 
                 if (!walletdb.WriteMSettings(pwalletMain->fMultiSendStake, true, pwalletMain->nLastMultiSendHeight)) {
+<<<<<<< HEAD
                     UniValue obj(UniValue::VOBJ);
                     obj.push_back(Pair("error", "MultiSend activated but writing settings to DB failed"));
                     UniValue arr(UniValue::VARR);
+=======
+                    Object obj;
+                    obj.push_back(Pair("error", "MultiSend activated but writing settings to DB failed"));
+                    Array arr;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
                     arr.push_back(obj);
                     arr.push_back(printMultiSend());
                     return arr;
@@ -2258,7 +2774,11 @@ UniValue multisend(const UniValue& params, bool fHelp)
             "The MultiSend transaction is sent when the staked coins mature (100 confirmations)\n"
             "****************************************************************\n"
             "TO CREATE OR ADD TO THE MULTISEND VECTOR:\n"
+<<<<<<< HEAD
             "multisend <MIRE Address> <percent>\n"
+=======
+            "multisend <Mire Address> <percent>\n"
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
             "This will add a new address to the MultiSend vector\n"
             "Percent is a whole number 1 to 100.\n"
             "****************************************************************\n"
@@ -2315,7 +2835,11 @@ UniValue multisend(const UniValue& params, bool fHelp)
     }
     return printMultiSend();
 }
+<<<<<<< HEAD
 UniValue getzerocoinbalance(const UniValue& params, bool fHelp)
+=======
+Value getzerocoinbalance(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
 
     if (fHelp || params.size() != 0)
@@ -2329,13 +2853,20 @@ UniValue getzerocoinbalance(const UniValue& params, bool fHelp)
     return ValueFromAmount(pwalletMain->GetZerocoinBalance(true));
 
 }
+<<<<<<< HEAD
 UniValue listmintedzerocoins(const UniValue& params, bool fHelp)
 {
 
+=======
+Value listmintedzerocoins(const Array& params, bool fHelp)
+{
+    
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     if (fHelp || params.size() != 0)
         throw runtime_error(
                             "listmintedzerocoins\n"
                             + HelpRequiringPassphrase());
+<<<<<<< HEAD
 
     if (pwalletMain->IsLocked())
         throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please enter the wallet passphrase with walletpassphrase first.");
@@ -2352,6 +2883,24 @@ UniValue listmintedzerocoins(const UniValue& params, bool fHelp)
 }
 
 UniValue listzerocoinamounts(const UniValue& params, bool fHelp)
+=======
+    
+    if (pwalletMain->IsLocked())
+        throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please enter the wallet passphrase with walletpassphrase first.");
+    
+    CWalletDB walletdb(pwalletMain->strWalletFile);
+    list<CZerocoinMint> listPubCoin = walletdb.ListMintedCoins(true, false, true);
+    
+    Array jsonList;
+    for (const CZerocoinMint& pubCoinItem : listPubCoin) {
+        jsonList.push_back(pubCoinItem.GetValue().GetHex());
+    }
+    
+    return jsonList;
+}
+
+Value listzerocoinamounts(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
 
     if (fHelp || params.size() != 0)
@@ -2364,15 +2913,24 @@ UniValue listzerocoinamounts(const UniValue& params, bool fHelp)
 
     CWalletDB walletdb(pwalletMain->strWalletFile);
     list<CZerocoinMint> listPubCoin = walletdb.ListMintedCoins(true, true, true);
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     std::map<libzerocoin::CoinDenomination, CAmount> spread;
     for (const auto& denom : libzerocoin::zerocoinDenomList)
         spread.insert(std::pair<libzerocoin::CoinDenomination, CAmount>(denom, 0));
     for (auto& mint : listPubCoin) spread.at(mint.GetDenomination())++;
 
 
+<<<<<<< HEAD
     UniValue jsonList(UniValue::VARR);
     UniValue val(UniValue::VOBJ);
+=======
+    Array jsonList;
+    Object val;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     for (const auto& m : libzerocoin::zerocoinDenomList) {
         stringstream s1;
         s1 << "Denomination Value " << libzerocoin::ZerocoinDenominationToInt(m);
@@ -2383,8 +2941,12 @@ UniValue listzerocoinamounts(const UniValue& params, bool fHelp)
     jsonList.push_back(val);
     return jsonList;
 }
+<<<<<<< HEAD
 
 UniValue listspentzerocoins(const UniValue& params, bool fHelp)
+=======
+Value listspentzerocoins(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
 
     if (fHelp || params.size() != 0)
@@ -2398,7 +2960,11 @@ UniValue listspentzerocoins(const UniValue& params, bool fHelp)
     CWalletDB walletdb(pwalletMain->strWalletFile);
     list<CBigNum> listPubCoin = walletdb.ListSpentCoinsSerial();
 
+<<<<<<< HEAD
     UniValue jsonList(UniValue::VARR);
+=======
+    Array jsonList;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     for (const CBigNum& pubCoinItem : listPubCoin) {
         jsonList.push_back(pubCoinItem.GetHex());
     }
@@ -2406,12 +2972,20 @@ UniValue listspentzerocoins(const UniValue& params, bool fHelp)
     return jsonList;
 }
 
+<<<<<<< HEAD
 UniValue mintzerocoin(const UniValue& params, bool fHelp)
+=======
+Value mintzerocoin(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
             "mintzerocoin <amount>\n"
+<<<<<<< HEAD
             "Usage: Enter an amount of Piv to convert to zPiv"
+=======
+            "Usage: Enter an amount of Mire to convert to zMire"
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
             + HelpRequiringPassphrase());
 
     int64_t nTime = GetTimeMillis();
@@ -2431,9 +3005,15 @@ UniValue mintzerocoin(const UniValue& params, bool fHelp)
     if (strError != "")
         throw JSONRPCError(RPC_WALLET_ERROR, strError);
 
+<<<<<<< HEAD
     UniValue arrMints(UniValue::VARR);
     for (CZerocoinMint mint : vMints) {
         UniValue m(UniValue::VOBJ);
+=======
+    Array arrMints;
+    for (CZerocoinMint mint : vMints) {
+        Object m;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         m.push_back(Pair("txid", wtx.GetHash().ToString()));
         m.push_back(Pair("value", ValueFromAmount(libzerocoin::ZerocoinDenominationToAmount(mint.GetDenomination()))));
         m.push_back(Pair("pubcoin", mint.GetValue().GetHex()));
@@ -2442,11 +3022,19 @@ UniValue mintzerocoin(const UniValue& params, bool fHelp)
         m.push_back(Pair("time", GetTimeMillis() - nTime));
         arrMints.push_back(m);
     }
+<<<<<<< HEAD
 
     return arrMints;
 }
 
 UniValue spendzerocoin(const UniValue& params, bool fHelp)
+=======
+    
+    return arrMints;
+}
+
+Value spendzerocoin(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() > 5 || params.size() < 4)
         throw runtime_error(
@@ -2460,7 +3048,10 @@ UniValue spendzerocoin(const UniValue& params, bool fHelp)
                     "of checkpoints available. Tip: adding more checkpoints makes the minting process take longer\n"
             "address: Send straight to an address or leave the address blank and the wallet will send to a change address. If there is change then"
                     "an address is required"
+<<<<<<< HEAD
 
+=======
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
             + HelpRequiringPassphrase());
 
     if(GetAdjustedTime() > GetSporkValue(SPORK_16_ZEROCOIN_MAINTENANCE_MODE))
@@ -2481,7 +3072,11 @@ UniValue spendzerocoin(const UniValue& params, bool fHelp)
         // to avoid type confusion from the JSON interpreter
         address = CBitcoinAddress(params[4].get_str());
         if(!address.IsValid())
+<<<<<<< HEAD
             throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid MIRE address");
+=======
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Mire address");
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     }
 
     CWalletTx wtx;
@@ -2498,9 +3093,15 @@ UniValue spendzerocoin(const UniValue& params, bool fHelp)
         throw JSONRPCError(RPC_WALLET_ERROR, receipt.GetStatusMessage());
 
     CAmount nValueIn = 0;
+<<<<<<< HEAD
     UniValue arrSpends(UniValue::VARR);
     for (CZerocoinSpend spend : receipt.GetSpends()) {
         UniValue obj(UniValue::VOBJ);
+=======
+    Array arrSpends;
+    for (CZerocoinSpend spend : receipt.GetSpends()) {
+        Object obj;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         obj.push_back(Pair("denomination", spend.GetDenomination()));
         obj.push_back(Pair("pubcoin", spend.GetPubCoin().GetHex()));
         obj.push_back(Pair("serial", spend.GetSerial().GetHex()));
@@ -2511,10 +3112,17 @@ UniValue spendzerocoin(const UniValue& params, bool fHelp)
     }
 
     CAmount nValueOut = 0;
+<<<<<<< HEAD
     UniValue vout(UniValue::VARR);
     for (unsigned int i = 0; i < wtx.vout.size(); i++) {
         const CTxOut& txout = wtx.vout[i];
         UniValue out(UniValue::VOBJ);
+=======
+    Array vout;
+    for (unsigned int i = 0; i < wtx.vout.size(); i++) {
+        const CTxOut& txout = wtx.vout[i];
+        Object out;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         out.push_back(Pair("value", ValueFromAmount(txout.nValue)));
         nValueOut += txout.nValue;
 
@@ -2527,7 +3135,11 @@ UniValue spendzerocoin(const UniValue& params, bool fHelp)
     }
 
     //construct JSON to return
+<<<<<<< HEAD
     UniValue ret(UniValue::VOBJ);
+=======
+    Object ret;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     ret.push_back(Pair("txid", wtx.GetHash().ToString()));
     ret.push_back(Pair("bytes", (int64_t)wtx.GetSerializeSize(SER_NETWORK, CTransaction::CURRENT_VERSION)));
     ret.push_back(Pair("fee", ValueFromAmount(nValueIn - nValueOut)));
@@ -2538,7 +3150,11 @@ UniValue spendzerocoin(const UniValue& params, bool fHelp)
     return ret;
 }
 
+<<<<<<< HEAD
 UniValue resetmintzerocoin(const UniValue& params, bool fHelp)
+=======
+Value resetmintzerocoin(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() > 1)
         throw runtime_error(
@@ -2565,26 +3181,42 @@ UniValue resetmintzerocoin(const UniValue& params, bool fHelp)
     FindMints(vMintsToFind, vMintsToUpdate, vMintsMissing, fExtendedSearch);
 
     // update the meta data of mints that were marked for updating
+<<<<<<< HEAD
     UniValue arrUpdated(UniValue::VARR);
+=======
+    Array arrUpdated;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     for (CZerocoinMint mint : vMintsToUpdate) {
         walletdb.WriteZerocoinMint(mint);
         arrUpdated.push_back(mint.GetValue().GetHex());
     }
 
     // delete any mints that were unable to be located on the blockchain
+<<<<<<< HEAD
     UniValue arrDeleted(UniValue::VARR);
+=======
+    Array arrDeleted;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     for (CZerocoinMint mint : vMintsMissing) {
         arrDeleted.push_back(mint.GetValue().GetHex());
         walletdb.ArchiveMintOrphan(mint);
     }
 
+<<<<<<< HEAD
     UniValue obj(UniValue::VOBJ);
+=======
+    Object obj;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     obj.push_back(Pair("updated", arrUpdated));
     obj.push_back(Pair("archived", arrDeleted));
     return obj;
 }
 
+<<<<<<< HEAD
 UniValue resetspentzerocoin(const UniValue& params, bool fHelp)
+=======
+Value resetspentzerocoin(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 0)
         throw runtime_error(
@@ -2610,8 +3242,13 @@ UniValue resetspentzerocoin(const UniValue& params, bool fHelp)
             listUnconfirmedSpends.push_back(spend);
     }
 
+<<<<<<< HEAD
     UniValue objRet(UniValue::VOBJ);
     UniValue arrRestored(UniValue::VARR);
+=======
+    Object objRet;
+    Array arrRestored;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     for (CZerocoinSpend spend : listUnconfirmedSpends) {
         for (CZerocoinMint mint : listMints) {
             if (mint.GetSerialNumber() == spend.GetSerial()) {
@@ -2619,7 +3256,11 @@ UniValue resetspentzerocoin(const UniValue& params, bool fHelp)
                 walletdb.WriteZerocoinMint(mint);
                 walletdb.EraseZerocoinSpendSerialEntry(spend.GetSerial());
                 RemoveSerialFromDB(spend.GetSerial());
+<<<<<<< HEAD
                 UniValue obj(UniValue::VOBJ);
+=======
+                Object obj;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
                 obj.push_back(Pair("serial", spend.GetSerial().GetHex()));
                 arrRestored.push_back(obj);
                 continue;
@@ -2631,7 +3272,11 @@ UniValue resetspentzerocoin(const UniValue& params, bool fHelp)
     return objRet;
 }
 
+<<<<<<< HEAD
 UniValue getarchivedzerocoin(const UniValue& params, bool fHelp)
+=======
+Value getarchivedzerocoin(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if(fHelp || params.size() != 0)
         throw runtime_error(
@@ -2643,9 +3288,15 @@ UniValue getarchivedzerocoin(const UniValue& params, bool fHelp)
     CWalletDB walletdb(pwalletMain->strWalletFile);
     list<CZerocoinMint> listMints = walletdb.ListArchivedZerocoins();
 
+<<<<<<< HEAD
     UniValue arrRet(UniValue::VARR);
     for (const CZerocoinMint mint : listMints) {
         UniValue objMint(UniValue::VOBJ);
+=======
+    Array arrRet;
+    for (const CZerocoinMint mint : listMints) {
+        Object objMint;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         objMint.push_back(Pair("txid", mint.GetTxHash().GetHex()));
         objMint.push_back(Pair("denomination", FormatMoney(mint.GetDenominationAsAmount())));
         objMint.push_back(Pair("serial", mint.GetSerialNumber().GetHex()));
@@ -2657,7 +3308,11 @@ UniValue getarchivedzerocoin(const UniValue& params, bool fHelp)
     return arrRet;
 }
 
+<<<<<<< HEAD
 UniValue exportzerocoins(const UniValue& params, bool fHelp)
+=======
+Value exportzerocoins(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if(fHelp || params.empty() || params.size() > 2)
         throw runtime_error(
@@ -2666,7 +3321,11 @@ UniValue exportzerocoins(const UniValue& params, bool fHelp)
 
                 "\nArguments:\n"
                 "1. \"include_spent\"        (bool, required) Include mints that have already been spent\n"
+<<<<<<< HEAD
                 "2. \"denomination\"         (integer, optional) Export a specific denomination of zPiv\n"
+=======
+                "2. \"denomination\"         (integer, optional) Export a specific denomination of zMire\n"
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
                 "\nResult\n"
                 "[                   (array of json object)\n"
@@ -2696,11 +3355,16 @@ UniValue exportzerocoins(const UniValue& params, bool fHelp)
         denomination = libzerocoin::IntToZerocoinDenomination(params[1].get_int());
     list<CZerocoinMint> listMints = walletdb.ListMintedCoins(!fIncludeSpent, false, false);
 
+<<<<<<< HEAD
     UniValue jsonList(UniValue::VARR);
+=======
+    Array jsonList;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     for (const CZerocoinMint mint : listMints) {
         if (denomination != libzerocoin::ZQ_ERROR && denomination != mint.GetDenomination())
             continue;
 
+<<<<<<< HEAD
         UniValue objMint(UniValue::VOBJ);
         objMint.push_back(Pair("d", mint.GetDenomination()));
         objMint.push_back(Pair("p", mint.GetValue().GetHex()));
@@ -2710,12 +3374,27 @@ UniValue exportzerocoins(const UniValue& params, bool fHelp)
         objMint.push_back(Pair("h", mint.GetHeight()));
         objMint.push_back(Pair("u", mint.IsUsed()));
         jsonList.push_back(objMint);
+=======
+        Object objMint;
+        objMint.emplace_back(Pair("d", mint.GetDenomination()));
+        objMint.emplace_back(Pair("p", mint.GetValue().GetHex()));
+        objMint.emplace_back(Pair("s", mint.GetSerialNumber().GetHex()));
+        objMint.emplace_back(Pair("r", mint.GetRandomness().GetHex()));
+        objMint.emplace_back(Pair("t", mint.GetTxHash().GetHex()));
+        objMint.emplace_back(Pair("h", mint.GetHeight()));
+        objMint.emplace_back(Pair("u", mint.IsUsed()));
+        jsonList.emplace_back(objMint);
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     }
 
     return jsonList;
 }
 
+<<<<<<< HEAD
 UniValue importzerocoins(const UniValue& params, bool fHelp)
+=======
+Value importzerocoins(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if(fHelp || params.size() == 0)
         throw runtime_error(
@@ -2730,7 +3409,11 @@ UniValue importzerocoins(const UniValue& params, bool fHelp)
 
                 "\nResult:\n"
                 "\"added\"            (int) the quantity of zerocoin mints that were added\n"
+<<<<<<< HEAD
                 "\"value\"            (string) the total zPiv value of zerocoin mints that were added\n"
+=======
+                "\"value\"            (string) the total zMire value of zerocoin mints that were added\n"
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
                 "\nExamples\n" +
             HelpExampleCli("importzerocoins", "\'[{\"d\":100,\"p\":\"mypubcoin\",\"s\":\"myserial\",\"r\":\"randomness_hex\",\"t\":\"mytxid\",\"h\":104923, \"u\":false},{\"d\":5,...}]\'") +
@@ -2739,15 +3422,25 @@ UniValue importzerocoins(const UniValue& params, bool fHelp)
     if(pwalletMain->IsLocked())
         throw JSONRPCError(RPC_WALLET_UNLOCK_NEEDED, "Error: Please enter the wallet passphrase with walletpassphrase first.");
 
+<<<<<<< HEAD
     RPCTypeCheck(params, list_of(UniValue::VARR)(UniValue::VOBJ));
     UniValue arrMints = params[0].get_array();
+=======
+    RPCTypeCheck(params, list_of(array_type)(obj_type));
+    Array arrMints = params[0].get_array();
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     CWalletDB walletdb(pwalletMain->strWalletFile);
 
     int count = 0;
     CAmount nValue = 0;
+<<<<<<< HEAD
     for (unsigned int idx = 0; idx < arrMints.size(); idx++) {
         const UniValue &val = arrMints[idx];
         const UniValue &o = val.get_obj();
+=======
+    for (const Value &val : arrMints) {
+        const Object &o = val.get_obj();
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
         int d = ParseInt(o, "d");
         if (d < 0)
@@ -2772,6 +3465,7 @@ UniValue importzerocoins(const UniValue& params, bool fHelp)
         nValue += libzerocoin::ZerocoinDenominationToAmount(denom);
     }
 
+<<<<<<< HEAD
     UniValue ret(UniValue::VOBJ);
     ret.push_back(Pair("added", count));
     ret.push_back(Pair("value", FormatMoney(nValue)));
@@ -2779,11 +3473,24 @@ UniValue importzerocoins(const UniValue& params, bool fHelp)
 }
 
 UniValue reconsiderzerocoins(const UniValue& params, bool fHelp)
+=======
+    Object ret;
+    ret.emplace_back(Pair("added", count));
+    ret.emplace_back(Pair("value", FormatMoney(nValue)));
+    return ret;
+}
+
+Value reconsiderzerocoins(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if(fHelp || !params.empty())
         throw runtime_error(
             "reconsiderzerocoins\n"
+<<<<<<< HEAD
                 "\nCheck archived zPiv list to see if any mints were added to the blockchain.\n"
+=======
+                "\nCheck archived zMire list to see if any mints were added to the blockchain.\n"
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
                 "\nResult\n"
                 "[                                 (array of json objects)\n"
@@ -2806,6 +3513,7 @@ UniValue reconsiderzerocoins(const UniValue& params, bool fHelp)
     list<CZerocoinMint> listMints;
     pwalletMain->ReconsiderZerocoins(listMints);
 
+<<<<<<< HEAD
     UniValue arrRet(UniValue::VARR);
     for (const CZerocoinMint mint : listMints) {
         UniValue objMint(UniValue::VOBJ);
@@ -2818,3 +3526,17 @@ UniValue reconsiderzerocoins(const UniValue& params, bool fHelp)
 
     return arrRet;
 }
+=======
+    Array arrRet;
+    for (const CZerocoinMint mint : listMints) {
+        Object objMint;
+        objMint.emplace_back(Pair("txid", mint.GetTxHash().GetHex()));
+        objMint.emplace_back(Pair("denomination", FormatMoney(mint.GetDenominationAsAmount())));
+        objMint.emplace_back(Pair("pubcoin", mint.GetValue().GetHex()));
+        objMint.emplace_back(Pair("height", mint.GetHeight()));
+        arrRet.emplace_back(objMint);
+    }
+
+    return arrRet;
+}
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed

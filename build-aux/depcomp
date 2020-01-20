@@ -1,9 +1,15 @@
 #! /bin/sh
 # depcomp - compile a program generating dependencies as side-effects
 
+<<<<<<< HEAD
 scriptversion=2013-05-30.07; # UTC
 
 # Copyright (C) 1999-2014 Free Software Foundation, Inc.
+=======
+scriptversion=2016-01-11.22; # UTC
+
+# Copyright (C) 1999-2017 Free Software Foundation, Inc.
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -786,6 +792,10 @@ exit 0
 # eval: (add-hook 'write-file-hooks 'time-stamp)
 # time-stamp-start: "scriptversion="
 # time-stamp-format: "%:y-%02m-%02d.%02H"
+<<<<<<< HEAD
 # time-stamp-time-zone: "UTC"
+=======
+# time-stamp-time-zone: "UTC0"
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 # time-stamp-end: "; # UTC"
 # End:

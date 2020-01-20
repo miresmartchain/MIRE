@@ -1,6 +1,10 @@
 script/libbitcoin_common_a-script_error.o: script/script_error.cpp \
+<<<<<<< HEAD
  /usr/include/stdc-predef.h script/script_error.h
 
 /usr/include/stdc-predef.h:
+=======
+ script/script_error.h
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
 script/script_error.h:

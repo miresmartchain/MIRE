@@ -3,10 +3,17 @@
  *
  * @brief      Denomination functions for the Zerocoin library.
  *
+<<<<<<< HEAD
  * @copyright  Copyright 2017 Mire Developers
  * @license    This project is released under the MIT license.
  **/
 // Copyright (c) 2015-2017 The Mire developers
+=======
+ * @copyright  Copyright 2017 PIVX Developers
+ * @license    This project is released under the MIT license.
+ **/
+// Copyright (c) 2015-2017 The PIVX developers
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
 #include "denomination_functions.h"
 

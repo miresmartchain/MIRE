@@ -1,5 +1,9 @@
 // Copyright (c) 2014-2016 The Dash developers
+<<<<<<< HEAD
 // Copyright (c) 2016-2017 The Mire developers
+=======
+// Copyright (c) 2016-2017 The PIVX developers
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -26,7 +30,11 @@ using namespace boost;
 
     Sporks 11,12, and 16 to be removed with 1st zerocoin release
 */
+<<<<<<< HEAD
 #define SPORK_START 10001
+=======
+#define SPORK_STMIRE 10001
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 #define SPORK_END 10015
 
 #define SPORK_2_SWIFTTX 10001

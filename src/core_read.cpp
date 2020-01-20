@@ -1,5 +1,9 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
+<<<<<<< HEAD
 // Copyright (c) 2015-2017 The Mire developers
+=======
+// Copyright (c) 2015-2017 The PIVX developers
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -10,7 +14,11 @@
 #include "script/script.h"
 #include "serialize.h"
 #include "streams.h"
+<<<<<<< HEAD
 #include <univalue.h>
+=======
+#include "univalue/univalue.h"
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 #include "util.h"
 #include "utilstrencodings.h"
 #include "version.h"
@@ -137,4 +145,8 @@ vector<unsigned char> ParseHexUV(const UniValue& v, const string& strName)
     if (!IsHex(strHex))
         throw runtime_error(strName + " must be hexadecimal string (not '" + strHex + "')");
     return ParseHex(strHex);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed

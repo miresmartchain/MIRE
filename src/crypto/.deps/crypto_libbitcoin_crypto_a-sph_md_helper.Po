@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 crypto/crypto_libbitcoin_crypto_a-sph_md_helper.o: crypto/sph_md_helper.c \
  /usr/include/stdc-predef.h
 
 /usr/include/stdc-predef.h:
+=======
+crypto/crypto_libbitcoin_crypto_a-sph_md_helper.o: crypto/sph_md_helper.c
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed

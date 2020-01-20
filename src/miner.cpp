@@ -1,7 +1,11 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
+<<<<<<< HEAD
 // Copyright (c) 2015-2017 The Mire developers
+=======
+// Copyright (c) 2015-2017 The PIVX developers
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 // Copyright (c) 2018 The Mire developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -542,14 +546,22 @@ void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)
         if (fProofOfStake) {
 			
             if (chainActive.Tip()->nHeight < Params().LAST_POW_BLOCK()-1) {
+<<<<<<< HEAD
 				//LogPrintf("Miner: ProofOfStake is true, but lower than last POW block\n");
+=======
+				LogPrintf("Miner: ProofOfStake is true, but lower than last POW block\n");
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
                 MilliSleep(5000);
                 continue;
             }
 
             while (chainActive.Tip()->nTime < 1471482000 || vNodes.empty() || pwallet->IsLocked() || !fMintableCoins || nReserveBalance >= pwallet->GetBalance()|| !masternodeSync.IsSynced() ) {
                 nLastCoinStakeSearchInterval = 0;
+<<<<<<< HEAD
                // LogPrintf("Miner: ProofOfStake is true, but wallet is not synces, locked, etc...\n");
+=======
+                LogPrintf("Miner: ProofOfStake is true, but wallet is not synces, locked, etc...\n");
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
                 MilliSleep(5000);
                 if (!fGenerateBitcoins && !fProofOfStake)
                     continue;
@@ -566,7 +578,11 @@ void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)
             {
                 if (GetTime() - mapHashedBlocks[chainActive.Tip()->nHeight] < max(pwallet->nHashInterval, (unsigned int)1)) // wait half of the nHashDrift with max wait of 3 minutes
                 {
+<<<<<<< HEAD
    				  // LogPrintf("Miner: ProofOfStake is true, but hash interval is less than expected\n");
+=======
+   				   LogPrintf("Miner: ProofOfStake is true, but hash interval is less than expected\n");
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
                    MilliSleep(5000);
                     continue;
                 }

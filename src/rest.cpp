@@ -14,9 +14,14 @@
 
 #include <boost/algorithm/string.hpp>
 
+<<<<<<< HEAD
 #include <univalue.h>
 
 using namespace std;
+=======
+using namespace std;
+using namespace json_spirit;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
 enum RetFormat {
     RF_UNDEF,
@@ -42,8 +47,13 @@ public:
     string message;
 };
 
+<<<<<<< HEAD
 extern void TxToJSON(const CTransaction& tx, const uint256 hashBlock, UniValue& entry);
 extern UniValue blockToJSON(const CBlock& block, const CBlockIndex* blockindex, bool txDetails = false);
+=======
+extern void TxToJSON(const CTransaction& tx, const uint256 hashBlock, Object& entry);
+extern Object blockToJSON(const CBlock& block, const CBlockIndex* blockindex, bool txDetails = false);
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
 static RestErr RESTERR(enum HTTPStatusCode status, string message)
 {
@@ -133,8 +143,13 @@ static bool rest_block(AcceptedConnection* conn,
     }
 
     case RF_JSON: {
+<<<<<<< HEAD
         UniValue objBlock = blockToJSON(block, pblockindex, showTxDetails);
         string strJSON = objBlock.write() + "\n";
+=======
+        Object objBlock = blockToJSON(block, pblockindex, showTxDetails);
+        string strJSON = write_string(Value(objBlock), false) + "\n";
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         conn->stream() << HTTPReply(HTTP_OK, strJSON, fRun) << std::flush;
         return true;
     }
@@ -199,9 +214,15 @@ static bool rest_tx(AcceptedConnection* conn,
     }
 
     case RF_JSON: {
+<<<<<<< HEAD
         UniValue objTx(UniValue::VOBJ);
         TxToJSON(tx, hashBlock, objTx);
         string strJSON = objTx.write() + "\n";
+=======
+        Object objTx;
+        TxToJSON(tx, hashBlock, objTx);
+        string strJSON = write_string(Value(objTx), false) + "\n";
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         conn->stream() << HTTPReply(HTTP_OK, strJSON, fRun) << std::flush;
         return true;
     }
@@ -251,4 +272,8 @@ bool HTTPReq_REST(AcceptedConnection* conn,
 
     conn->stream() << HTTPError(HTTP_NOT_FOUND, false) << std::flush;
     return false;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed

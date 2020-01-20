@@ -1,7 +1,12 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin developers
 // Copyright (c) 2009-2015 The Dash developers
+<<<<<<< HEAD
 // Copyright (c) 2015-2017 The MIRE developers
+=======
+// Copyright (c) 2015-2017 The PIVX developers
+// Copyright (c) 2018 The Mire developers
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -14,13 +19,20 @@
 
 #include <boost/filesystem/operations.hpp>
 
+<<<<<<< HEAD
 #include <univalue.h>
 
+=======
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 #define _(x) std::string(x) /* Keep the _() around in case gettext or such will be used later to translate non-UI */
 
 using namespace std;
 using namespace boost;
 using namespace boost::asio;
+<<<<<<< HEAD
+=======
+using namespace json_spirit;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
 std::string HelpMessageCli()
 {
@@ -33,7 +45,11 @@ std::string HelpMessageCli()
     strUsage += HelpMessageOpt("-regtest", _("Enter regression test mode, which uses a special chain in which blocks can be "
                                              "solved instantly. This is intended for regression testing tools and app development."));
     strUsage += HelpMessageOpt("-rpcconnect=<ip>", strprintf(_("Send commands to node running on <ip> (default: %s)"), "127.0.0.1"));
+<<<<<<< HEAD
     strUsage += HelpMessageOpt("-rpcport=<port>", strprintf(_("Connect to JSON-RPC on <port> (default: %u or testnet: %u)"), 51473, 51475));
+=======
+    strUsage += HelpMessageOpt("-rpcport=<port>", strprintf(_("Connect to JSON-RPC on <port> (default: %u or testnet: %u)"), 16345, 17345));
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     strUsage += HelpMessageOpt("-rpcwait", _("Wait for RPC server to start"));
     strUsage += HelpMessageOpt("-rpcuser=<user>", _("Username for JSON-RPC connections"));
     strUsage += HelpMessageOpt("-rpcpassword=<pw>", _("Password for JSON-RPC connections"));
@@ -99,7 +115,11 @@ static bool AppInitRPC(int argc, char* argv[])
     return true;
 }
 
+<<<<<<< HEAD
 UniValue CallRPC(const string& strMethod, const UniValue& params)
+=======
+Object CallRPC(const string& strMethod, const Array& params)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (mapArgs["-rpcuser"] == "" && mapArgs["-rpcpassword"] == "")
         throw runtime_error(strprintf(
@@ -147,10 +167,17 @@ UniValue CallRPC(const string& strMethod, const UniValue& params)
         throw runtime_error("no response from server");
 
     // Parse reply
+<<<<<<< HEAD
     UniValue valReply(UniValue::VSTR);
     if (!valReply.read(strReply))
         throw runtime_error("couldn't parse reply from server");
     const UniValue& reply = valReply.get_obj();
+=======
+    Value valReply;
+    if (!read_string(strReply, valReply))
+        throw runtime_error("couldn't parse reply from server");
+    const Object& reply = valReply.get_obj();
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     if (reply.empty())
         throw runtime_error("expected reply to have result, error and id properties");
 
@@ -175,12 +202,17 @@ int CommandLineRPC(int argc, char* argv[])
 
         // Parameters default to strings
         std::vector<std::string> strParams(&argv[2], &argv[argc]);
+<<<<<<< HEAD
         UniValue params = RPCConvertValues(strMethod, strParams);
+=======
+        Array params = RPCConvertValues(strMethod, strParams);
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
         // Execute and handle connection failures with -rpcwait
         const bool fWait = GetBoolArg("-rpcwait", false);
         do {
             try {
+<<<<<<< HEAD
                 const UniValue reply = CallRPC(strMethod, params); 
 
                 // Parse reply
@@ -203,6 +235,31 @@ int CommandLineRPC(int argc, char* argv[])
                     else
                         strPrint = result.write(2);
                 }
+=======
+                const Object reply = CallRPC(strMethod, params);
+
+                // Parse reply
+                const Value& result = find_value(reply, "result");
+                const Value& error = find_value(reply, "error");
+
+                if (error.type() != null_type) {
+                    // Error
+                    const int code = find_value(error.get_obj(), "code").get_int();
+                    if (fWait && code == RPC_IN_WARMUP)
+                        throw CConnectionFailed("server in warmup");
+                    strPrint = "error: " + write_string(error, false);
+                    nRet = abs(code);
+                } else {
+                    // Result
+                    if (result.type() == null_type)
+                        strPrint = "";
+                    else if (result.type() == str_type)
+                        strPrint = result.get_str();
+                    else
+                        strPrint = write_string(result, true);
+                }
+
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
                 // Connection succeeded, no need to retry.
                 break;
             } catch (const CConnectionFailed& e) {
@@ -252,4 +309,8 @@ int main(int argc, char* argv[])
         PrintExceptionContinue(NULL, "CommandLineRPC()");
     }
     return ret;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed

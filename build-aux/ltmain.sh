@@ -31,7 +31,11 @@
 
 PROGRAM=libtool
 PACKAGE=libtool
+<<<<<<< HEAD
 VERSION="2.4.6 Debian-2.4.6-0.1"
+=======
+VERSION="2.4.6 Debian-2.4.6-2"
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 package_revision=2.4.6
 
 
@@ -2068,7 +2072,11 @@ include the following information:
        compiler:       $LTCC
        compiler flags: $LTCFLAGS
        linker:         $LD (gnu? $with_gnu_ld)
+<<<<<<< HEAD
        version:        $progname (GNU libtool) 2.4.6
+=======
+       version:        $progname $scriptversion Debian-2.4.6-2
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
        automake:       `($AUTOMAKE --version) 2>/dev/null |$SED 1q`
        autoconf:       `($AUTOCONF --version) 2>/dev/null |$SED 1q`
 

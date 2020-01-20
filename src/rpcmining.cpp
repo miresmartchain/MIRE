@@ -1,7 +1,11 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
+<<<<<<< HEAD
 // Copyright (c) 2015-2017 The MIRE developers
+=======
+// Copyright (c) 2015-2017 The PIVX developers
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -25,6 +29,7 @@
 
 #include <boost/assign/list_of.hpp>
 
+<<<<<<< HEAD
 #include <univalue.h>
 
 using namespace std;
@@ -53,6 +58,42 @@ void InitRPCMining()
 void ShutdownRPCMining()		
 {		
 }		
+=======
+#include "json/json_spirit_utils.h"
+#include "json/json_spirit_value.h"
+
+using namespace json_spirit;
+using namespace std;
+
+#ifdef ENABLE_WALLET
+// Key used by getwork miners.
+// Allocated in InitRPCMining, free'd in ShutdownRPCMining
+static CReserveKey* pMiningKey = NULL;
+
+void InitRPCMining()
+{
+    if (!pwalletMain)
+        return;
+
+    // getwork/getblocktemplate mining rewards paid here:
+    pMiningKey = new CReserveKey(pwalletMain);
+}
+
+void ShutdownRPCMining()
+{
+    if (!pMiningKey)
+        return;
+
+    delete pMiningKey; pMiningKey = NULL;
+}
+#else
+void InitRPCMining()
+{
+}
+void ShutdownRPCMining()
+{
+}
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 #endif
 
 /**
@@ -60,9 +101,15 @@ void ShutdownRPCMining()
  * or from the last difficulty change if 'lookup' is nonpositive.
  * If 'height' is nonnegative, compute the estimate at the time when a given block was found.
  */
+<<<<<<< HEAD
 UniValue GetNetworkHashPS(int lookup, int height)
 {
     CBlockIndex *pb = chainActive.Tip();
+=======
+Value GetNetworkHashPS(int lookup, int height)
+{
+    CBlockIndex* pb = chainActive.Tip();
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
     if (height >= 0 && height < chainActive.Height())
         pb = chainActive[height];
@@ -98,7 +145,11 @@ UniValue GetNetworkHashPS(int lookup, int height)
     return (int64_t)(workDiff.getdouble() / timeDiff);
 }
 
+<<<<<<< HEAD
 UniValue getnetworkhashps(const UniValue& params, bool fHelp)
+=======
+Value getnetworkhashps(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() > 2)
         throw runtime_error(
@@ -118,7 +169,11 @@ UniValue getnetworkhashps(const UniValue& params, bool fHelp)
 }
 
 #ifdef ENABLE_WALLET
+<<<<<<< HEAD
 UniValue getgenerate(const UniValue& params, bool fHelp)
+=======
+Value getgenerate(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 0)
         throw runtime_error(
@@ -135,7 +190,11 @@ UniValue getgenerate(const UniValue& params, bool fHelp)
 }
 
 
+<<<<<<< HEAD
 UniValue setgenerate(const UniValue& params, bool fHelp)
+=======
+Value setgenerate(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
@@ -159,6 +218,16 @@ UniValue setgenerate(const UniValue& params, bool fHelp)
     if (pwalletMain == NULL)
         throw JSONRPCError(RPC_METHOD_NOT_FOUND, "Method not found (disabled)");
 
+<<<<<<< HEAD
+=======
+    CBlockIndex* const pindexPrevCheck = chainActive.Tip();
+            
+    //fix to return simple error while switched to PoS
+    if (pindexPrevCheck->nHeight+1 > Params().LAST_POW_BLOCK()) {
+		throw JSONRPCError(RPC_MISC_ERROR, "No more PoW blocks");
+    }
+    
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     bool fGenerate = true;
     if (params.size() > 0)
         fGenerate = params[0].get_bool();
@@ -185,7 +254,11 @@ UniValue setgenerate(const UniValue& params, bool fHelp)
             nHeightEnd = nHeightStart + nGenerate;
         }
         unsigned int nExtraNonce = 0;
+<<<<<<< HEAD
         UniValue blockHashes(UniValue::VARR);
+=======
+        Array blockHashes;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         while (nHeight < nHeightEnd) {
             unique_ptr<CBlockTemplate> pblocktemplate(CreateNewBlockWithKey(reservekey, pwalletMain, false));
             if (!pblocktemplate.get())
@@ -214,10 +287,17 @@ UniValue setgenerate(const UniValue& params, bool fHelp)
         GenerateBitcoins(fGenerate, pwalletMain, nGenProcLimit);
     }
 
+<<<<<<< HEAD
     return NullUniValue;
 }
 
 UniValue gethashespersec(const UniValue& params, bool fHelp)
+=======
+    return Value::null;
+}
+
+Value gethashespersec(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 0)
         throw runtime_error(
@@ -236,7 +316,11 @@ UniValue gethashespersec(const UniValue& params, bool fHelp)
 #endif
 
 
+<<<<<<< HEAD
 UniValue getmininginfo(const UniValue& params, bool fHelp)
+=======
+Value getmininginfo(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 0)
         throw runtime_error(
@@ -259,7 +343,11 @@ UniValue getmininginfo(const UniValue& params, bool fHelp)
             "\nExamples:\n" +
             HelpExampleCli("getmininginfo", "") + HelpExampleRpc("getmininginfo", ""));
 
+<<<<<<< HEAD
     UniValue obj(UniValue::VOBJ);
+=======
+    Object obj;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     obj.push_back(Pair("blocks", (int)chainActive.Height()));
     obj.push_back(Pair("currentblocksize", (uint64_t)nLastBlockSize));
     obj.push_back(Pair("currentblocktx", (uint64_t)nLastBlockTx));
@@ -279,7 +367,11 @@ UniValue getmininginfo(const UniValue& params, bool fHelp)
 
 
 // NOTE: Unlike wallet RPC (which use BTC values), mining RPCs follow GBT (BIP 22) in using satoshi amounts
+<<<<<<< HEAD
 UniValue prioritisetransaction(const UniValue& params, bool fHelp)
+=======
+Value prioritisetransaction(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 3)
         throw runtime_error(
@@ -308,10 +400,17 @@ UniValue prioritisetransaction(const UniValue& params, bool fHelp)
 
 
 // NOTE: Assumes a conclusive result; if result is inconclusive, it must be handled by caller
+<<<<<<< HEAD
 static UniValue BIP22ValidationResult(const CValidationState& state)
 {
     if (state.IsValid())
         return NullUniValue;
+=======
+static Value BIP22ValidationResult(const CValidationState& state)
+{
+    if (state.IsValid())
+        return Value::null;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
     std::string strRejectReason = state.GetRejectReason();
     if (state.IsError())
@@ -325,7 +424,11 @@ static UniValue BIP22ValidationResult(const CValidationState& state)
     return "valid?";
 }
 
+<<<<<<< HEAD
 UniValue getblocktemplate(const UniValue& params, bool fHelp)
+=======
+Value getblocktemplate(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() > 1)
         throw runtime_error(
@@ -394,6 +497,7 @@ UniValue getblocktemplate(const UniValue& params, bool fHelp)
             HelpExampleCli("getblocktemplate", "") + HelpExampleRpc("getblocktemplate", ""));
 
     std::string strMode = "template";
+<<<<<<< HEAD
     UniValue lpval = NullUniValue;
     if (params.size() > 0) {
         const UniValue& oparam = params[0].get_obj();
@@ -401,14 +505,41 @@ UniValue getblocktemplate(const UniValue& params, bool fHelp)
         if (modeval.isStr())
             strMode = modeval.get_str();
         else if (modeval.isNull()) {
+=======
+    Value lpval = Value::null;
+    
+    CBlockIndex* const pindexPrevCheck = chainActive.Tip();
+            
+    //fix to return simple error while switched to PoS
+    bool fProofOfStake;
+    if (pindexPrevCheck->nHeight+1 > Params().LAST_POW_BLOCK()) {
+		
+		fProofOfStake = true;
+		throw JSONRPCError(RPC_MISC_ERROR, "No more PoW blocks");
+	} else
+	    fProofOfStake = false;
+    
+    
+    if (params.size() > 0) {
+        const Object& oparam = params[0].get_obj();
+        const Value& modeval = find_value(oparam, "mode");
+        if (modeval.type() == str_type)
+            strMode = modeval.get_str();
+        else if (modeval.type() == null_type) {
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
             /* Do nothing */
         } else
             throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid mode");
         lpval = find_value(oparam, "longpollid");
 
         if (strMode == "proposal") {
+<<<<<<< HEAD
             const UniValue& dataval = find_value(oparam, "data");
             if (!dataval.isStr())
+=======
+            const Value& dataval = find_value(oparam, "data");
+            if (dataval.type() != str_type)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
                 throw JSONRPCError(RPC_TYPE_ERROR, "Missing data String key for proposal");
 
             CBlock block;
@@ -427,6 +558,16 @@ UniValue getblocktemplate(const UniValue& params, bool fHelp)
             }
 
             CBlockIndex* const pindexPrev = chainActive.Tip();
+<<<<<<< HEAD
+=======
+            
+            //TEST!!! fix
+            //if (pindexPrev->nHeight+1 > Params().LAST_POW_BLOCK()) {
+			//	printf("TEST!!! no more PoW blocks\n");
+			//	throw JSONRPCError(RPC_MISC_ERROR, "No more PoW blocks");
+			//}
+            
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
             // TestBlockValidity only supports blocks built on the current Tip
             if (block.hashPrevBlock != pindexPrev->GetBlockHash())
                 return "inconclusive-not-best-prevblk";
@@ -440,6 +581,7 @@ UniValue getblocktemplate(const UniValue& params, bool fHelp)
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid mode");
 
     if (vNodes.empty())
+<<<<<<< HEAD
         throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "MIRE is not connected!");
 
     if (IsInitialBlockDownload())
@@ -448,12 +590,26 @@ UniValue getblocktemplate(const UniValue& params, bool fHelp)
     static unsigned int nTransactionsUpdatedLast;
 
     if (!lpval.isNull()) {
+=======
+        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Mire is not connected!");
+
+    if (IsInitialBlockDownload())
+        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Mire is downloading blocks...");
+
+    static unsigned int nTransactionsUpdatedLast;
+
+    if (lpval.type() != null_type) {
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         // Wait to respond until either the best block changes, OR a minute has passed and there are more transactions
         uint256 hashWatchedChain;
         boost::system_time checktxtime;
         unsigned int nTransactionsUpdatedLastLP;
 
+<<<<<<< HEAD
         if (lpval.isStr()) {
+=======
+        if (lpval.type() == str_type) {
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
             // Format: <hashBestChain><nTransactionsUpdatedLast>
             std::string lpstr = lpval.get_str();
 
@@ -514,10 +670,26 @@ UniValue getblocktemplate(const UniValue& params, bool fHelp)
             delete pblocktemplate;
             pblocktemplate = NULL;
         }
+<<<<<<< HEAD
         CScript scriptDummy = CScript() << OP_TRUE;
         pblocktemplate = CreateNewBlock(scriptDummy, pwalletMain, false);
         if (!pblocktemplate)
             throw JSONRPCError(RPC_OUT_OF_MEMORY, "Out of memory");
+=======
+		
+		/* TODO-- too poor as per performance, but only way */
+		
+		CPubKey pubkey;
+		if (!pMiningKey->GetReservedKey(pubkey))
+			return Value::null;
+		
+        CScript scriptDummy = CScript() << ToByteVector(pubkey) << OP_CHECKSIG;
+        pblocktemplate = CreateNewBlock(scriptDummy, pwalletMain, fProofOfStake);
+        if (!pblocktemplate) {
+			LogPrintf("DEBUG getblocktemplate: cannot create a new block");
+            throw JSONRPCError(RPC_OUT_OF_MEMORY, "Out of memory");
+		}
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
         // Need to update only after we know CreateNewBlock succeeded
         pindexPrev = pindexPrevNew;
@@ -528,9 +700,15 @@ UniValue getblocktemplate(const UniValue& params, bool fHelp)
     UpdateTime(pblock, pindexPrev);
     pblock->nNonce = 0;
 
+<<<<<<< HEAD
     UniValue aCaps(UniValue::VARR); aCaps.push_back("proposal");
 
     UniValue transactions(UniValue::VARR);
+=======
+    static const Array aCaps = boost::assign::list_of("proposal");
+
+    Array transactions;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     map<uint256, int64_t> setTxIndex;
     int i = 0;
     BOOST_FOREACH (CTransaction& tx, pblock->vtx) {
@@ -540,13 +718,21 @@ UniValue getblocktemplate(const UniValue& params, bool fHelp)
         if (tx.IsCoinBase())
             continue;
 
+<<<<<<< HEAD
         UniValue entry(UniValue::VOBJ);
+=======
+        Object entry;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
         entry.push_back(Pair("data", EncodeHexTx(tx)));
 
         entry.push_back(Pair("hash", txHash.GetHex()));
 
+<<<<<<< HEAD
         UniValue deps(UniValue::VARR);
+=======
+        Array deps;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
         BOOST_FOREACH (const CTxIn& in, tx.vin) {
             if (setTxIndex.count(in.prevout.hash))
                 deps.push_back(setTxIndex[in.prevout.hash]);
@@ -559,28 +745,79 @@ UniValue getblocktemplate(const UniValue& params, bool fHelp)
 
         transactions.push_back(entry);
     }
+<<<<<<< HEAD
 
     UniValue aux(UniValue::VOBJ);
+=======
+	
+	Array coinbasetxn;
+    map<uint256, int64_t> setTxIndex1;
+    int j = 0;
+    BOOST_FOREACH (CTransaction& tx, pblock->vtx) {//Incase if multi coinbase
+		if(tx.IsCoinBase()){
+			uint256 txHash = tx.GetHash();
+			setTxIndex1[txHash] = j++;
+
+			/* if (tx.IsCoinBase())
+            continue; */
+
+			Object entry;
+
+			entry.push_back(Pair("data", EncodeHexTx(tx)));
+
+			entry.push_back(Pair("hash", txHash.GetHex()));
+
+			Array deps;
+			BOOST_FOREACH (const CTxIn& in, tx.vin) {
+				if (setTxIndex.count(in.prevout.hash))
+                deps.push_back(setTxIndex[in.prevout.hash]);
+			}
+			entry.push_back(Pair("depends", deps));
+
+			int index_in_template = j - 1;
+			entry.push_back(Pair("fee", pblocktemplate->vTxFees[index_in_template]));
+			entry.push_back(Pair("sigops", pblocktemplate->vTxSigOps[index_in_template]));
+
+			coinbasetxn.push_back(entry);
+		}
+    }
+
+    Object aux;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     aux.push_back(Pair("flags", HexStr(COINBASE_FLAGS.begin(), COINBASE_FLAGS.end())));
 
     uint256 hashTarget = uint256().SetCompact(pblock->nBits);
 
+<<<<<<< HEAD
     static UniValue aMutable(UniValue::VARR);
+=======
+    static Array aMutable;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     if (aMutable.empty()) {
         aMutable.push_back("time");
         aMutable.push_back("transactions");
         aMutable.push_back("prevblock");
     }
 
+<<<<<<< HEAD
     UniValue aVotes(UniValue::VARR);
 
     UniValue result(UniValue::VOBJ);
+=======
+    Array aVotes;
+
+    Object result;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     result.push_back(Pair("capabilities", aCaps));
     result.push_back(Pair("version", pblock->nVersion));
     result.push_back(Pair("previousblockhash", pblock->hashPrevBlock.GetHex()));
     result.push_back(Pair("transactions", transactions));
     result.push_back(Pair("coinbaseaux", aux));
     result.push_back(Pair("coinbasevalue", (int64_t)pblock->vtx[0].GetValueOut()));
+<<<<<<< HEAD
+=======
+	result.push_back(Pair("coinbasetxn", coinbasetxn[0]));
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     result.push_back(Pair("longpollid", chainActive.Tip()->GetBlockHash().GetHex() + i64tostr(nTransactionsUpdatedLast)));
     result.push_back(Pair("target", hashTarget.GetHex()));
     result.push_back(Pair("mintime", (int64_t)pindexPrev->GetMedianTimePast() + 1));
@@ -630,7 +867,11 @@ protected:
     };
 };
 
+<<<<<<< HEAD
 UniValue submitblock(const UniValue& params, bool fHelp)
+=======
+Value submitblock(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
@@ -687,7 +928,11 @@ UniValue submitblock(const UniValue& params, bool fHelp)
     return BIP22ValidationResult(state);
 }
 
+<<<<<<< HEAD
 UniValue estimatefee(const UniValue& params, bool fHelp)
+=======
+Value estimatefee(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
@@ -705,7 +950,11 @@ UniValue estimatefee(const UniValue& params, bool fHelp)
             "\nExample:\n" +
             HelpExampleCli("estimatefee", "6"));
 
+<<<<<<< HEAD
     RPCTypeCheck(params, boost::assign::list_of(UniValue::VNUM));
+=======
+    RPCTypeCheck(params, boost::assign::list_of(int_type));
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
     int nBlocks = params[0].get_int();
     if (nBlocks < 1)
@@ -718,7 +967,11 @@ UniValue estimatefee(const UniValue& params, bool fHelp)
     return ValueFromAmount(feeRate.GetFeePerK());
 }
 
+<<<<<<< HEAD
 UniValue estimatepriority(const UniValue& params, bool fHelp)
+=======
+Value estimatepriority(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
@@ -736,11 +989,19 @@ UniValue estimatepriority(const UniValue& params, bool fHelp)
             "\nExample:\n" +
             HelpExampleCli("estimatepriority", "6"));
 
+<<<<<<< HEAD
     RPCTypeCheck(params, boost::assign::list_of(UniValue::VNUM));
+=======
+    RPCTypeCheck(params, boost::assign::list_of(int_type));
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
     int nBlocks = params[0].get_int();
     if (nBlocks < 1)
         nBlocks = 1;
 
     return mempool.estimatePriority(nBlocks);
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed

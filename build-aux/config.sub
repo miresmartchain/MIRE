@@ -1,8 +1,14 @@
 #! /bin/sh
 # Configuration validation subroutine script.
+<<<<<<< HEAD
 #   Copyright 1992-2015 Free Software Foundation, Inc.
 
 timestamp='2015-08-20'
+=======
+#   Copyright 1992-2018 Free Software Foundation, Inc.
+
+timestamp='2018-02-22'
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
 # This file is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -15,7 +21,11 @@ timestamp='2015-08-20'
 # General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
+<<<<<<< HEAD
 # along with this program; if not, see <http://www.gnu.org/licenses/>.
+=======
+# along with this program; if not, see <https://www.gnu.org/licenses/>.
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 #
 # As a special exception to the GNU General Public License, if you
 # distribute this file as part of a program that contains a
@@ -33,7 +43,11 @@ timestamp='2015-08-20'
 # Otherwise, we print the canonical config type on stdout and succeed.
 
 # You can get the latest version of this script from:
+<<<<<<< HEAD
 # http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD
+=======
+# https://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
 # This file is supposed to be the same for all GNU packages
 # and recognize all the CPU types, system types and aliases
@@ -53,12 +67,20 @@ timestamp='2015-08-20'
 me=`echo "$0" | sed -e 's,.*/,,'`
 
 usage="\
+<<<<<<< HEAD
 Usage: $0 [OPTION] CPU-MFR-OPSYS
        $0 [OPTION] ALIAS
 
 Canonicalize a configuration name.
 
 Operation modes:
+=======
+Usage: $0 [OPTION] CPU-MFR-OPSYS or ALIAS
+
+Canonicalize a configuration name.
+
+Options:
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
   -h, --help         print this help, then exit
   -t, --time-stamp   print date of last modification, then exit
   -v, --version      print version number, then exit
@@ -68,7 +90,11 @@ Report bugs and patches to <config-patches@gnu.org>."
 version="\
 GNU config.sub ($timestamp)
 
+<<<<<<< HEAD
 Copyright 1992-2015 Free Software Foundation, Inc.
+=======
+Copyright 1992-2018 Free Software Foundation, Inc.
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."
@@ -95,7 +121,11 @@ while test $# -gt 0 ; do
 
     *local*)
        # First pass through any local machine types.
+<<<<<<< HEAD
        echo $1
+=======
+       echo "$1"
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
        exit ;;
 
     * )
@@ -113,11 +143,16 @@ esac
 
 # Separate what the user gave into CPU-COMPANY and OS or KERNEL-OS (if any).
 # Here we must recognize all the valid KERNEL-OS combinations.
+<<<<<<< HEAD
 maybe_os=`echo $1 | sed 's/^\(.*\)-\([^-]*-[^-]*\)$/\2/'`
+=======
+maybe_os=`echo "$1" | sed 's/^\(.*\)-\([^-]*-[^-]*\)$/\2/'`
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 case $maybe_os in
   nto-qnx* | linux-gnu* | linux-android* | linux-dietlibc | linux-newlib* | \
   linux-musl* | linux-uclibc* | uclinux-uclibc* | uclinux-gnu* | kfreebsd*-gnu* | \
   knetbsd*-gnu* | netbsd*-gnu* | netbsd*-eabi* | \
+<<<<<<< HEAD
   kopensolaris*-gnu* | \
   storm-chaos* | os2-emx* | rtmk-nova*)
     os=-$maybe_os
@@ -131,6 +166,21 @@ case $maybe_os in
     basic_machine=`echo $1 | sed 's/-[^-]*$//'`
     if [ $basic_machine != $1 ]
     then os=`echo $1 | sed 's/.*-/-/'`
+=======
+  kopensolaris*-gnu* | cloudabi*-eabi* | \
+  storm-chaos* | os2-emx* | rtmk-nova*)
+    os=-$maybe_os
+    basic_machine=`echo "$1" | sed 's/^\(.*\)-\([^-]*-[^-]*\)$/\1/'`
+    ;;
+  android-linux)
+    os=-linux-android
+    basic_machine=`echo "$1" | sed 's/^\(.*\)-\([^-]*-[^-]*\)$/\1/'`-unknown
+    ;;
+  *)
+    basic_machine=`echo "$1" | sed 's/-[^-]*$//'`
+    if [ "$basic_machine" != "$1" ]
+    then os=`echo "$1" | sed 's/.*-/-/'`
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     else os=; fi
     ;;
 esac
@@ -179,6 +229,7 @@ case $os in
 		;;
 	-sco6)
 		os=-sco5v6
+<<<<<<< HEAD
 		basic_machine=`echo $1 | sed -e 's/86-.*/86-pc/'`
 		;;
 	-sco5)
@@ -211,12 +262,50 @@ case $os in
 	-isc)
 		os=-isc2.2
 		basic_machine=`echo $1 | sed -e 's/86-.*/86-pc/'`
+=======
+		basic_machine=`echo "$1" | sed -e 's/86-.*/86-pc/'`
+		;;
+	-sco5)
+		os=-sco3.2v5
+		basic_machine=`echo "$1" | sed -e 's/86-.*/86-pc/'`
+		;;
+	-sco4)
+		os=-sco3.2v4
+		basic_machine=`echo "$1" | sed -e 's/86-.*/86-pc/'`
+		;;
+	-sco3.2.[4-9]*)
+		os=`echo $os | sed -e 's/sco3.2./sco3.2v/'`
+		basic_machine=`echo "$1" | sed -e 's/86-.*/86-pc/'`
+		;;
+	-sco3.2v[4-9]*)
+		# Don't forget version if it is 3.2v4 or newer.
+		basic_machine=`echo "$1" | sed -e 's/86-.*/86-pc/'`
+		;;
+	-sco5v6*)
+		# Don't forget version if it is 3.2v4 or newer.
+		basic_machine=`echo "$1" | sed -e 's/86-.*/86-pc/'`
+		;;
+	-sco*)
+		os=-sco3.2v2
+		basic_machine=`echo "$1" | sed -e 's/86-.*/86-pc/'`
+		;;
+	-udk*)
+		basic_machine=`echo "$1" | sed -e 's/86-.*/86-pc/'`
+		;;
+	-isc)
+		os=-isc2.2
+		basic_machine=`echo "$1" | sed -e 's/86-.*/86-pc/'`
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		;;
 	-clix*)
 		basic_machine=clipper-intergraph
 		;;
 	-isc*)
+<<<<<<< HEAD
 		basic_machine=`echo $1 | sed -e 's/86-.*/86-pc/'`
+=======
+		basic_machine=`echo "$1" | sed -e 's/86-.*/86-pc/'`
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		;;
 	-lynx*178)
 		os=-lynxos178
@@ -228,10 +317,14 @@ case $os in
 		os=-lynxos
 		;;
 	-ptx*)
+<<<<<<< HEAD
 		basic_machine=`echo $1 | sed -e 's/86-.*/86-sequent/'`
 		;;
 	-windowsnt*)
 		os=`echo $os | sed -e 's/windowsnt/winnt/'`
+=======
+		basic_machine=`echo "$1" | sed -e 's/86-.*/86-sequent/'`
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		;;
 	-psos*)
 		os=-psos
@@ -264,7 +357,11 @@ case $basic_machine in
 	| fido | fr30 | frv | ft32 \
 	| h8300 | h8500 | hppa | hppa1.[01] | hppa2.0 | hppa2.0[nw] | hppa64 \
 	| hexagon \
+<<<<<<< HEAD
 	| i370 | i860 | i960 | ia64 \
+=======
+	| i370 | i860 | i960 | ia16 | ia64 \
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	| ip2k | iq2000 \
 	| k1om \
 	| le32 | le64 \
@@ -300,8 +397,14 @@ case $basic_machine in
 	| nios | nios2 | nios2eb | nios2el \
 	| ns16k | ns32k \
 	| open8 | or1k | or1knd | or32 \
+<<<<<<< HEAD
 	| pdp10 | pdp11 | pj | pjl \
 	| powerpc | powerpc64 | powerpc64le | powerpcle \
+=======
+	| pdp10 | pj | pjl \
+	| powerpc | powerpc64 | powerpc64le | powerpcle \
+	| pru \
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	| pyramid \
 	| riscv32 | riscv64 \
 	| rl78 | rx \
@@ -315,7 +418,11 @@ case $basic_machine in
 	| ubicom32 \
 	| v850 | v850e | v850e1 | v850e2 | v850es | v850e2v3 \
 	| visium \
+<<<<<<< HEAD
 	| we32k \
+=======
+	| wasm32 \
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	| x86 | xc16x | xstormy16 | xtensa \
 	| z8k | z80)
 		basic_machine=$basic_machine-unknown
@@ -336,7 +443,11 @@ case $basic_machine in
 		basic_machine=$basic_machine-unknown
 		os=-none
 		;;
+<<<<<<< HEAD
 	m88110 | m680[12346]0 | m683?2 | m68360 | m5200 | v70 | w65 | z8k)
+=======
+	m88110 | m680[12346]0 | m683?2 | m68360 | m5200 | v70 | w65)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		;;
 	ms1)
 		basic_machine=mt-unknown
@@ -365,7 +476,11 @@ case $basic_machine in
 	  ;;
 	# Object if more than one company name word.
 	*-*-*)
+<<<<<<< HEAD
 		echo Invalid configuration \`$1\': machine \`$basic_machine\' not recognized 1>&2
+=======
+		echo Invalid configuration \`"$1"\': machine \`"$basic_machine"\' not recognized 1>&2
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		exit 1
 		;;
 	# Recognize the basic CPU types with company name.
@@ -388,7 +503,11 @@ case $basic_machine in
 	| h8300-* | h8500-* \
 	| hppa-* | hppa1.[01]-* | hppa2.0-* | hppa2.0[nw]-* | hppa64-* \
 	| hexagon-* \
+<<<<<<< HEAD
 	| i*86-* | i860-* | i960-* | ia64-* \
+=======
+	| i*86-* | i860-* | i960-* | ia16-* | ia64-* \
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	| ip2k-* | iq2000-* \
 	| k1om-* \
 	| le32-* | le64-* \
@@ -429,6 +548,10 @@ case $basic_machine in
 	| orion-* \
 	| pdp10-* | pdp11-* | pj-* | pjl-* | pn-* | power-* \
 	| powerpc-* | powerpc64-* | powerpc64le-* | powerpcle-* \
+<<<<<<< HEAD
+=======
+	| pru-* \
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	| pyramid-* \
 	| riscv32-* | riscv64-* \
 	| rl78-* | romp-* | rs6000-* | rx-* \
@@ -445,6 +568,10 @@ case $basic_machine in
 	| v850-* | v850e-* | v850e1-* | v850es-* | v850e2-* | v850e2v3-* \
 	| vax-* \
 	| visium-* \
+<<<<<<< HEAD
+=======
+	| wasm32-* \
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	| we32k-* \
 	| x86-* | x86_64-* | xc16x-* | xps100-* \
 	| xstormy16-* | xtensa*-* \
@@ -458,7 +585,11 @@ case $basic_machine in
 	# Recognize the various machine names and aliases which stand
 	# for a CPU type and a company and sometimes even an OS.
 	386bsd)
+<<<<<<< HEAD
 		basic_machine=i386-unknown
+=======
+		basic_machine=i386-pc
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		os=-bsd
 		;;
 	3b1 | 7300 | 7300-att | att-7300 | pc7300 | safari | unixpc)
@@ -492,7 +623,11 @@ case $basic_machine in
 		basic_machine=x86_64-pc
 		;;
 	amd64-*)
+<<<<<<< HEAD
 		basic_machine=x86_64-`echo $basic_machine | sed 's/^[^-]*-//'`
+=======
+		basic_machine=x86_64-`echo "$basic_machine" | sed 's/^[^-]*-//'`
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		;;
 	amdahl)
 		basic_machine=580-amdahl
@@ -521,7 +656,11 @@ case $basic_machine in
 		basic_machine=i386-pc
 		os=-aros
 		;;
+<<<<<<< HEAD
         asmjs)
+=======
+	asmjs)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		basic_machine=asmjs-unknown
 		;;
 	aux)
@@ -537,7 +676,11 @@ case $basic_machine in
 		os=-linux
 		;;
 	blackfin-*)
+<<<<<<< HEAD
 		basic_machine=bfin-`echo $basic_machine | sed 's/^[^-]*-//'`
+=======
+		basic_machine=bfin-`echo "$basic_machine" | sed 's/^[^-]*-//'`
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		os=-linux
 		;;
 	bluegene*)
@@ -545,6 +688,7 @@ case $basic_machine in
 		os=-cnk
 		;;
 	c54x-*)
+<<<<<<< HEAD
 		basic_machine=tic54x-`echo $basic_machine | sed 's/^[^-]*-//'`
 		;;
 	c55x-*)
@@ -552,6 +696,15 @@ case $basic_machine in
 		;;
 	c6x-*)
 		basic_machine=tic6x-`echo $basic_machine | sed 's/^[^-]*-//'`
+=======
+		basic_machine=tic54x-`echo "$basic_machine" | sed 's/^[^-]*-//'`
+		;;
+	c55x-*)
+		basic_machine=tic55x-`echo "$basic_machine" | sed 's/^[^-]*-//'`
+		;;
+	c6x-*)
+		basic_machine=tic6x-`echo "$basic_machine" | sed 's/^[^-]*-//'`
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		;;
 	c90)
 		basic_machine=c90-cray
@@ -640,10 +793,25 @@ case $basic_machine in
 		basic_machine=rs6000-bull
 		os=-bosx
 		;;
+<<<<<<< HEAD
 	dpx2* | dpx2*-bull)
 		basic_machine=m68k-bull
 		os=-sysv3
 		;;
+=======
+	dpx2*)
+		basic_machine=m68k-bull
+		os=-sysv3
+		;;
+	e500v[12])
+		basic_machine=powerpc-unknown
+		os=$os"spe"
+		;;
+	e500v[12]-*)
+		basic_machine=powerpc-`echo "$basic_machine" | sed 's/^[^-]*-//'`
+		os=$os"spe"
+		;;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	ebmon29k)
 		basic_machine=a29k-amd
 		os=-ebmon
@@ -733,9 +901,12 @@ case $basic_machine in
 	hp9k8[0-9][0-9] | hp8[0-9][0-9])
 		basic_machine=hppa1.0-hp
 		;;
+<<<<<<< HEAD
 	hppa-next)
 		os=-nextstep3
 		;;
+=======
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	hppaosf)
 		basic_machine=hppa1.1-hp
 		os=-osf
@@ -748,6 +919,7 @@ case $basic_machine in
 		basic_machine=i370-ibm
 		;;
 	i*86v32)
+<<<<<<< HEAD
 		basic_machine=`echo $1 | sed -e 's/86.*/86-pc/'`
 		os=-sysv32
 		;;
@@ -761,13 +933,32 @@ case $basic_machine in
 		;;
 	i*86sol2)
 		basic_machine=`echo $1 | sed -e 's/86.*/86-pc/'`
+=======
+		basic_machine=`echo "$1" | sed -e 's/86.*/86-pc/'`
+		os=-sysv32
+		;;
+	i*86v4*)
+		basic_machine=`echo "$1" | sed -e 's/86.*/86-pc/'`
+		os=-sysv4
+		;;
+	i*86v)
+		basic_machine=`echo "$1" | sed -e 's/86.*/86-pc/'`
+		os=-sysv
+		;;
+	i*86sol2)
+		basic_machine=`echo "$1" | sed -e 's/86.*/86-pc/'`
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		os=-solaris2
 		;;
 	i386mach)
 		basic_machine=i386-mach
 		os=-mach
 		;;
+<<<<<<< HEAD
 	i386-vsta | vsta)
+=======
+	vsta)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		basic_machine=i386-unknown
 		os=-vsta
 		;;
@@ -786,19 +977,29 @@ case $basic_machine in
 		os=-sysv
 		;;
 	leon-*|leon[3-9]-*)
+<<<<<<< HEAD
 		basic_machine=sparc-`echo $basic_machine | sed 's/-.*//'`
+=======
+		basic_machine=sparc-`echo "$basic_machine" | sed 's/-.*//'`
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		;;
 	m68knommu)
 		basic_machine=m68k-unknown
 		os=-linux
 		;;
 	m68knommu-*)
+<<<<<<< HEAD
 		basic_machine=m68k-`echo $basic_machine | sed 's/^[^-]*-//'`
 		os=-linux
 		;;
 	m88k-omron*)
 		basic_machine=m88k-omron
 		;;
+=======
+		basic_machine=m68k-`echo "$basic_machine" | sed 's/^[^-]*-//'`
+		os=-linux
+		;;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	magnum | m3230)
 		basic_machine=mips-mips
 		os=-sysv
@@ -830,10 +1031,17 @@ case $basic_machine in
 		os=-mint
 		;;
 	mips3*-*)
+<<<<<<< HEAD
 		basic_machine=`echo $basic_machine | sed -e 's/mips3/mips64/'`
 		;;
 	mips3*)
 		basic_machine=`echo $basic_machine | sed -e 's/mips3/mips64/'`-unknown
+=======
+		basic_machine=`echo "$basic_machine" | sed -e 's/mips3/mips64/'`
+		;;
+	mips3*)
+		basic_machine=`echo "$basic_machine" | sed -e 's/mips3/mips64/'`-unknown
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		;;
 	monitor)
 		basic_machine=m68k-rom68k
@@ -852,7 +1060,11 @@ case $basic_machine in
 		os=-msdos
 		;;
 	ms1-*)
+<<<<<<< HEAD
 		basic_machine=`echo $basic_machine | sed -e 's/ms1-/mt-/'`
+=======
+		basic_machine=`echo "$basic_machine" | sed -e 's/ms1-/mt-/'`
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		;;
 	msys)
 		basic_machine=i686-pc
@@ -894,7 +1106,11 @@ case $basic_machine in
 		basic_machine=v70-nec
 		os=-sysv
 		;;
+<<<<<<< HEAD
 	next | m*-next )
+=======
+	next | m*-next)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		basic_machine=m68k-next
 		case $os in
 		    -nextstep* )
@@ -939,6 +1155,15 @@ case $basic_machine in
 	nsr-tandem)
 		basic_machine=nsr-tandem
 		;;
+<<<<<<< HEAD
+=======
+	nsv-tandem)
+		basic_machine=nsv-tandem
+		;;
+	nsx-tandem)
+		basic_machine=nsx-tandem
+		;;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	op50n-* | op60c-*)
 		basic_machine=hppa1.1-oki
 		os=-proelf
@@ -971,7 +1196,11 @@ case $basic_machine in
 		os=-linux
 		;;
 	parisc-*)
+<<<<<<< HEAD
 		basic_machine=hppa-`echo $basic_machine | sed 's/^[^-]*-//'`
+=======
+		basic_machine=hppa-`echo "$basic_machine" | sed 's/^[^-]*-//'`
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		os=-linux
 		;;
 	pbd)
@@ -987,7 +1216,11 @@ case $basic_machine in
 		basic_machine=i386-pc
 		;;
 	pc98-*)
+<<<<<<< HEAD
 		basic_machine=i386-`echo $basic_machine | sed 's/^[^-]*-//'`
+=======
+		basic_machine=i386-`echo "$basic_machine" | sed 's/^[^-]*-//'`
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		;;
 	pentium | p5 | k5 | k6 | nexgen | viac3)
 		basic_machine=i586-pc
@@ -1002,6 +1235,7 @@ case $basic_machine in
 		basic_machine=i786-pc
 		;;
 	pentium-* | p5-* | k5-* | k6-* | nexgen-* | viac3-*)
+<<<<<<< HEAD
 		basic_machine=i586-`echo $basic_machine | sed 's/^[^-]*-//'`
 		;;
 	pentiumpro-* | p6-* | 6x86-* | athlon-*)
@@ -1012,6 +1246,18 @@ case $basic_machine in
 		;;
 	pentium4-*)
 		basic_machine=i786-`echo $basic_machine | sed 's/^[^-]*-//'`
+=======
+		basic_machine=i586-`echo "$basic_machine" | sed 's/^[^-]*-//'`
+		;;
+	pentiumpro-* | p6-* | 6x86-* | athlon-*)
+		basic_machine=i686-`echo "$basic_machine" | sed 's/^[^-]*-//'`
+		;;
+	pentiumii-* | pentium2-* | pentiumiii-* | pentium3-*)
+		basic_machine=i686-`echo "$basic_machine" | sed 's/^[^-]*-//'`
+		;;
+	pentium4-*)
+		basic_machine=i786-`echo "$basic_machine" | sed 's/^[^-]*-//'`
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		;;
 	pn)
 		basic_machine=pn-gould
@@ -1021,6 +1267,7 @@ case $basic_machine in
 	ppc | ppcbe)	basic_machine=powerpc-unknown
 		;;
 	ppc-* | ppcbe-*)
+<<<<<<< HEAD
 		basic_machine=powerpc-`echo $basic_machine | sed 's/^[^-]*-//'`
 		;;
 	ppcle | powerpclittle | ppc-le | powerpc-little)
@@ -1038,6 +1285,25 @@ case $basic_machine in
 		;;
 	ppc64le-* | powerpc64little-*)
 		basic_machine=powerpc64le-`echo $basic_machine | sed 's/^[^-]*-//'`
+=======
+		basic_machine=powerpc-`echo "$basic_machine" | sed 's/^[^-]*-//'`
+		;;
+	ppcle | powerpclittle)
+		basic_machine=powerpcle-unknown
+		;;
+	ppcle-* | powerpclittle-*)
+		basic_machine=powerpcle-`echo "$basic_machine" | sed 's/^[^-]*-//'`
+		;;
+	ppc64)	basic_machine=powerpc64-unknown
+		;;
+	ppc64-*) basic_machine=powerpc64-`echo "$basic_machine" | sed 's/^[^-]*-//'`
+		;;
+	ppc64le | powerpc64little)
+		basic_machine=powerpc64le-unknown
+		;;
+	ppc64le-* | powerpc64little-*)
+		basic_machine=powerpc64le-`echo "$basic_machine" | sed 's/^[^-]*-//'`
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		;;
 	ps2)
 		basic_machine=i386-ibm
@@ -1091,6 +1357,7 @@ case $basic_machine in
 	sequent)
 		basic_machine=i386-sequent
 		;;
+<<<<<<< HEAD
 	sh)
 		basic_machine=sh-hitachi
 		os=-hms
@@ -1102,6 +1369,12 @@ case $basic_machine in
 		basic_machine=sh64-unknown
 		;;
 	sparclite-wrs | simso-wrs)
+=======
+	sh5el)
+		basic_machine=sh5le-unknown
+		;;
+	simso-wrs)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		basic_machine=sparclite-wrs
 		os=-vxworks
 		;;
@@ -1120,7 +1393,11 @@ case $basic_machine in
 		os=-sysv4
 		;;
 	strongarm-* | thumb-*)
+<<<<<<< HEAD
 		basic_machine=arm-`echo $basic_machine | sed 's/^[^-]*-//'`
+=======
+		basic_machine=arm-`echo "$basic_machine" | sed 's/^[^-]*-//'`
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		;;
 	sun2)
 		basic_machine=m68000-sun
@@ -1242,6 +1519,12 @@ case $basic_machine in
 		basic_machine=hppa1.1-winbond
 		os=-proelf
 		;;
+<<<<<<< HEAD
+=======
+	x64)
+		basic_machine=x86_64-pc
+		;;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	xbox)
 		basic_machine=i686-pc
 		os=-mingw32
@@ -1250,12 +1533,17 @@ case $basic_machine in
 		basic_machine=xps100-honeywell
 		;;
 	xscale-* | xscalee[bl]-*)
+<<<<<<< HEAD
 		basic_machine=`echo $basic_machine | sed 's/^xscale/arm/'`
+=======
+		basic_machine=`echo "$basic_machine" | sed 's/^xscale/arm/'`
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		;;
 	ymp)
 		basic_machine=ymp-cray
 		os=-unicos
 		;;
+<<<<<<< HEAD
 	z8k-*-coff)
 		basic_machine=z8k-unknown
 		os=-sim
@@ -1264,6 +1552,8 @@ case $basic_machine in
 		basic_machine=z80-unknown
 		os=-sim
 		;;
+=======
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	none)
 		basic_machine=none-none
 		os=-none
@@ -1292,10 +1582,13 @@ case $basic_machine in
 	vax)
 		basic_machine=vax-dec
 		;;
+<<<<<<< HEAD
 	pdp10)
 		# there are many clones, so DEC is not a safe bet
 		basic_machine=pdp10-unknown
 		;;
+=======
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	pdp11)
 		basic_machine=pdp11-dec
 		;;
@@ -1305,9 +1598,12 @@ case $basic_machine in
 	sh[1234] | sh[24]a | sh[24]aeb | sh[34]eb | sh[1234]le | sh[23]ele)
 		basic_machine=sh-unknown
 		;;
+<<<<<<< HEAD
 	sparc | sparcv8 | sparcv9 | sparcv9b | sparcv9v)
 		basic_machine=sparc-sun
 		;;
+=======
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	cydra)
 		basic_machine=cydra-cydrome
 		;;
@@ -1327,7 +1623,11 @@ case $basic_machine in
 		# Make sure to match an already-canonicalized machine name.
 		;;
 	*)
+<<<<<<< HEAD
 		echo Invalid configuration \`$1\': machine \`$basic_machine\' not recognized 1>&2
+=======
+		echo Invalid configuration \`"$1"\': machine \`"$basic_machine"\' not recognized 1>&2
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		exit 1
 		;;
 esac
@@ -1335,10 +1635,17 @@ esac
 # Here we canonicalize certain aliases for manufacturers.
 case $basic_machine in
 	*-digital*)
+<<<<<<< HEAD
 		basic_machine=`echo $basic_machine | sed 's/digital.*/dec/'`
 		;;
 	*-commodore*)
 		basic_machine=`echo $basic_machine | sed 's/commodore.*/cbm/'`
+=======
+		basic_machine=`echo "$basic_machine" | sed 's/digital.*/dec/'`
+		;;
+	*-commodore*)
+		basic_machine=`echo "$basic_machine" | sed 's/commodore.*/cbm/'`
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		;;
 	*)
 		;;
@@ -1349,8 +1656,13 @@ esac
 if [ x"$os" != x"" ]
 then
 case $os in
+<<<<<<< HEAD
 	# First match some system type aliases
 	# that might get confused with valid system types.
+=======
+	# First match some system type aliases that might get confused
+	# with valid system types.
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	# -solaris* is a basic system type, with this one exception.
 	-auroraux)
 		os=-auroraux
@@ -1361,18 +1673,31 @@ case $os in
 	-solaris)
 		os=-solaris2
 		;;
+<<<<<<< HEAD
 	-svr4*)
 		os=-sysv4
 		;;
+=======
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	-unixware*)
 		os=-sysv4.2uw
 		;;
 	-gnu/linux*)
 		os=`echo $os | sed -e 's|gnu/linux|linux-gnu|'`
 		;;
+<<<<<<< HEAD
 	# First accept the basic system types.
 	# The portable systems comes first.
 	# Each alternative MUST END IN A *, to match a version number.
+=======
+	# es1800 is here to avoid being matched by es* (a different OS)
+	-es1800*)
+		os=-ose
+		;;
+	# Now accept the basic system types.
+	# The portable systems comes first.
+	# Each alternative MUST end in a * to match a version number.
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	# -sysv* is not here because it comes later, after sysvr4.
 	-gnu* | -bsd* | -mach* | -minix* | -genix* | -ultrix* | -irix* \
 	      | -*vms* | -sco* | -esix* | -isc* | -aix* | -cnk* | -sunos | -sunos[34]*\
@@ -1382,12 +1707,18 @@ case $os in
 	      | -aos* | -aros* | -cloudabi* | -sortix* \
 	      | -nindy* | -vxsim* | -vxworks* | -ebmon* | -hms* | -mvs* \
 	      | -clix* | -riscos* | -uniplus* | -iris* | -rtu* | -xenix* \
+<<<<<<< HEAD
 	      | -hiux* | -386bsd* | -knetbsd* | -mirbsd* | -netbsd* \
 	      | -bitrig* | -openbsd* | -solidbsd* \
+=======
+	      | -hiux* | -knetbsd* | -mirbsd* | -netbsd* \
+	      | -bitrig* | -openbsd* | -solidbsd* | -libertybsd* \
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	      | -ekkobsd* | -kfreebsd* | -freebsd* | -riscix* | -lynxos* \
 	      | -bosx* | -nextstep* | -cxux* | -aout* | -elf* | -oabi* \
 	      | -ptx* | -coff* | -ecoff* | -winnt* | -domain* | -vsta* \
 	      | -udi* | -eabi* | -lites* | -ieee* | -go32* | -aux* \
+<<<<<<< HEAD
 	      | -chorusos* | -chorusrdb* | -cegcc* \
 	      | -cygwin* | -msys* | -pe* | -psos* | -moss* | -proelf* | -rtems* \
 	      | -mingw32* | -mingw64* | -linux-gnu* | -linux-android* \
@@ -1400,6 +1731,22 @@ case $os in
 	      | -morphos* | -superux* | -rtmk* | -rtmk-nova* | -windiss* \
 	      | -powermax* | -dnix* | -nx6 | -nx7 | -sei* | -dragonfly* \
 	      | -skyos* | -haiku* | -rdos* | -toppers* | -drops* | -es* | -tirtos*)
+=======
+	      | -chorusos* | -chorusrdb* | -cegcc* | -glidix* \
+	      | -cygwin* | -msys* | -pe* | -psos* | -moss* | -proelf* | -rtems* \
+	      | -midipix* | -mingw32* | -mingw64* | -linux-gnu* | -linux-android* \
+	      | -linux-newlib* | -linux-musl* | -linux-uclibc* \
+	      | -uxpv* | -beos* | -mpeix* | -udk* | -moxiebox* \
+	      | -interix* | -uwin* | -mks* | -rhapsody* | -darwin* \
+	      | -openstep* | -oskit* | -conix* | -pw32* | -nonstopux* \
+	      | -storm-chaos* | -tops10* | -tenex* | -tops20* | -its* \
+	      | -os2* | -vos* | -palmos* | -uclinux* | -nucleus* \
+	      | -morphos* | -superux* | -rtmk* | -windiss* \
+	      | -powermax* | -dnix* | -nx6 | -nx7 | -sei* | -dragonfly* \
+	      | -skyos* | -haiku* | -rdos* | -toppers* | -drops* | -es* \
+	      | -onefs* | -tirtos* | -phoenix* | -fuchsia* | -redox* | -bme* \
+	      | -midnightbsd*)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	# Remember, each alternative MUST END IN *, to match a version number.
 		;;
 	-qnx*)
@@ -1416,12 +1763,21 @@ case $os in
 	-nto*)
 		os=`echo $os | sed -e 's|nto|nto-qnx|'`
 		;;
+<<<<<<< HEAD
 	-sim | -es1800* | -hms* | -xray | -os68k* | -none* | -v88r* \
 	      | -windows* | -osx | -abug | -netware* | -os9* | -beos* | -haiku* \
 	      | -macos* | -mpw* | -magic* | -mmixware* | -mon960* | -lnews*)
 		;;
 	-mac*)
 		os=`echo $os | sed -e 's|mac|macos|'`
+=======
+	-sim | -xray | -os68k* | -v88r* \
+	      | -windows* | -osx | -abug | -netware* | -os9* \
+	      | -macos* | -mpw* | -magic* | -mmixware* | -mon960* | -lnews*)
+		;;
+	-mac*)
+		os=`echo "$os" | sed -e 's|mac|macos|'`
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		;;
 	-linux-dietlibc)
 		os=-linux-dietlibc
@@ -1430,10 +1786,17 @@ case $os in
 		os=`echo $os | sed -e 's|linux|linux-gnu|'`
 		;;
 	-sunos5*)
+<<<<<<< HEAD
 		os=`echo $os | sed -e 's|sunos5|solaris2|'`
 		;;
 	-sunos6*)
 		os=`echo $os | sed -e 's|sunos6|solaris3|'`
+=======
+		os=`echo "$os" | sed -e 's|sunos5|solaris2|'`
+		;;
+	-sunos6*)
+		os=`echo "$os" | sed -e 's|sunos6|solaris3|'`
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		;;
 	-opened*)
 		os=-openedition
@@ -1444,12 +1807,15 @@ case $os in
 	-wince*)
 		os=-wince
 		;;
+<<<<<<< HEAD
 	-osfrose*)
 		os=-osfrose
 		;;
 	-osf*)
 		os=-osf
 		;;
+=======
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	-utek*)
 		os=-bsd
 		;;
@@ -1474,7 +1840,11 @@ case $os in
 	-nova*)
 		os=-rtmk-nova
 		;;
+<<<<<<< HEAD
 	-ns2 )
+=======
+	-ns2)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		os=-nextstep2
 		;;
 	-nsk*)
@@ -1496,7 +1866,11 @@ case $os in
 	-oss*)
 		os=-sysv3
 		;;
+<<<<<<< HEAD
 	-svr4)
+=======
+	-svr4*)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		os=-sysv4
 		;;
 	-svr3)
@@ -1511,6 +1885,7 @@ case $os in
 	-ose*)
 		os=-ose
 		;;
+<<<<<<< HEAD
 	-es1800*)
 		os=-ose
 		;;
@@ -1523,20 +1898,49 @@ case $os in
 	-aros*)
 		os=-aros
 		;;
+=======
+	-*mint | -mint[0-9]* | -*MiNT | -MiNT[0-9]*)
+		os=-mint
+		;;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	-zvmoe)
 		os=-zvmoe
 		;;
 	-dicos*)
 		os=-dicos
 		;;
+<<<<<<< HEAD
 	-nacl*)
 		;;
+=======
+	-pikeos*)
+		# Until real need of OS specific support for
+		# particular features comes up, bare metal
+		# configurations are quite functional.
+		case $basic_machine in
+		    arm*)
+			os=-eabi
+			;;
+		    *)
+			os=-elf
+			;;
+		esac
+		;;
+	-nacl*)
+		;;
+	-ios)
+		;;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	-none)
 		;;
 	*)
 		# Get rid of the `-' at the beginning of $os.
 		os=`echo $os | sed 's/[^-]*-//'`
+<<<<<<< HEAD
 		echo Invalid configuration \`$1\': system \`$os\' not recognized 1>&2
+=======
+		echo Invalid configuration \`"$1"\': system \`"$os"\' not recognized 1>&2
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		exit 1
 		;;
 esac
@@ -1626,12 +2030,21 @@ case $basic_machine in
 	sparc-* | *-sun)
 		os=-sunos4.1.1
 		;;
+<<<<<<< HEAD
 	*-be)
 		os=-beos
 		;;
 	*-haiku)
 		os=-haiku
 		;;
+=======
+	pru-*)
+		os=-elf
+		;;
+	*-be)
+		os=-beos
+		;;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	*-ibm)
 		os=-aix
 		;;
@@ -1671,7 +2084,11 @@ case $basic_machine in
 	m88k-omron*)
 		os=-luna
 		;;
+<<<<<<< HEAD
 	*-next )
+=======
+	*-next)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 		os=-nextstep
 		;;
 	*-sequent)
@@ -1686,9 +2103,12 @@ case $basic_machine in
 	i370-*)
 		os=-mvs
 		;;
+<<<<<<< HEAD
 	*-next)
 		os=-nextstep3
 		;;
+=======
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 	*-gould)
 		os=-sysv
 		;;
@@ -1798,6 +2218,7 @@ case $basic_machine in
 				vendor=stratus
 				;;
 		esac
+<<<<<<< HEAD
 		basic_machine=`echo $basic_machine | sed "s/unknown/$vendor/"`
 		;;
 esac
@@ -1807,6 +2228,17 @@ exit
 
 # Local variables:
 # eval: (add-hook 'write-file-hooks 'time-stamp)
+=======
+		basic_machine=`echo "$basic_machine" | sed "s/unknown/$vendor/"`
+		;;
+esac
+
+echo "$basic_machine$os"
+exit
+
+# Local variables:
+# eval: (add-hook 'write-file-functions 'time-stamp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 # time-stamp-start: "timestamp='"
 # time-stamp-format: "%:y-%02m-%02d"
 # time-stamp-end: "'"

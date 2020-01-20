@@ -1,6 +1,10 @@
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
+<<<<<<< HEAD
 // Copyright (c) 2015-2017 The MIRE developers
+=======
+// Copyright (c) 2015-2017 The PIVX developers
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -25,8 +29,14 @@
 #include <openssl/aes.h>
 #include <openssl/sha.h>
 
+<<<<<<< HEAD
 #include <univalue.h>
 
+=======
+#include "json/json_spirit_value.h"
+
+using namespace json_spirit;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 using namespace std;
 
 void EnsureWalletIsUnlocked();
@@ -78,7 +88,11 @@ std::string DecodeDumpString(const std::string& str)
     return ret.str();
 }
 
+<<<<<<< HEAD
 UniValue importprivkey(const UniValue& params, bool fHelp)
+=======
+Value importprivkey(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() < 1 || params.size() > 3)
         throw runtime_error(
@@ -125,7 +139,11 @@ UniValue importprivkey(const UniValue& params, bool fHelp)
 
         // Don't throw error in case a key is already there
         if (pwalletMain->HaveKey(vchAddress))
+<<<<<<< HEAD
             return NullUniValue;
+=======
+            return Value::null;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
         pwalletMain->mapKeyMetadata[vchAddress].nCreateTime = 1;
 
@@ -140,10 +158,17 @@ UniValue importprivkey(const UniValue& params, bool fHelp)
         }
     }
 
+<<<<<<< HEAD
     return NullUniValue;
 }
 
 UniValue importaddress(const UniValue& params, bool fHelp)
+=======
+    return Value::null;
+}
+
+Value importaddress(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() < 1 || params.size() > 3)
         throw runtime_error(
@@ -169,7 +194,11 @@ UniValue importaddress(const UniValue& params, bool fHelp)
         std::vector<unsigned char> data(ParseHex(params[0].get_str()));
         script = CScript(data.begin(), data.end());
     } else {
+<<<<<<< HEAD
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid MIRE address or script");
+=======
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Mire address or script");
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     }
 
     string strLabel = "";
@@ -191,7 +220,11 @@ UniValue importaddress(const UniValue& params, bool fHelp)
 
         // Don't throw error in case an address is already there
         if (pwalletMain->HaveWatchOnly(script))
+<<<<<<< HEAD
             return NullUniValue;
+=======
+            return Value::null;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 
         pwalletMain->MarkDirty();
 
@@ -204,10 +237,17 @@ UniValue importaddress(const UniValue& params, bool fHelp)
         }
     }
 
+<<<<<<< HEAD
     return NullUniValue;
 }
 
 UniValue importwallet(const UniValue& params, bool fHelp)
+=======
+    return Value::null;
+}
+
+Value importwallet(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
@@ -300,10 +340,17 @@ UniValue importwallet(const UniValue& params, bool fHelp)
     if (!fGood)
         throw JSONRPCError(RPC_WALLET_ERROR, "Error adding some keys to wallet");
 
+<<<<<<< HEAD
     return NullUniValue;
 }
 
 UniValue dumpprivkey(const UniValue& params, bool fHelp)
+=======
+    return Value::null;
+}
+
+Value dumpprivkey(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
@@ -322,7 +369,11 @@ UniValue dumpprivkey(const UniValue& params, bool fHelp)
     string strAddress = params[0].get_str();
     CBitcoinAddress address;
     if (!address.SetString(strAddress))
+<<<<<<< HEAD
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid MIRE address");
+=======
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Mire address");
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     CKeyID keyID;
     if (!address.GetKeyID(keyID))
         throw JSONRPCError(RPC_TYPE_ERROR, "Address does not refer to a key");
@@ -333,7 +384,11 @@ UniValue dumpprivkey(const UniValue& params, bool fHelp)
 }
 
 
+<<<<<<< HEAD
 UniValue dumpwallet(const UniValue& params, bool fHelp)
+=======
+Value dumpwallet(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
@@ -365,7 +420,11 @@ UniValue dumpwallet(const UniValue& params, bool fHelp)
     std::sort(vKeyBirth.begin(), vKeyBirth.end());
 
     // produce output
+<<<<<<< HEAD
     file << strprintf("# Wallet dump created by MIRE %s (%s)\n", CLIENT_BUILD, CLIENT_DATE);
+=======
+    file << strprintf("# Wallet dump created by Mire %s (%s)\n", CLIENT_BUILD, CLIENT_DATE);
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     file << strprintf("# * Created on %s\n", EncodeDumpTime(GetTime()));
     file << strprintf("# * Best block at time of backup was %i (%s),\n", chainActive.Height(), chainActive.Tip()->GetBlockHash().ToString());
     file << strprintf("#   mined on %s\n", EncodeDumpTime(chainActive.Tip()->GetBlockTime()));
@@ -388,10 +447,17 @@ UniValue dumpwallet(const UniValue& params, bool fHelp)
     file << "\n";
     file << "# End of dump\n";
     file.close();
+<<<<<<< HEAD
     return NullUniValue;
 }
 
 UniValue bip38encrypt(const UniValue& params, bool fHelp)
+=======
+    return Value::null;
+}
+
+Value bip38encrypt(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 2)
         throw runtime_error(
@@ -411,7 +477,11 @@ UniValue bip38encrypt(const UniValue& params, bool fHelp)
 
     CBitcoinAddress address;
     if (!address.SetString(strAddress))
+<<<<<<< HEAD
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid MIRE address");
+=======
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Mire address");
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     CKeyID keyID;
     if (!address.GetKeyID(keyID))
         throw JSONRPCError(RPC_TYPE_ERROR, "Address does not refer to a key");
@@ -422,14 +492,22 @@ UniValue bip38encrypt(const UniValue& params, bool fHelp)
     uint256 privKey = vchSecret.GetPrivKey_256();
     string encryptedOut = BIP38_Encrypt(strAddress, strPassphrase, privKey, vchSecret.IsCompressed());
 
+<<<<<<< HEAD
     UniValue result(UniValue::VOBJ);
+=======
+    Object result;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     result.push_back(Pair("Addess", strAddress));
     result.push_back(Pair("Encrypted Key", encryptedOut));
 
     return result;
 }
 
+<<<<<<< HEAD
 UniValue bip38decrypt(const UniValue& params, bool fHelp)
+=======
+Value bip38decrypt(const Array& params, bool fHelp)
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
 {
     if (fHelp || params.size() != 2)
         throw runtime_error(
@@ -454,7 +532,11 @@ UniValue bip38decrypt(const UniValue& params, bool fHelp)
     if (!BIP38_Decrypt(strPassphrase, strKey, privKey, fCompressed))
         throw JSONRPCError(RPC_WALLET_ERROR, "Failed To Decrypt");
 
+<<<<<<< HEAD
     UniValue result(UniValue::VOBJ);
+=======
+    Object result;
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
     result.push_back(Pair("privatekey", HexStr(privKey)));
 
     CKey key;
@@ -487,4 +569,8 @@ UniValue bip38decrypt(const UniValue& params, bool fHelp)
     }
 
     return result;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 75b41aeb61955f253387e9a656aa9d9d2ef6beed
